@@ -1,0 +1,253 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-cursive: "Parisienne", cursive;
+  --font-outfit: "Outfit", sans-serif;
+}
+
+/* Custom styles for page elements */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  font-family: var(--font-sans);
+  background-color: #ffffff;
+  color: #1a1a1a;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Custom Scrollbar Styles for elegant UI */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* Draggable constraint wrapper */
+.drag-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 40;
+  overflow: hidden;
+}
+
+/* Dynamic theme variables and applications helper */
+.theme-customizable {
+  font-family: var(--font-body), var(--font-sans), sans-serif !important;
+  color: var(--page-text-pri) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.workspace-backdrop {
+  background-color: #E5E5E5 !important;
+}
+
+.theme-customizable h1,
+.theme-customizable h2,
+.theme-customizable h3,
+.theme-customizable h4,
+.theme-customizable h5,
+.theme-customizable h6,
+.font-custom-heading {
+  font-family: var(--font-heading), var(--font-display), sans-serif !important;
+  color: var(--page-text-pri) !important;
+  transition: color 0.3s ease;
+}
+
+/* Card overrides inside customizable areas */
+.theme-customizable .border,
+.theme-customizable .border-b,
+.theme-customizable .border-t,
+.theme-customizable .border-l,
+.theme-customizable .border-r {
+  border-color: var(--page-border) !important;
+}
+
+.theme-customizable .bg-white,
+.theme-customizable .bg-\[\#FCF9F2\],
+.theme-customizable .bg-\[\#11111B\] {
+  background-color: var(--card-bg) !important;
+  border-color: var(--page-border) !important;
+}
+
+.theme-customizable p,
+.theme-customizable span,
+.theme-customizable div {
+  /* Let text follow palette secondary or primary text rules gracefully */
+  --text-primary: var(--page-text-pri);
+  --text-secondary: var(--page-text-sec);
+}
+
+.theme-customizable .text-gray-900,
+.theme-customizable .text-slate-900 {
+  color: var(--page-text-pri) !important;
+}
+
+.theme-customizable .text-gray-600,
+.theme-customizable .text-gray-500,
+.theme-customizable .text-gray-400,
+.theme-customizable .text-slate-600 {
+  color: var(--page-text-sec) !important;
+}
+
+/* Accent colors overrides */
+.theme-customizable .text-indigo-500,
+.theme-customizable .text-\[\#8F6B43\],
+.theme-customizable .text-\[\#8f6b43\],
+.theme-customizable .text-amber-500,
+.theme-customizable .text-\[\#00FF88\],
+.theme-customizable .text-\[\#00ff88\],
+.theme-customizable .text-\[\#7d12ff\],
+.theme-customizable .text-\[\#7D12FF\],
+.theme-customizable .text-emerald-500,
+.theme-customizable .text-rose-500 {
+  color: var(--page-accent) !important;
+}
+
+.theme-customizable .bg-\[\#7d12ff\]\/10,
+.theme-customizable .bg-\[\#7D12FF\]\/10,
+.theme-customizable .bg-\[\#7d12ff\]\/5,
+.theme-customizable .bg-\[\#7D12FF\]\/5 {
+  background-color: var(--page-accent-light) !important;
+}
+
+.theme-customizable .border-\[\#7d12ff\]\/10,
+.theme-customizable .border-\[\#7D12FF\]\/10 {
+  border-color: var(--page-border) !important;
+}
+
+/* Specific styling for templates */
+.template-minimalism .theme-card {
+  box-shadow: none !important;
+}
+
+.template-editorial {
+  /* Warm cream paper aesthetic */
+}
+
+.template-editorial .theme-card,
+.template-editorial .rounded-2xl {
+  box-shadow: 4px 4px 0px 0px var(--page-border) !important;
+  border-width: 2px !important;
+}
+
+/* Slightly rotate some child segments to look like a creative scrapbook */
+.template-editorial .grid > div:nth-child(even) {
+  transform: rotate(0.4deg);
+}
+
+.template-editorial .grid > div:nth-child(odd) {
+  transform: rotate(-0.4deg);
+}
+
+.template-futuristic {
+  font-family: var(--font-body), var(--font-mono), monospace !important;
+}
+
+.template-futuristic .bg-white,
+.template-futuristic .bg-\[\#FCF9F2\],
+.template-futuristic .bg-\[\#11111B\],
+.template-futuristic .bg-\[\#090A0F\],
+.template-futuristic .bg-\[\#090a0f\] {
+  background-color: rgba(9, 10, 15, 0.88) !important;
+  border-color: var(--page-border) !important;
+  box-shadow: 0 0 12px var(--page-border) !important;
+  backdrop-filter: blur(4px);
+}
+
+/* Override all hardcoded cybernetic neon styles with chosen branding palette colors */
+.theme-customizable .border-\[\#00FF88\]\/20,
+.theme-customizable .border-\[\#00ff88\]\/20 {
+  border-color: var(--page-border) !important;
+}
+
+.theme-customizable .border-\[\#00FF88\],
+.theme-customizable .border-\[\#00ff88\] {
+  border-color: var(--page-accent) !important;
+}
+
+.theme-customizable .bg-\[\#00FF88\]\/5,
+.theme-customizable .bg-\[\#00ff88\]\/5 {
+  background-color: var(--page-border) !important;
+}
+
+.theme-customizable .bg-\[\#00FF88\]\/10,
+.theme-customizable .bg-\[\#00ff88\]\/10 {
+  background-color: var(--page-border) !important;
+}
+
+.theme-customizable .shadow-\[0_0_15px_\#00FF88\],
+.theme-customizable .shadow-\[0_0_15px_\#00ff88\] {
+  box-shadow: 0 0 15px var(--page-accent) !important;
+}
+
+.theme-customizable .shadow-\[0_0_15px_rgba\(0\2c 255\2c 136\2c 0\.05\)\] {
+  box-shadow: 0 0 15px var(--page-border) !important;
+}
+
+.theme-customizable .via-\[\#00FF88\]\/5,
+.theme-customizable .via-\[\#00ff88\]\/5 {
+  --tw-gradient-stops: var(--tw-gradient-from), var(--page-border) 50%, var(--tw-gradient-to) !important;
+}
+
+.template-futuristic h1,
+.template-futuristic h2,
+.template-futuristic h3,
+.template-futuristic h4 {
+  font-family: var(--font-heading), var(--font-mono), monospace !important;
+  letter-spacing: 0.05em;
+}
+
+/* Custom scrollbars for side panels */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.16);
+}
+
+@keyframes slide-shimmer {
+  0% {
+    transform: translateX(-150%) skewX(-15deg);
+  }
+  30% {
+    transform: translateX(250%) skewX(-15deg);
+  }
+  100% {
+    transform: translateX(250%) skewX(-15deg);
+  }
+}
+
+.animate-slide-shimmer {
+  animation: slide-shimmer 3s infinite ease-in-out;
+}
+
+/* Custom major gradient based on user specification */
+.bg-major-canvas-gradient {
+  background: linear-gradient(110deg, #8bdeda 0%, #43add0 25%, #998ee0 50%, #e17dc2 75%, #ef9393 100%) !important;
+}
+
+

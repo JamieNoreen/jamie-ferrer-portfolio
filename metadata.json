@@ -1,0 +1,8 @@
+{
+  "name": "Jamie Ferrer Portfolio",
+  "description": "A creative workspace and portfolio OS inspired by Canva and Adobe Express.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
