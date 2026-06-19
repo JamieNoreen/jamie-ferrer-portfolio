@@ -3,26 +3,26 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { TemplateType } from '../../types';
-import { 
-  Award, 
-  Trophy, 
-  Star, 
-  Shield, 
-  ArrowUpRight, 
-  Compass, 
-  Target, 
-  GraduationCap, 
-  ChevronLeft, 
-  ChevronRight, 
-  Image as ImageIcon, 
-  Cpu, 
-  Tv, 
-  Bookmark, 
-  Sparkles 
-} from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { TemplateType } from "../../types";
+import {
+  Award,
+  Trophy,
+  Star,
+  Shield,
+  ArrowUpRight,
+  Compass,
+  Target,
+  GraduationCap,
+  ChevronLeft,
+  ChevronRight,
+  Image as ImageIcon,
+  Cpu,
+  Tv,
+  Bookmark,
+  Sparkles,
+} from "lucide-react";
 
 interface AchievementsPageProps {
   template: TemplateType;
@@ -39,10 +39,19 @@ interface FeaturedAward {
   placeholderLabel: string;
   imgGradient: string;
   highlightIcon: React.ReactNode;
+  image: string;
 }
 
 // Standalone animated number component for numerical statistics
-function AnimatedNumber({ value, suffix = "", delay = 0 }: { value: number; suffix?: string; delay?: number }) {
+function AnimatedNumber({
+  value,
+  suffix = "",
+  delay = 0,
+}: {
+  value: number;
+  suffix?: string;
+  delay?: number;
+}) {
   const [displayValue, setDisplayValue] = useState(0);
 
   useEffect(() => {
@@ -58,11 +67,11 @@ function AnimatedNumber({ value, suffix = "", delay = 0 }: { value: number; suff
       const animate = (currentTime: number) => {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        
+
         // Easing out quad
         const easeProgress = progress * (2 - progress);
         const currentVal = Math.floor(easeProgress * (end - start) + start);
-        
+
         setDisplayValue(currentVal);
 
         if (progress < 1) {
@@ -79,13 +88,19 @@ function AnimatedNumber({ value, suffix = "", delay = 0 }: { value: number; suff
     return () => clearTimeout(timer);
   }, [value, delay]);
 
-  return <span>{displayValue}{suffix}</span>;
+  return (
+    <span>
+      {displayValue}
+      {suffix}
+    </span>
+  );
 }
 
 export default function AchievementsPage({ template }: AchievementsPageProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const pageTitle = "Achievements & Awards";
-  const pageSubtitle = "Chronology of academic excellence, national hackathons, and global recognitions";
+  const pageSubtitle =
+    "Chronology of academic excellence, national hackathons, and global recognitions";
 
   // 5 Curated Featured Achievements for Carousel (Visual Highlight Reel)
   const FEATURED_AWARDS: FeaturedAward[] = [
@@ -95,10 +110,13 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
       achievement: "Champion",
       year: "2024",
       category: "Innovation & Hackathons",
-      description: "Pedestrian navigation platform helping commuters discover safer and more walkable routes.",
-      placeholderLabel: "Champion Presentation Slide, Trophy & Team Stage Photo",
+      description:
+        "Pedestrian navigation platform helping commuters discover safer and more walkable routes.",
+      placeholderLabel:
+        "Champion Presentation Slide, Trophy & Team Stage Photo",
       imgGradient: "from-[#0A0F1D] via-[#121A2E] to-[#1E2B4B]",
-      highlightIcon: <Trophy className="w-5 h-5" />
+      highlightIcon: <Trophy className="w-5 h-5" />,
+      image: "/portfolio-assets/awards/bluhacks.JPEG",
     },
     {
       id: "neda-habi",
@@ -106,10 +124,13 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
       achievement: "Champion",
       year: "2024",
       category: "Innovation & Hackathons",
-      description: "AI-powered SMS chatbot improving access to barangay services and government information.",
-      placeholderLabel: "NEDA Workshop Team Certificate & Champion Presentation",
+      description:
+        "AI-powered SMS chatbot improving access to barangay services and government information.",
+      placeholderLabel:
+        "NEDA Workshop Team Certificate & Champion Presentation",
       imgGradient: "from-[#110C1B] via-[#1B142F] to-[#2B1F47]",
-      highlightIcon: <Star className="w-5 h-5" />
+      highlightIcon: <Star className="w-5 h-5" />,
+      image: "/portfolio-assets/awards/habi.png",
     },
     {
       id: "ph-startup-challenge",
@@ -117,10 +138,13 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
       achievement: "2× 2nd Runner-Up • Best Pitch • Best Logo",
       year: "2024",
       category: "Innovation & Hackathons",
-      description: "Study-buddy matchmaking platform connecting students with compatible learning partners.",
-      placeholderLabel: "PSC Award Plaque, Finalist Presentation & Brand Decals",
+      description:
+        "Study-buddy matchmaking platform connecting students with compatible learning partners.",
+      placeholderLabel:
+        "PSC Award Plaque, Finalist Presentation & Brand Decals",
       imgGradient: "from-[#1C0D11] via-[#30161C] to-[#4C232D]",
-      highlightIcon: <Award className="w-5 h-5" />
+      highlightIcon: <Award className="w-5 h-5" />,
+      image: "/portfolio-assets/awards/psc.png",
     },
     {
       id: "asean-dse",
@@ -128,10 +152,12 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
       achievement: "2nd Runner-Up",
       year: "2024",
       category: "International & Regional Recognition",
-      description: "AI-powered agriculture platform helping farmers detect crop diseases and access farming support.",
+      description:
+        "AI-powered agriculture platform helping farmers detect crop diseases and access farming support.",
       placeholderLabel: "ASEAN DSE Award Ceremony & National Delegate Badge",
       imgGradient: "from-[#0F172A] via-[#1E293B] to-[#334155]",
-      highlightIcon: <Compass className="w-5 h-5" />
+      highlightIcon: <Compass className="w-5 h-5" />,
+      image: "/portfolio-assets/awards/asean.png",
     },
     {
       id: "sas-curiosity",
@@ -139,19 +165,26 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
       achievement: "22nd out of 112 International Teams",
       year: "2025",
       category: "International & Regional Recognition",
-      description: "Data science project transforming real-world datasets into actionable insights and recommendations.",
-      placeholderLabel: "Global Team Certificate & SAS Viya UI Analysis Showcase",
+      description:
+        "Data science project transforming real-world datasets into actionable insights and recommendations.",
+      placeholderLabel:
+        "Global Team Certificate & SAS Viya UI Analysis Showcase",
       imgGradient: "from-[#0d1e2e] via-[#153047] to-[#1d4461]",
-      highlightIcon: <Target className="w-5 h-5" />
-    }
+      highlightIcon: <Target className="w-5 h-5" />,
+      image: "/portfolio-assets/awards/sas.jpg",
+    },
   ];
 
   const handleNextSlide = () => {
-    setCurrentSlide((prev) => (prev === FEATURED_AWARDS.length - 1 ? 0 : prev + 1));
+    setCurrentSlide((prev) =>
+      prev === FEATURED_AWARDS.length - 1 ? 0 : prev + 1,
+    );
   };
 
   const handlePrevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? FEATURED_AWARDS.length - 1 : prev - 1));
+    setCurrentSlide((prev) =>
+      prev === 0 ? FEATURED_AWARDS.length - 1 : prev - 1,
+    );
   };
 
   // Structured Categories as fully requested
@@ -159,44 +192,127 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
     {
       title: "Innovation & Hackathons",
       awards: [
-        { name: "Bluhacks Hackathon", placing: "Champion", details: "Pedestrian navigation platform helping commuters discover safer and more walkable routes.", most: true },
-        { name: "NEDA-HABI Public Administration Workshop", placing: "Champion", details: "AI-powered SMS chatbot improving access to barangay services and government information.", most: true },
-        { name: "Philippine Startup Challenge", placing: "2× 2nd Runner-Up • Best Pitch • Best Logo", details: "Study-buddy matchmaking platform connecting students with compatible learning partners.", most: false },
-        { name: "SikatPala Hackathon", placing: "5th Place", details: "Pedestrian navigation platform helping commuters discover safer and more walkable routes.", most: false },
-        { name: "ByteForward Hackathon", placing: "Top 10 Finalist", details: "Voice-assisted platform helping jeepney drivers digitize and manage operational data.", most: false },
-        { name: "Coding Dojo Women in Tech", placing: "2nd Place", details: "Smart bra prototype concept designed to support early breast tumor detection through wearable technology.", most: false }
-      ]
+        {
+          name: "Bluhacks Hackathon",
+          placing: "Champion",
+          details:
+            "Pedestrian navigation platform helping commuters discover safer and more walkable routes.",
+          most: true,
+        },
+        {
+          name: "NEDA-HABI Public Administration Workshop",
+          placing: "Champion",
+          details:
+            "AI-powered SMS chatbot improving access to barangay services and government information.",
+          most: true,
+        },
+        {
+          name: "Philippine Startup Challenge",
+          placing: "2× 2nd Runner-Up • Best Pitch • Best Logo",
+          details:
+            "Study-buddy matchmaking platform connecting students with compatible learning partners.",
+          most: false,
+        },
+        {
+          name: "SikatPala Hackathon",
+          placing: "5th Place",
+          details:
+            "Pedestrian navigation platform helping commuters discover safer and more walkable routes.",
+          most: false,
+        },
+        {
+          name: "ByteForward Hackathon",
+          placing: "Top 10 Finalist",
+          details:
+            "Voice-assisted platform helping jeepney drivers digitize and manage operational data.",
+          most: false,
+        },
+        {
+          name: "Coding Dojo Women in Tech",
+          placing: "2nd Place",
+          details:
+            "Smart bra prototype concept designed to support early breast tumor detection through wearable technology.",
+          most: false,
+        },
+      ],
     },
     {
       title: "International & Regional Recognition",
       awards: [
-        { name: "ASEAN Data Science Explorers", placing: "2nd Runner-Up", details: "AI-powered agriculture platform helping farmers detect crop diseases and access farming support.", most: true },
-        { name: "SAS Curiosity Cup 2025", placing: "22nd out of 112 International Teams", details: "Data science project transforming real-world datasets into actionable insights and recommendations.", most: true }
-      ]
+        {
+          name: "ASEAN Data Science Explorers",
+          placing: "2nd Runner-Up",
+          details:
+            "AI-powered agriculture platform helping farmers detect crop diseases and access farming support.",
+          most: true,
+        },
+        {
+          name: "SAS Curiosity Cup 2025",
+          placing: "22nd out of 112 International Teams",
+          details:
+            "Data science project transforming real-world datasets into actionable insights and recommendations.",
+          most: true,
+        },
+      ],
     },
     {
       title: "Media & Communication",
       awards: [
-        { name: "ASEAN Route to the Future Challenge", placing: "Champion", details: "", most: false },
-        { name: "ASEAN DSE Video Campaign", placing: "Champion", details: "", most: false },
-        { name: "ROKtoASEAN Video Competition", placing: "2nd Runner-Up", details: "", most: false }
-      ]
+        {
+          name: "ASEAN Route to the Future Challenge",
+          placing: "Champion",
+          details: "",
+          most: false,
+        },
+        {
+          name: "ASEAN DSE Video Campaign",
+          placing: "Champion",
+          details: "",
+          most: false,
+        },
+        {
+          name: "ROKtoASEAN Video Competition",
+          placing: "2nd Runner-Up",
+          details: "",
+          most: false,
+        },
+      ],
     },
     {
       title: "Academic Distinctions",
       awards: [
-        { name: "Summa Cum Laude", placing: "Highest Latin Honors", details: "", most: true },
-        { name: "DOST Scholar", placing: "Academic Merit", details: "", most: false },
-        { name: "University Scholar", placing: "Consistent President's Lister", details: "", most: false },
-        { name: "Best in Thesis", placing: "Outstanding Implementation", details: "", most: false }
-      ]
-    }
+        {
+          name: "Summa Cum Laude",
+          placing: "Highest Latin Honors",
+          details: "",
+          most: true,
+        },
+        {
+          name: "DOST Scholar",
+          placing: "Academic Merit",
+          details: "",
+          most: false,
+        },
+        {
+          name: "University Scholar",
+          placing: "Consistent President's Lister",
+          details: "",
+          most: false,
+        },
+        {
+          name: "Best in Thesis",
+          placing: "Outstanding Implementation",
+          details: "",
+          most: false,
+        },
+      ],
+    },
   ];
 
   // ==========================================
   // 1. STYLE VARIATIONS FOR TEMPLATE: MINIMALISM
   // ==========================================
-  if (template === 'minimalism') {
+  if (template === "minimalism") {
     return (
       <div className="max-w-4xl mx-auto pb-16 font-sans text-gray-900 select-none px-4">
         {/* Document Header */}
@@ -205,7 +321,8 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
             Achievements & Awards
           </h1>
           <p className="text-xs text-gray-500 font-sans mt-2 max-w-xl font-medium tracking-normal leading-relaxed">
-            Curated highlight reel of international competitions, national development hackathons, and high academic honors.
+            Curated highlight reel of international competitions, national
+            development hackathons, and high academic honors.
           </p>
         </div>
 
@@ -219,7 +336,7 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
               Awards Won
             </span>
           </div>
-          
+
           <div className="flex flex-col border-r border-gray-100 last:border-0 pr-4">
             <span className="text-3xl font-outfit font-bold tracking-tight text-gray-900">
               <AnimatedNumber value={4} suffix="×" />
@@ -230,7 +347,7 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
           </div>
 
           <div className="flex flex-col border-r border-gray-100 last:border-0 pr-4">
-            <motion.span 
+            <motion.span
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
@@ -244,7 +361,7 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
           </div>
 
           <div className="flex flex-col">
-            <motion.span 
+            <motion.span
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.15 }}
@@ -266,8 +383,7 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
 
           <div className="relative border border-gray-200 bg-white rounded-2xl overflow-hidden p-4 sm:p-6 shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-              
-              {/* Left Column: Carousel Image Placeholder */}
+              {/* Left Column: Carousel Image */}
               <div className="md:col-span-7">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -276,22 +392,16 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 10 }}
                     transition={{ duration: 0.4 }}
-                    className={`aspect-video w-full rounded-xl bg-gradient-to-tr ${FEATURED_AWARDS[currentSlide].imgGradient} p-4 flex flex-col justify-between text-white border border-gray-100 shadow-inner relative group`}
+                    className="aspect-video w-full rounded-xl bg-gray-50 border border-gray-250 relative group flex items-center justify-center overflow-hidden"
                   >
+                    <img
+                      src={FEATURED_AWARDS[currentSlide].image}
+                      alt={FEATURED_AWARDS[currentSlide].title}
+                      className="w-full h-full object-cover"
+                    />
                     {/* Floating year indicator */}
-                    <div className="self-end bg-white/10 backdrop-blur-md px-2.5 py-1 rounded text-[10px] font-mono tracking-wider">
+                    <div className="absolute top-3 right-3 bg-white/80 backdrop-blur-md px-2.5 py-1 rounded text-[10px] font-mono tracking-wider text-gray-950 border border-gray-200">
                       {FEATURED_AWARDS[currentSlide].year}
-                    </div>
-
-                    <div className="flex flex-col items-center justify-center py-4 flex-1 text-center">
-                      <ImageIcon className="w-8 h-8 text-white/40 mb-2.5" />
-                      <span className="text-[11px] font-mono text-white/50 px-6 leading-relaxed max-w-sm">
-                        {FEATURED_AWARDS[currentSlide].placeholderLabel}
-                      </span>
-                    </div>
-
-                    <div className="text-[9px] font-mono tracking-widest text-white/40 uppercase">
-                      Visual Certificate Placeholder
                     </div>
                   </motion.div>
                 </AnimatePresence>
@@ -303,7 +413,7 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
                   <div className="text-[10px] font-mono text-gray-400 tracking-widest uppercase mb-1.5">
                     {FEATURED_AWARDS[currentSlide].category}
                   </div>
-                  
+
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={currentSlide}
@@ -328,13 +438,13 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
                 {/* Carousel Navigation Actions */}
                 <div className="flex items-center justify-between mt-8 pt-4 border-t border-gray-100">
                   <div className="flex items-center gap-1.5">
-                    <button 
+                    <button
                       onClick={handlePrevSlide}
                       className="p-1.5 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-500 transition-colors"
                     >
                       <ChevronLeft size={16} />
                     </button>
-                    <button 
+                    <button
                       onClick={handleNextSlide}
                       className="p-1.5 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-500 transition-colors"
                     >
@@ -347,7 +457,6 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
                   </span>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -364,18 +473,22 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
 
               <div className="divide-y divide-gray-100">
                 {cat.awards.map((award, ai) => (
-                  <div 
-                    key={ai} 
+                  <div
+                    key={ai}
                     className={`py-3.5 flex flex-col sm:flex-row sm:items-baseline justify-between transition-all ${
-                      award.most 
-                        ? 'bg-gray-50/50 pl-3 border-l-2 border-black pr-1.5 my-1.5' 
-                        : 'pl-1'
+                      award.most
+                        ? "bg-gray-50/50 pl-3 border-l-2 border-black pr-1.5 my-1.5"
+                        : "pl-1"
                     }`}
                   >
                     <div className="space-y-1 pr-4">
                       <div className="flex items-center gap-2">
-                        {award.most && <div className="w-1 h-1 rounded-full bg-black shrink-0" />}
-                        <span className={`text-sm ${award.most ? 'font-bold text-gray-900' : 'font-medium text-gray-700'}`}>
+                        {award.most && (
+                          <div className="w-1 h-1 rounded-full bg-black shrink-0" />
+                        )}
+                        <span
+                          className={`text-sm ${award.most ? "font-bold text-gray-900" : "font-medium text-gray-700"}`}
+                        >
                           {award.name}
                         </span>
                       </div>
@@ -399,7 +512,6 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
             </div>
           ))}
         </div>
-
       </div>
     );
   }
@@ -407,10 +519,9 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
   // ==========================================
   // 2. STYLE VARIATIONS FOR TEMPLATE: CREATIVE / EDITORIAL
   // ==========================================
-  if (template === 'editorial') {
+  if (template === "editorial") {
     return (
       <div className="max-w-4xl mx-auto pb-20 font-sans text-gray-900 select-none px-4 space-y-16">
-        
         {/* Stark Swiss Typographic Header */}
         <div className="text-left pt-6 pb-2 border-b-4 border-gray-950">
           <h1 className="text-4xl md:text-6xl font-sans font-black uppercase text-gray-950 tracking-tighter leading-none">
@@ -442,7 +553,7 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
           </div>
 
           <div className="border-4 border-gray-950 bg-white px-3 py-6 sm:px-4 sm:py-6 md:p-6 rounded-none flex flex-col justify-between items-stretch text-left">
-            <span className="text-[clamp(1.125rem,4vw,1.875rem)] font-black text-gray-950 tracking-tighter leading-none uppercase pt-1 pb-1">
+            <span className="text-[clamp(1rem,3.2vw,1.5rem)] font-black text-gray-950 tracking-tighter leading-none uppercase pt-1 pb-1">
               SUMMA
             </span>
             <span className="text-[9px] uppercase font-mono font-black text-gray-500 tracking-wider mt-4">
@@ -468,7 +579,6 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
 
           <div className="border-4 border-gray-950 bg-white rounded-none p-6 relative">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
-              
               {/* Image Column */}
               <div className="md:col-span-7 flex flex-col justify-between">
                 <AnimatePresence mode="wait">
@@ -478,21 +588,15 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
-                    className="aspect-video w-full rounded-none border-4 border-gray-950 bg-gray-950 p-6 flex flex-col justify-between text-white"
+                    className="aspect-video w-full rounded-none border-4 border-gray-950 bg-white relative flex items-center justify-center overflow-hidden"
                   >
-                    <div className="flex justify-between items-baseline">
-                      <span className="font-mono text-sm font-black tracking-wider text-white">
-                        {FEATURED_AWARDS[currentSlide].year}
-                      </span>
-                    </div>
-
-                    <div className="flex flex-col items-center justify-center flex-1 py-4 text-center">
-                      <div className="w-12 h-12 rounded-none border-2 border-white/40 flex items-center justify-center mb-3">
-                        <ImageIcon className="w-6 h-6 text-white/50" />
-                      </div>
-                      <span className="text-[11px] font-mono uppercase tracking-wide text-white/80 px-4 max-w-sm leading-relaxed font-black">
-                        {FEATURED_AWARDS[currentSlide].placeholderLabel.toUpperCase()}
-                      </span>
+                    <img
+                      src={FEATURED_AWARDS[currentSlide].image}
+                      alt={FEATURED_AWARDS[currentSlide].title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-3 right-3 bg-gray-900 text-white px-2.5 py-1 text-[10px] font-mono font-black border-2 border-gray-900">
+                      {FEATURED_AWARDS[currentSlide].year}
                     </div>
                   </motion.div>
                 </AnimatePresence>
@@ -530,13 +634,13 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
                 {/* Controls */}
                 <div className="flex items-center justify-between mt-8 pt-4 border-t-2 border-gray-950">
                   <div className="flex items-center gap-2">
-                    <button 
+                    <button
                       onClick={handlePrevSlide}
                       className="p-2 rounded-none border-2 border-gray-950 bg-white hover:bg-gray-100 text-gray-955 transition-colors cursor-pointer"
                     >
                       <ChevronLeft size={16} className="stroke-[3]" />
                     </button>
-                    <button 
+                    <button
                       onClick={handleNextSlide}
                       className="p-2 rounded-none border-2 border-gray-950 bg-white hover:bg-gray-100 text-gray-955 transition-colors cursor-pointer"
                     >
@@ -549,7 +653,6 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
                   </span>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -558,8 +661,8 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
         <div className="space-y-12">
           {CATEGORIES.map((cat, ci) => {
             return (
-              <div 
-                key={ci} 
+              <div
+                key={ci}
                 className="bg-white border-4 border-gray-950 rounded-none p-6 space-y-6"
               >
                 <div className="border-b-4 border-gray-955 pb-3 flex items-baseline justify-between">
@@ -570,12 +673,12 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-1">
                   {cat.awards.map((award, ai) => (
-                    <div 
-                      key={ai} 
+                    <div
+                      key={ai}
                       className={`p-5 border-4 rounded-none transition-all flex flex-col justify-between ${
-                        award.most 
-                          ? 'border-gray-950 bg-zinc-50' 
-                          : 'border-gray-250 bg-white'
+                        award.most
+                          ? "border-gray-950 bg-zinc-50"
+                          : "border-gray-250 bg-white"
                       }`}
                     >
                       <div>
@@ -601,7 +704,6 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
             );
           })}
         </div>
-
       </div>
     );
   }
@@ -611,21 +713,20 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
   // ==========================================
   return (
     <div className="max-w-4xl mx-auto pb-16 font-mono text-[#00FF88] select-none px-4 space-y-12">
-      
       {/* HUD futuristic header */}
       <div className="space-y-2 pt-4 border-l-2 border-[#00FF88]/40 pl-4 bg-[#00FF88]/2 relative overflow-hidden rounded-r-xl">
         <h1 className="text-2xl md:text-3xl font-black text-white tracking-widest uppercase filter drop-shadow-[0_0_8px_var(--page-accent)]">
           {pageTitle}
         </h1>
         <p className="text-[9px] text-[#00FF88]/60 uppercase tracking-widest pl-0.5">
-          Curated timeline of national competitions, international hackathons, and academic honors.
+          Curated timeline of national competitions, international hackathons,
+          and academic honors.
         </p>
         <div className="h-[2px] bg-gradient-to-r from-[var(--page-accent)] via-cyan-500 to-transparent relative mt-1" />
       </div>
 
       {/* Hero Statistics Panels (Futuristic: Glowing HUD consoles) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        
         <div className="p-4 rounded-xl border border-[var(--page-border)] bg-black/40 text-center relative overflow-hidden shadow-[inset_0_0_10px_rgba(0,255,136,0.05)]">
           <span className="text-[clamp(1.5rem,5vw,2.25rem)] font-black tracking-tighter text-white filter drop-shadow-[0_0_8px_#00FF88] block">
             <AnimatedNumber value={12} suffix="+" />
@@ -661,7 +762,6 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
             Scholar Merit
           </span>
         </div>
-
       </div>
 
       {/* Featured Achievements Gallery Carousel */}
@@ -678,8 +778,7 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
           <div className="absolute inset-0 bg-[radial-gradient(#00FF88_0.6px,transparent_0.6px)] [background-size:12px_12px] opacity-5 pointer-events-none" />
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center relative z-10">
-            
-            {/* Image Placeholder View */}
+            {/* Image View */}
             <div className="md:col-span-7">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -688,28 +787,24 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.99 }}
                   transition={{ duration: 0.3 }}
-                  className="aspect-video w-full rounded-xl border border-[#00FF88]/35 bg-[#070E0B] p-4 flex flex-col justify-between text-[#00FF88] relative shadow-[0_0_15px_rgba(0,255,136,0.05)]"
+                  className="aspect-video w-full rounded-xl border border-[#00FF88]/35 bg-black/40 flex items-center justify-center relative overflow-hidden shadow-[0_0_15px_rgba(0,255,136,0.05)]"
                 >
-                  <div className="flex justify-between items-center text-[8px]">
-                    <span className="bg-[#00FF88]/10 px-2 py-0.5 rounded border border-[#00FF88]/30">
+                  <img
+                    src={FEATURED_AWARDS[currentSlide].image}
+                    alt={FEATURED_AWARDS[currentSlide].title}
+                    className="w-full h-full object-cover"
+                  />
+
+                  {/* Floating indicators */}
+                  <div className="absolute top-3 left-3 flex gap-2">
+                    <span className="bg-[#00FF88]/10 px-2 py-0.5 rounded border border-[#00FF88]/30 text-[8px] text-[#00FF88]">
                       Slide 0{currentSlide + 1}
                     </span>
-                    <span className="text-[#00FF88]/60 uppercase font-bold">
+                  </div>
+                  <div className="absolute top-3 right-3">
+                    <span className="bg-[#00FF88]/10 px-2 py-0.5 rounded border border-[#00FF88]/30 text-[8px] text-[#00FF88] uppercase font-bold">
                       {FEATURED_AWARDS[currentSlide].year}
                     </span>
-                  </div>
-
-                  <div className="flex flex-col items-center justify-center flex-1 py-4 text-center">
-                    <div className="text-[#00FF88] mb-2.5 filter drop-shadow-[0_0_4px_#00FF88]">
-                      {FEATURED_AWARDS[currentSlide].highlightIcon}
-                    </div>
-                    <span className="text-[10px] text-white/80 leading-relaxed uppercase max-w-sm tracking-wider">
-                      {FEATURED_AWARDS[currentSlide].placeholderLabel}
-                    </span>
-                  </div>
-
-                  <div className="text-[7.5px] text-[#00FF88]/50 tracking-widest text-center uppercase">
-                    Certificate & Photos Placeholder Frame
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -747,13 +842,13 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
               {/* Controls HUD row */}
               <div className="flex items-center justify-between mt-8 pt-4 border-t border-[#00FF88]/15">
                 <div className="flex items-center gap-2">
-                  <button 
+                  <button
                     onClick={handlePrevSlide}
                     className="p-1 px-2.5 rounded-md border border-[#00FF88]/30 bg-black text-[#00FF88] hover:bg-[#00FF88]/10 hover:shadow-[0_0_8px_rgba(0,255,136,0.3)] transition-all cursor-pointer"
                   >
                     PREV
                   </button>
-                  <button 
+                  <button
                     onClick={handleNextSlide}
                     className="p-1 px-2.5 rounded-md border border-[#00FF88]/30 bg-black text-[#00FF88] hover:bg-[#00FF88]/10 hover:shadow-[0_0_8px_rgba(0,255,136,0.3)] transition-all cursor-pointer"
                   >
@@ -766,7 +861,6 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
                 </span>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -783,24 +877,28 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {cat.awards.map((award, ai) => (
-                <div 
-                  key={ai} 
+                <div
+                  key={ai}
                   className={`p-4 rounded-xl border relative overflow-hidden backdrop-blur-xs flex flex-col justify-between ${
-                    award.most 
-                      ? 'border-[#00FF88]/35 bg-emerald-950/15 shadow-[0_0_10px_rgba(0,255,136,0.03)]' 
-                      : 'border-[#00FF88]/10 bg-black/20'
+                    award.most
+                      ? "border-[#00FF88]/35 bg-emerald-950/15 shadow-[0_0_10px_rgba(0,255,136,0.03)]"
+                      : "border-[#00FF88]/10 bg-black/20"
                   }`}
                 >
                   <div className="space-y-2">
                     <div className="flex items-center justify-between gap-2">
-                      <span className={`text-[7px] font-black uppercase border px-1.5 py-0.5 rounded ${
-                        award.most 
-                          ? 'bg-[#00FF88]/10 border-[#00FF88]/40 text-[#00FF88]' 
-                          : 'bg-black border-[#00FF88]/10 text-cyan-400'
-                      }`}>
-                        {award.most ? 'Top Tier Award' : 'Distinction'}
+                      <span
+                        className={`text-[7px] font-black uppercase border px-1.5 py-0.5 rounded ${
+                          award.most
+                            ? "bg-[#00FF88]/10 border-[#00FF88]/40 text-[#00FF88]"
+                            : "bg-black border-[#00FF88]/10 text-cyan-400"
+                        }`}
+                      >
+                        {award.most ? "Top Tier Award" : "Distinction"}
                       </span>
-                      <span className="text-[9.5px] text-white font-bold leading-none">{award.placing}</span>
+                      <span className="text-[9.5px] text-white font-bold leading-none">
+                        {award.placing}
+                      </span>
                     </div>
 
                     <h4 className="text-xs font-bold text-white uppercase tracking-wider leading-snug">
@@ -818,7 +916,6 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
           </div>
         ))}
       </div>
-
     </div>
   );
 }

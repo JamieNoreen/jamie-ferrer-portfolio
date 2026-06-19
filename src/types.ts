@@ -90,7 +90,7 @@ export interface Project {
 }
 
 export const PROJECTS: Project[] = [
-  {
+{
     slug: 'scaffled',
     title: 'Scaffl.ed',
     subtitle: 'Visual scaffolding and interactive curriculum planner for educators',
@@ -98,7 +98,7 @@ export const PROJECTS: Project[] = [
     categories: ['Featured', 'Products'],
     type: 'case-study',
     year: '2024',
-    thumbnail: '/images/thumbnails/scaffled.png',
+    thumbnail: '/portfolio-assets/projects/scaffled/File1.png',
     award: 'BEST IN THESIS',
     awards: ['BEST IN THESIS', 'PSC9 2ND RUNNER-UP'],
     description: 'An intuitive platform designed to bridge lesson planning and visual instruction, enabling educators to create interactive curriculum models step-by-step.',
@@ -107,16 +107,26 @@ export const PROJECTS: Project[] = [
     bannerColor: 'bg-gradient-to-tr from-sky-400 via-indigo-500 to-indigo-600',
     accentColor: 'text-indigo-600 border-indigo-200',
     caseStudyImages: [
-      '/images/scaffled/slide1.png',
-      '/images/scaffled/slide2.png',
-      '/images/scaffled/slide3.png',
-      '/images/scaffled/slide4.png',
-      '/images/scaffled/slide5.png'
+      '/portfolio-assets/projects/scaffled/File1.png',
+      '/portfolio-assets/projects/scaffled/File2.png',
+      '/portfolio-assets/projects/scaffled/File3.png',
+      '/portfolio-assets/projects/scaffled/File4.png',
+      '/portfolio-assets/projects/scaffled/File5.png',
+      '/portfolio-assets/projects/scaffled/File6.png',
+      '/portfolio-assets/projects/scaffled/File7.png',
+      '/portfolio-assets/projects/scaffled/File8.png',
+      '/portfolio-assets/projects/scaffled/File9.png',
+      '/portfolio-assets/projects/scaffled/File10.png',
+      '/portfolio-assets/projects/scaffled/File11.png',
+      '/portfolio-assets/projects/scaffled/File12.png',
+      '/portfolio-assets/projects/scaffled/File13.png',
+      '/portfolio-assets/projects/scaffled/File14.png',
+      '/portfolio-assets/projects/scaffled/File15.png'
     ],
     outcome: 'Implemented in 3 experimental school districts, receiving a 94% approval rating from educators who noted a significant reduction in weekly lesson-mapping overhead.',
     mockups: []
   },
-  {
+ {
     slug: 'studdy',
     title: 'Studdy',
     subtitle: 'Smart learning planner and gamified flashcard app for Filipino students',
@@ -124,20 +134,29 @@ export const PROJECTS: Project[] = [
     categories: ['Featured', 'Products'],
     type: 'case-study',
     year: '2024',
-    thumbnail: '/images/thumbnails/studdy.png',
+    thumbnail: '/portfolio-assets/projects/studdy/File1.png',
     award: 'PSC9 2ND RUNNER-UP',
     awards: ['PSC9 2ND RUNNER-UP'],
-    description: 'A gamified academic planner designed specifically around the localized schedules and study habits of Filipino high school and university students, utilizing positive reinforcement and spaced repetition techniques.',
+    description: 'A gamified academic academic planner designed specifically around localized schedules and study habits of Filipino students, utilizing positive reinforcement and spaced repetition techniques.',
     role: 'Product & Interaction Designer',
     tools: ['Figma', 'Framer Motion', 'React Native', 'Tailwind'],
     bannerColor: 'bg-gradient-to-br from-violet-600 to-purple-800',
     accentColor: 'text-violet-600 border-violet-200',
     caseStudyImages: [
-      '/images/studdy/slide1.png',
-      '/images/studdy/slide2.png',
-      '/images/studdy/slide3.png',
-      '/images/studdy/slide4.png',
-      '/images/studdy/slide5.png'
+      '/portfolio-assets/projects/studdy/File1.png',
+      '/portfolio-assets/projects/studdy/File2.png',
+      '/portfolio-assets/projects/studdy/File3.png',
+      '/portfolio-assets/projects/studdy/File4.png',
+      '/portfolio-assets/projects/studdy/File5.png',
+      '/portfolio-assets/projects/studdy/File6.png',
+      '/portfolio-assets/projects/studdy/File7.png',
+      '/portfolio-assets/projects/studdy/File8.png',
+      '/portfolio-assets/projects/studdy/File9.png',
+      '/portfolio-assets/projects/studdy/File10.png',
+      '/portfolio-assets/projects/studdy/File11.png',
+      '/portfolio-assets/projects/studdy/File12.png',
+      '/portfolio-assets/projects/studdy/File13.png',
+      '/portfolio-assets/projects/studdy/File14.png'
     ],
     outcome: 'Successfully tested in pilot student focus groups, marking a 30% self-reporting increase in study session duration and better task-completion accountability.',
     mockups: []
@@ -150,72 +169,42 @@ export const PROJECTS: Project[] = [
     categories: ['Products'],
     type: 'showcase',
     year: '2024',
-    thumbnail: '/images/thumbnails/tulai.png',
+    thumbnail: '/portfolio-assets/projects/tulai/thumbnail.png',
     description: 'An intelligence utility designed to demystify complex legal documents by translating and explaining them in clear, vernacular Tagalog and regional dialects, bringing legal clarity to underrepresented groups.',
     role: 'Lead AI & Full-Stack Engineer',
     tools: ['Gemini API', 'Next.js', 'PostgreSQL', 'Tailwind CSS'],
     bannerColor: 'bg-gradient-to-tr from-[#0B4F4F] via-[#115E59] to-[#134E4A]',
     accentColor: 'text-teal-600 border-teal-200',
-    showcaseHero: '/images/tulai/hero.png',
-    showcaseProblemImage: '/images/tulai/problem.png',
+    showcaseHero: '/portfolio-assets/projects/tulai/thumbnail.png',
+    showcaseProblemImage: '/portfolio-assets/projects/tulai/problem.png',
     showcaseProblemText: 'Legal documentation in the Philippines is predominantly authored in highly formal English text loaded with complex jargon, making understanding and compliance incredibly difficult for ordinary citizens who are not fluent in legal terms.',
     showcaseScreens: [
       {
-        groupTitle: 'Dashboard',
-        description: 'Central workspace for managing applications, requests, and service activity.',
+        groupTitle: 'Dashboard Workspace',
+        description: 'Central workspace for managing translation workflows and monitoring pending legal documents.',
         images: [
           {
-            src: '/images/tulai/screen_dashboard.png',
+            src: '/portfolio-assets/projects/tulai/screen1.png',
             caption: 'Central Workspace Dashboard tracking translations and pending queues.'
           }
         ]
       },
       {
-        groupTitle: 'Reports',
-        description: 'Reporting tools for tracking service performance and community data.',
+        groupTitle: 'Verification and Reports',
+        description: 'Interactive double-review verification module and system reports analysis.',
         images: [
           {
-            src: '/images/tulai/screen_reports.png',
-            caption: 'Performance analytics and feedback reporting dashboard views.'
-          }
-        ]
-      },
-      {
-        groupTitle: 'Verification',
-        description: 'Verification workflow for reviewing and approving submissions.',
-        images: [
-          {
-            src: '/images/tulai/screen_verification.png',
-            caption: 'Interactive translation peer double-review and approval interface.'
-          }
-        ]
-      },
-      {
-        groupTitle: 'Resources',
-        description: 'Directory of available government resources and support services.',
-        images: [
-          {
-            src: '/images/tulai/screen_resources.png',
-            caption: 'Knowledgebase and official government legal resource directories.'
-          }
-        ]
-      },
-      {
-        groupTitle: 'How TulAI Works',
-        description: 'Overview of the platform workflow and service process.',
-        images: [
-          {
-            src: '/images/tulai/screen_how_it_works.png',
-            caption: 'Onboarding flows mapping out core translation and verification pipeline cycles.'
+            src: '/portfolio-assets/projects/tulai/screen2.png',
+            caption: 'Performance analytics, feedback reporting, and translation reviews.'
           }
         ]
       }
     ],
     showcaseOutcome: 'Bridged legal accessibility to over 1,200 non-English readers in pilot barangays, achieving extremely high accuracy in conversational language conversions.',
     mockupImages: [
-      { src: '/images/tulai/mockup_desktop1.png', orientation: 'landscape', caption: 'High-Fidelity Translation Workspace and Original Text Comparison' },
-      { src: '/images/tulai/mockup_desktop2.png', orientation: 'landscape', caption: 'Interactive Document Breakdown with Inline Glossary Explanations' },
-      { src: '/images/tulai/mockup_desktop3.png', orientation: 'landscape', caption: 'Mobile Vernacular Review & Team Translation Sync Portal' }
+      { src: '/portfolio-assets/projects/tulai/mockup1.png', orientation: 'landscape', caption: 'High-Fidelity Translation Workspace and Original Text Comparison' },
+      { src: '/portfolio-assets/projects/tulai/mockup2.png', orientation: 'landscape', caption: 'Interactive Document Breakdown with Inline Glossary Explanations' },
+      { src: '/portfolio-assets/projects/tulai/mockup3.png', orientation: 'landscape', caption: 'Mobile Vernacular Review & Team Translation Sync Portal' }
     ],
     award: 'NEDA-HABI CHAMPION',
     awards: ['NEDA-HABI CHAMPION'],
@@ -232,32 +221,32 @@ export const PROJECTS: Project[] = [
     categories: ['Products'],
     type: 'showcase',
     year: '2023',
-    thumbnail: '/images/thumbnails/plantego.png',
+    thumbnail: '/portfolio-assets/projects/plantego/thumbnail.png',
     description: 'An IoT-adjacent smart plant care log that guides indoor gardening enthusiasts by charting soil hydration thresholds and tracking watering rituals.',
     role: 'Frontend Developer & Designer',
     tools: ['React', 'ChartJS', 'Bluetooth Web API', 'Tailwind'],
     bannerColor: 'bg-gradient-to-r from-emerald-500 via-teal-500 to-teal-650',
     accentColor: 'text-emerald-600 border-emerald-200',
-    showcaseHero: '/images/plantego/hero.png',
-    showcaseProblemImage: '/images/plantego/problem.png',
+    showcaseHero: '/portfolio-assets/projects/plantego/thumbnail.png',
+    showcaseProblemImage: '/portfolio-assets/projects/plantego/problem.png',
     showcaseProblemText: 'Indoor plants routinely die of over-watering or under-watering as beginners struggle to diagnose subtle variations in soil dampness or identify the specific needs of multiple nested species.',
     showcaseScreens: [
       {
-        groupTitle: 'Core Platform Experience',
-        description: 'AI-powered agriculture platform featuring crop disease detection, marketplace, educational resources, and chatbot assistance.',
+        groupTitle: 'Core Dashboard & Device Hub',
+        description: 'Watering frequency log accompanied by automated moisture metrics and smart plant-specific diagnostics.',
         images: [
           {
-            src: '/images/plantego/composite.png',
-            caption: 'Plantego composite showcase highlighting direct crop diagnostics and chat assistant.'
+            src: '/portfolio-assets/projects/plantego/screen.png',
+            caption: 'Plantego main companion application dashboard highlighting hydration trackers and live device inputs.'
           }
         ]
       }
     ],
     showcaseOutcome: 'Helped urban gardeners sustain over 40 different delicate plant species with automated health score metrics and persistent plant-specific reminders.',
     mockupImages: [
-      { src: '/images/plantego/mockup_landscape1.png', orientation: 'landscape', caption: 'Botanical Greenhouse Smart Logger and Microclimate Forecasts' },
-      { src: '/images/plantego/mockup_landscape2.png', orientation: 'landscape', caption: 'Watering Frequency Cohort Charts and Soil Dampness Metrics' },
-      { src: '/images/plantego/mockup_portrait1.png', orientation: 'portrait', caption: 'Plantego Mobile Assistant Log & Live Bluetooth Soil Probe Sensor Reader' }
+      { src: '/portfolio-assets/projects/plantego/mockup1.png', orientation: 'landscape', caption: 'Botanical Greenhouse Smart Logger and Microclimate Forecasts' },
+      { src: '/portfolio-assets/projects/plantego/mockup2.png', orientation: 'landscape', caption: 'Watering Frequency Cohort Charts and Soil Dampness Metrics' },
+      { src: '/portfolio-assets/projects/plantego/mockup3.png', orientation: 'portrait', caption: 'Plantego Mobile Assistant Log & Live Bluetooth Soil Probe Sensor Reader' }
     ],
     award: 'ASEAN DSE 2ND RUNNER-UP',
     awards: ['ASEAN DSE 2ND RUNNER-UP'],
@@ -274,31 +263,32 @@ export const PROJECTS: Project[] = [
     categories: ['Products'],
     type: 'showcase',
     year: '2023',
-    thumbnail: '/images/thumbnails/pasada.png',
+    thumbnail: '/portfolio-assets/projects/pasada/thumbnail.png',
     description: 'A real-time transit scheduler and digital ticketing solution designed for modern public utility jeepney (PUJ) operators and daily Filipino commuters.',
     role: 'Mobile Architect & UI Specialist',
     tools: ['Google Maps Platform', 'React Native', 'Node.js', 'Socket.io'],
     bannerColor: 'bg-gradient-to-br from-indigo-700 via-blue-805 to-blue-900',
     accentColor: 'text-blue-600 border-indigo-200',
-    showcaseHero: '/images/pasada/hero.png',
-    showcaseProblemImage: '/images/pasada/problem.png',
+    showcaseHero: '/portfolio-assets/projects/pasada/thumbnail.png',
+    showcaseProblemImage: '/portfolio-assets/projects/pasada/problem.png',
     showcaseProblemText: 'A lack of consolidated route information and fixed arrival timings leaves modern jeepney commuters guessing, resulting in long terminal lines and inefficient dispatcher loading schedules.',
     showcaseScreens: [
       {
-        groupTitle: 'Core Mobile Experience',
-        description: 'Mobile application for jeepney drivers to digitize and manage operational data.\n\nThis screen group contains:\n• Driver Dashboard\n• Route Management\n• Operational Tracking',
+        groupTitle: 'Driver Operations Suite',
+        description: 'Mobile portal for jeepney drivers and fleet managers to monitor active routes, track rider telemetry, and view passenger capacity levels.',
         images: [
           {
-            src: '/images/pasada/composite_triple.png',
-            caption: 'Driver suite containing the Driver Dashboard, Route Management page, and Operational Tracking panel.'
+            src: '/portfolio-assets/projects/pasada/screen.png',
+            caption: 'Driver operational hub indicating active loops, fare claims, and transit coordinates.'
           }
         ]
       }
     ],
     showcaseOutcome: 'Successfully launched a 12-jeepney active route trial in a busy metropolitan hub, reducing commuter waiting intervals from 25 minutes down to 8 minutes.',
     mockupImages: [
-      { src: '/images/pasada/mockup_landscape1.png', orientation: 'landscape', caption: 'Driver Telemetry Dashboard & Route Scheduling Interface' },
-      { src: '/images/pasada/mockup_landscape2.png', orientation: 'landscape', caption: 'Commuter Mobile Ticket Booking & Live Route Progress Tracker' }
+      { src: '/portfolio-assets/projects/pasada/mockup1.png', orientation: 'landscape', caption: 'Driver Telemetry Dashboard & Route Scheduling Interface' },
+      { src: '/portfolio-assets/projects/pasada/mockup2.png', orientation: 'landscape', caption: 'Commuter Mobile Ticket Booking & Live Route Progress Tracker' },
+      { src: '/portfolio-assets/projects/pasada/mockup3.png', orientation: 'landscape', caption: 'Transit Route Optimization Analytics and System Performance Metrics' }
     ],
     competition: 'Smart Transit Hackathon',
     outcome: 'Reduced commuter waiting intervals from 25 minutes down to 8 minutes across active test loops.',
@@ -312,14 +302,14 @@ export const PROJECTS: Project[] = [
     categories: ['Products'],
     type: 'showcase',
     year: '2024',
-    thumbnail: '/images/thumbnails/lakadph.png',
+    thumbnail: '/portfolio-assets/projects/lakadph/thumbnail.png',
     description: 'A digital travel identity and itinerary builder celebrating regional culture and off-the-beaten-path destinations across the Philippine archipelago.',
     role: 'Identity Designer & Lead Researcher',
     tools: ['Figma', 'Adobe Illustrator', 'Brand Metaphor Systems'],
     bannerColor: 'bg-gradient-to-tr from-sky-400 via-teal-500 to-orange-500',
     accentColor: 'text-orange-600 border-orange-200',
-    showcaseHero: '/images/lakadph/hero.png',
-    showcaseProblemImage: '/images/lakadph/problem.png',
+    showcaseHero: '/portfolio-assets/projects/lakadph/thumbnail.png',
+    showcaseProblemImage: '/portfolio-assets/projects/lakadph/problem.png',
     showcaseProblemText: 'Local travel programs suffer from fragmented regional guide resources, leaving travelers relying on generic itineraries while smaller, culturally rich eco-tourism spots remain completely invisible.',
     showcaseScreens: [
       {
@@ -327,7 +317,7 @@ export const PROJECTS: Project[] = [
         description: 'Administrative dashboard for monitoring pedestrian reports, route conditions, and city-wide walkability insights.',
         images: [
           {
-            src: '/images/lakadph/screen_city_dashboard.png',
+            src: '/portfolio-assets/projects/lakadph/screen1.png',
             caption: 'City Dashboard overview tracking sidewalk conditions and report density levels.'
           }
         ]
@@ -337,7 +327,7 @@ export const PROJECTS: Project[] = [
         description: 'Mobile navigation experience helping users discover safer and more walkable routes.\n\nFeatures Shown:\n• Smart Route Planning\n• Comfort-Based Route Selection\n• Real-Time Navigation\n• Route Feedback',
         images: [
           {
-            src: '/images/lakadph/screen_core_mobile.png',
+            src: '/portfolio-assets/projects/lakadph/screen2.png',
             caption: 'Core mobile application views presenting pedestrian directions and heatmaps.'
           }
         ]
@@ -345,9 +335,9 @@ export const PROJECTS: Project[] = [
     ],
     showcaseOutcome: 'Delivered highly coherent identity styleguides and interactive prototype blueprints adopted as conceptual references by local eco-tourism advocates.',
     mockupImages: [
-      { src: '/images/lakadph/mockup_landscape1.png', orientation: 'landscape', caption: 'Interactive Itinerary Planner & Culturally Curated Route Mapping Studio' },
-      { src: '/images/lakadph/mockup_landscape2.png', orientation: 'landscape', caption: 'Regional Visual Asset Board, Metaphors & Eco-tourism Promotion Grid' },
-      { src: '/images/lakadph/mockup_landscape3.png', orientation: 'landscape', caption: 'Mobile Discovery Travel Diary & Local Homestay Booking Blueprint' }
+      { src: '/portfolio-assets/projects/lakadph/mockup1.png', orientation: 'landscape', caption: 'Interactive Itinerary Planner & Culturally Curated Route Mapping Studio' },
+      { src: '/portfolio-assets/projects/lakadph/mockup2.png', orientation: 'landscape', caption: 'Regional Visual Asset Board, Metaphors & Eco-tourism Promotion Grid' },
+      { src: '/portfolio-assets/projects/lakadph/mockup3.png', orientation: 'landscape', caption: 'Mobile Discovery Travel Diary & Local Homestay Booking Blueprint' }
     ],
     award: 'BLUHACKS CHAMPION',
     awards: ['BLUHACKS CHAMPION'],
@@ -388,112 +378,76 @@ export const PROJECTS: Project[] = [
     categories: ['Products'],
     type: 'showcase',
     year: '2023',
-    thumbnail: '/images/thumbnails/farmory.png',
+    thumbnail: '/portfolio-assets/projects/farmory/thumbnail.png',
     description: 'A secure agricultural database tracking crop inventories and establishing shared distribution links to prevent food waste across local cooperative farms.',
     role: 'Database Specialist & Developer',
     tools: ['SQL', 'React', 'Drizzle ORM', 'Tailwind'],
     bannerColor: 'bg-gradient-to-br from-amber-800 via-slate-800 to-emerald-950',
     accentColor: 'text-emerald-500 border-emerald-350',
-    showcaseHero: '/images/farmory/hero.png',
-    showcaseProblemImage: '/images/farmory/problem.png',
+    showcaseHero: '/portfolio-assets/projects/farmory/thumbnail.png',
+    showcaseProblemImage: '/portfolio-assets/projects/farmory/problem.png',
     showcaseProblemText: 'Cooperative farms frequently suffer from storage communication breakdowns, leading to high-quality crop spoilage while adjacent processing channels experience critical supply shortages.',
     showcaseScreens: [
       {
-        groupTitle: 'Dashboard',
-        description: 'Overview of farmer activity, claims, and insurance operations.',
+        groupTitle: 'Insurance Management Dashboard',
+        description: 'Administrative dashboard used by insurers to monitor claims, manage farmers, review risk data, process insurance requests, and oversee platform operations.',
         images: [
           {
-            src: '/images/farmory/screen_web_dashboard.png',
-            caption: 'Web Platform (Insurers) - Main operational dashboard showing aggregated statistics.'
+            src: '/portfolio-assets/projects/farmory/screen1.png',
+            caption: 'Insurance Management Dashboard - Complete administrator control panel tracking active claims, risk metrics, and pending requests.'
           }
         ]
       },
       {
-        groupTitle: 'Claims Queue',
-        description: 'Review and management interface for incoming insurance claims.',
+        groupTitle: 'Insurer Platform',
+        description: 'Administrative tools for reviewing claims, managing farmer records, monitoring harvest data, and processing insurance operations.',
         images: [
           {
-            src: '/images/farmory/screen_web_claims_queue.png',
-            caption: 'Web Platform (Insurers) - Active incoming claims list with risk scoring attributes.'
+            src: '/portfolio-assets/projects/farmory/screen2.png',
+            caption: 'Claims Queue - Real-time queue featuring incoming cooperative claims with integrated risk analysis attributes.'
+          },
+          {
+            src: '/portfolio-assets/projects/farmory/screen3.png',
+            caption: 'Claim Details - Multi-tab assessment workspace consolidating damage logs, farm photos, and verification records.'
+          },
+          {
+            src: '/portfolio-assets/projects/farmory/screen4.png',
+            caption: 'Batch Payment & Ledger - Financial dashboard executing bulk transactions to verified agrarian cooperators.'
+          },
+          {
+            src: '/portfolio-assets/projects/farmory/screen5.png',
+            caption: 'Cooperative Farmers Directory - Centralized catalog organizing registered members, historical yields, and soil safety parameters.'
           }
         ]
       },
       {
-        groupTitle: 'Claim Details',
-        description: 'Detailed claim information and assessment workflow.',
+        groupTitle: 'Farmer Mobile Experience',
+        description: 'Mobile-first workflows allowing farmers to register, manage crops, submit insurance claims, and track claim status in real time.',
         images: [
           {
-            src: '/images/farmory/screen_web_claim_details.png',
-            caption: 'Web Platform (Insurers) - Detailed diagnostic parameters, field imagery, and approval triggers.'
-          }
-        ]
-      },
-      {
-        groupTitle: 'Batch Payment',
-        description: 'Bulk payment processing for approved claims.',
-        images: [
+            src: '/portfolio-assets/projects/farmory/screen6.png',
+            caption: 'Farmer Mobile Onboarding - Clean, accessible portal guide introducing simple smart agricultural utilities.'
+          },
           {
-            src: '/images/farmory/screen_web_batch_payment.png',
-            caption: 'Web Platform (Insurers) - Financial ledger for executing multi-cooperative batch disbursements.'
-          }
-        ]
-      },
-      {
-        groupTitle: 'Farmers Database',
-        description: 'Database of registered farmers and policy information.',
-        images: [
+            src: '/portfolio-assets/projects/farmory/screen7.png',
+            caption: 'Crop Inventory Entry - Responsive, high-contrast inputs for logging seed bags, moisture levels, and harvest dates.'
+          },
           {
-            src: '/images/farmory/screen_web_farmers_db.png',
-            caption: 'Web Platform (Insurers) - Complete index of member cooperatives, soil profiles, and coverage histories.'
-          }
-        ]
-      },
-      {
-        groupTitle: 'Onboarding',
-        description: 'Farmer registration and account setup experience.',
-        images: [
+            src: '/portfolio-assets/projects/farmory/screen8.png',
+            caption: 'Filing a Claim - Direct, user-friendly mobile steps to upload leaf damage photos with geolocation.'
+          },
           {
-            src: '/images/farmory/screen_mobile_onboarding.png',
-            caption: 'Mobile Experience (Farmers) - Secure farmer account registration page.'
-          }
-        ]
-      },
-      {
-        groupTitle: 'Onboarding Flow',
-        description: 'Guided introduction to platform features and claim submission process.',
-        images: [
-          {
-            src: '/images/farmory/screen_mobile_onboarding_flow.png',
-            caption: 'Mobile Experience (Farmers) - Conversational step-by-step assistant tutorial.'
-          }
-        ]
-      },
-      {
-        groupTitle: 'Filing a Claim',
-        description: 'Mobile workflow for submitting insurance claims.',
-        images: [
-          {
-            src: '/images/farmory/screen_mobile_filing_claim.png',
-            caption: 'Mobile Experience (Farmers) - Direct photo attachment and geolocated farm damage reporting.'
-          }
-        ]
-      },
-      {
-        groupTitle: 'Track & Receive Claims',
-        description: 'Claim tracking and payout monitoring experience.',
-        images: [
-          {
-            src: '/images/farmory/screen_mobile_tracking_claims.png',
-            caption: 'Mobile Experience (Farmers) - Real-time claim status timelines and automated digital pocket payouts.'
+            src: '/portfolio-assets/projects/farmory/screen9.png',
+            caption: 'Track Claims & Payments - Interactive progress bars indicating real-time claim audits and final payments.'
           }
         ]
       }
     ],
     showcaseOutcome: 'Created an open agricultural schema reducing crop distribution delays by 35% in small farming cooperatives.',
     mockupImages: [
-      { src: '/images/farmory/mockup_landscape1.png', orientation: 'landscape', caption: 'Interactive Cooperative Seed Reserves, Harvest Registry & Scheduler' },
-      { src: '/images/farmory/mockup_landscape2.png', orientation: 'landscape', caption: 'Farming Logbook Metrics, Moisture Cohorts & Geographic Yield Profiles' },
-      { src: '/images/farmory/mockup_landscape3.png', orientation: 'landscape', caption: 'Live Logistics Board, Truck Loading Protocols & Community Distribution Dashboard' }
+      { src: '/portfolio-assets/projects/farmory/mockup1.png', orientation: 'landscape', caption: 'Interactive Cooperative Seed Reserves, Harvest Registry & Scheduler' },
+      { src: '/portfolio-assets/projects/farmory/mockup2.png', orientation: 'landscape', caption: 'Farming Logbook Metrics, Moisture Cohorts & Geographic Yield Profiles' },
+      { src: '/portfolio-assets/projects/farmory/mockup3.png', orientation: 'landscape', caption: 'Live Logistics Board, Truck Loading Protocols & Community Distribution Dashboard' }
     ],
     competition: 'AgriTech Innovations Conference',
     outcome: 'Open agricultural database schema cut scheduling conflicts by 35% across 4 cooperatives.',
@@ -507,26 +461,28 @@ export const PROJECTS: Project[] = [
     categories: ['3D'],
     type: 'gallery-3d',
     year: '2024',
+    thumbnail: '/portfolio-assets/3ds/scaffy/thumbnail.png',
     description: 'A friendly 3D character mascot meticulously modeled, textured, and rigged for high-fidelity animations.',
     role: '3D Artist & Rigging Lead',
     tools: ['Blender', 'Substance Painter'],
     softwareUsed: 'Blender',
-    totalPages: 6,
+    totalPages: 7,
     isAcademic: false,
     galleryPages: [
-      '/images/scaffy/page1.png',
-      '/images/scaffy/page2.png',
-      '/images/scaffy/page3.png',
-      '/images/scaffy/page4.png',
-      '/images/scaffy/page5.png',
-      '/images/scaffy/page6.png'
+      '/portfolio-assets/3ds/scaffy/thumbnail.png',
+      '/portfolio-assets/3ds/scaffy/1.png',
+      '/portfolio-assets/3ds/scaffy/2.png',
+      '/portfolio-assets/3ds/scaffy/3.png',
+      '/portfolio-assets/3ds/scaffy/4.png',
+      '/portfolio-assets/3ds/scaffy/5.png',
+      '/portfolio-assets/3ds/scaffy/6.png'
     ],
     bannerColor: 'from-amber-400 via-orange-500 to-red-500',
     accentColor: 'text-orange-600 border-orange-200',
     outcome: 'Mascot successfully modeled and fully rigged to support over 40 distinct promotional animations.',
     mockups: []
   },
-  {
+ {
     slug: 'barbie-doll-house',
     title: 'Barbie Doll House',
     subtitle: '3D Interior & Layout Design',
@@ -534,16 +490,30 @@ export const PROJECTS: Project[] = [
     categories: ['3D'],
     type: 'gallery-3d',
     year: '2023',
+    thumbnail: '/portfolio-assets/3ds/barbie/thumbnail.png',
     description: 'Comprehensive 3D styling, architecture, and interior blueprint modeling of a high-fidelity dollhouse.',
     role: '3D Environment Designer',
     tools: ['Blender', 'Cycles Renderer'],
     softwareUsed: 'Blender',
-    totalPages: 15,
+    totalPages: 16,
     isAcademic: true,
     galleryPages: [
-      '/images/barbie/page1.png', '/images/barbie/page2.png', '/images/barbie/page3.png', '/images/barbie/page4.png', '/images/barbie/page5.png',
-      '/images/barbie/page6.png', '/images/barbie/page7.png', '/images/barbie/page8.png', '/images/barbie/page9.png', '/images/barbie/page10.png',
-      '/images/barbie/page11.png', '/images/barbie/page12.png', '/images/barbie/page13.png', '/images/barbie/page14.png', '/images/barbie/page15.png'
+      '/portfolio-assets/3ds/barbie/thumbnail.png',
+      '/portfolio-assets/3ds/barbie/1.png',
+      '/portfolio-assets/3ds/barbie/2.png',
+      '/portfolio-assets/3ds/barbie/3.png',
+      '/portfolio-assets/3ds/barbie/4.png',
+      '/portfolio-assets/3ds/barbie/5.png',
+      '/portfolio-assets/3ds/barbie/6.png',
+      '/portfolio-assets/3ds/barbie/7.png',
+      '/portfolio-assets/3ds/barbie/8.png',
+      '/portfolio-assets/3ds/barbie/9.png',
+      '/portfolio-assets/3ds/barbie/10.png',
+      '/portfolio-assets/3ds/barbie/11.png',
+      '/portfolio-assets/3ds/barbie/12.png',
+      '/portfolio-assets/3ds/barbie/13.png',
+      '/portfolio-assets/3ds/barbie/14.png',
+      '/portfolio-assets/3ds/barbie/15.png'
     ],
     bannerColor: 'from-pink-400 via-rose-500 to-pink-600',
     accentColor: 'text-pink-600 border-pink-200',
@@ -558,15 +528,21 @@ export const PROJECTS: Project[] = [
     categories: ['3D'],
     type: 'gallery-3d',
     year: '2023',
+    thumbnail: '/portfolio-assets/3ds/chessboard/thumbnail.png',
     description: 'A structural rendering study analyzing light refractions, glass material shaders, and photorealistic raytracing in Blender.',
     role: 'Render & Shading Artist',
     tools: ['Blender', 'LuxCoreRender'],
     softwareUsed: 'Blender',
-    totalPages: 6,
+    totalPages: 7,
     isAcademic: true,
     galleryPages: [
-      '/images/chessboard/page1.png', '/images/chessboard/page2.png', '/images/chessboard/page3.png',
-      '/images/chessboard/page4.png', '/images/chessboard/page5.png', '/images/chessboard/page6.png'
+      '/portfolio-assets/3ds/chessboard/thumbnail.png',
+      '/portfolio-assets/3ds/chessboard/1.png',
+      '/portfolio-assets/3ds/chessboard/2.png',
+      '/portfolio-assets/3ds/chessboard/3.png',
+      '/portfolio-assets/3ds/chessboard/4.png',
+      '/portfolio-assets/3ds/chessboard/5.png',
+      '/portfolio-assets/3ds/chessboard/6.png'
     ],
     bannerColor: 'from-slate-400 via-zinc-500 to-zinc-700',
     accentColor: 'text-slate-605 border-slate-300',
@@ -581,14 +557,19 @@ export const PROJECTS: Project[] = [
     categories: ['3D'],
     type: 'gallery-3d',
     year: '2024',
+    thumbnail: '/portfolio-assets/3ds/tower/thumbnail.png',
     description: 'An intricate voxel architecture layout design mapping out medieval castle corridors, battlements, and landscaping elevations.',
     role: '3D Voxel Artist',
     tools: ['Blender', 'MagicaVoxel'],
     softwareUsed: 'Blender',
-    totalPages: 4,
+    totalPages: 5,
     isAcademic: true,
     galleryPages: [
-      '/images/minecraft/page1.png', '/images/minecraft/page2.png', '/images/minecraft/page3.png', '/images/minecraft/page4.png'
+      '/portfolio-assets/3ds/tower/thumbnail.png',
+      '/portfolio-assets/3ds/tower/1.png',
+      '/portfolio-assets/3ds/tower/2.png',
+      '/portfolio-assets/3ds/tower/3.png',
+      '/portfolio-assets/3ds/tower/4.png'
     ],
     bannerColor: 'from-emerald-500 via-green-600 to-teal-700',
     accentColor: 'text-emerald-600 border-emerald-300',

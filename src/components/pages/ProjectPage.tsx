@@ -53,6 +53,7 @@ function VisualPlaceholder({
 function ImageWithFallback({
   src,
   alt,
+  type,
   project,
   label,
   aspectStyle = 'aspect-[16/10]',
@@ -87,14 +88,19 @@ function ImageWithFallback({
     );
   }
 
+  const isCover = type === 'hero' || type === 'mockup';
+  const imgClassName = isCover
+    ? "w-full h-full object-cover block transition-all group-hover:scale-[1.015] duration-300"
+    : "w-full h-full object-contain block mx-auto";
+
   return (
-    <div className={`relative w-full overflow-hidden cursor-zoom-in group ${noBorder ? '' : 'border-y border-slate-100 bg-slate-50'}`} onClick={onClick}>
+    <div className={`relative w-full ${aspectStyle} overflow-hidden cursor-zoom-in group ${noBorder ? '' : 'border-y border-slate-100 bg-slate-50'}`} onClick={onClick}>
       <img
         src={src}
         alt={alt}
         onError={() => setHasError(true)}
         referrerPolicy="no-referrer"
-        className="w-full h-auto object-contain block mx-auto"
+        className={imgClassName}
       />
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-250 flex items-center justify-center">
         <div className="opacity-0 group-hover:opacity-100 bg-black/70 backdrop-blur-sm px-4 py-2 rounded-full text-xs text-white font-medium tracking-tight flex items-center gap-1.5 shadow-md transition-opacity duration-200">
@@ -163,12 +169,16 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
       });
     } else if (project.type === 'case-study' && project.caseStudyImages) {
       return project.caseStudyImages.map((img, i) => {
-        let label = "Presentation Slide";
-        if (i === 0) label = "Project Overview & Concept";
-        else if (i === 1) label = "User Research & Problem Mapping";
-        else if (i === 2) label = "Information Architecture & Layouts";
-        else if (i === 3) label = "Interface Wireframes & Specs";
-        else if (i === 4) label = "Impact Analysis & Metrics";
+        let label = `Presentation Slide ${i + 1}`;
+        if (project.slug === 'studdy' || project.slug === 'scaffled') {
+          label = `Slide ${i + 1}`;
+        } else {
+          if (i === 0) label = "Project Overview & Concept";
+          else if (i === 1) label = "User Research & Problem Mapping";
+          else if (i === 2) label = "Information Architecture & Layouts";
+          else if (i === 3) label = "Interface Wireframes & Specs";
+          else if (i === 4) label = "Impact Analysis & Metrics";
+        }
         return {
           src: img,
           caption: label,
@@ -286,314 +296,372 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
         className="w-full max-w-[900px] mx-auto bg-white shadow-xl rounded-lg overflow-hidden border border-slate-250 text-slate-800 relative z-10 pointer-events-auto"
         style={{ zoom: 'var(--content-scale, 1)' }}
       >
-        <div className={`h-1 w-full bg-gradient-to-r ${project.bannerColor}`} />
+        {project.slug !== 'studdy' && project.slug !== 'scaffled' && project.type !== 'gallery-3d' && <div className={`h-1 w-full bg-gradient-to-r ${project.bannerColor}`} />}
 
         {/* 1. HEADER BAR */}
-        <div className="py-5 px-6 sm:px-10 md:px-14 border-b border-slate-100 flex justify-between items-center bg-white">
-          <button
-            onClick={() => onNavigate('#/')}
-            className="group flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-650 hover:text-black transition-colors"
-          >
-            <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
-            <span>Back to Portfolio</span>
-          </button>
-                   <div className="flex items-center gap-2 text-slate-400 font-sans text-[11px] font-bold uppercase tracking-wider">
-            <span>{project.category}</span>
-            <span className="text-slate-200">•</span>
-            <span>{project.type === 'case-study' ? 'Case Study' : project.type === 'gallery-3d' ? '3D Showcase' : 'Showcase'}</span>
+        {project.slug !== 'studdy' && project.slug !== 'scaffled' && project.type !== 'gallery-3d' && (
+          <div className="py-5 px-6 sm:px-10 md:px-14 border-b border-slate-100 flex justify-between items-center bg-white">
+            <button
+              onClick={() => onNavigate('#/')}
+              className="group flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-650 hover:text-black transition-colors"
+            >
+              <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
+              <span>Back to Portfolio</span>
+            </button>
+            <div className="flex items-center gap-2 text-slate-400 font-sans text-[11px] font-bold uppercase tracking-wider">
+              <span>{project.category}</span>
+              <span className="text-slate-200">•</span>
+              <span>{project.type === 'case-study' ? 'Case Study' : 'Showcase'}</span>
+            </div>
           </div>
-        </div>
+        )}
 
         {project.type === 'gallery-3d' ? (
+          <div className="w-full flex flex-col bg-white space-y-1">
+            {project.galleryPages?.map((img, idx) => {
+              const flatIdx = carouselItems.findIndex((item) => item.src === img);
+              const actualIdx = flatIdx !== -1 ? flatIdx : idx;
+              return (
+                <img
+                  key={idx}
+                  src={img}
+                  alt={`${project.title} Page ${idx + 1}`}
+                  className="w-full h-auto block select-none cursor-zoom-in"
+                  onClick={() => openLightboxAt(actualIdx)}
+                />
+              );
+            })}
+          </div>
+        ) : (
           <>
-            {/* 3D HERO SECTION */}
-            <div className="py-12 px-6 sm:px-10 md:px-14 bg-white border-b border-slate-100">
-              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-6">
-                <div>
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1">
-                    3D GALLERY WORK
-                  </span>
-                  <h1 className="font-sans font-black text-3xl sm:text-4xl md:text-5xl text-slate-900 tracking-tight leading-tight">
+            {project.slug !== 'studdy' && project.slug !== 'scaffled' && (
+              <>
+                {/* 2. HEADLINE */}
+                <div className="py-10 px-6 sm:px-10 md:px-14 bg-white">
+                  <h1 className="font-sans font-extrabold text-2xl sm:text-3xl md:text-4xl text-slate-900 tracking-tight leading-tight">
                     {project.title}
                   </h1>
-                  <p className="text-base sm:text-lg text-slate-500 font-medium tracking-tight mt-2 leading-normal">
+                  <p className="text-sm sm:text-base text-slate-500 font-medium tracking-tight mt-2.5 max-w-2xl leading-normal">
                     {project.subtitle}
                   </p>
                 </div>
 
-                {/* Minimal Hero Stats Row */}
-                <div className="grid grid-cols-2 sm:flex sm:items-center gap-x-6 gap-y-2 sm:gap-8 pt-4 sm:pt-0 border-t sm:border-t-0 border-slate-150 shrink-0">
-                  <div>
-                    <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider block">
-                      Software Used
-                    </span>
-                    <span className="text-xs sm:text-sm font-semibold text-slate-800 mt-1 block">
-                      {project.softwareUsed || 'Blender'}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider block">
-                      Total Pages
-                    </span>
-                    <span className="text-xs sm:text-sm font-semibold text-indigo-600 mt-1 block">
-                      {project.totalPages || (project.galleryPages?.length || 0)} Pages
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 3D PROJECT INFORMATION PANEL */}
-            <section className="py-6 px-6 sm:px-10 md:px-14 bg-white border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start gap-4">
-              <div className="space-y-1 max-w-xl">
-                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">
-                  Project Information
-                </span>
-                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
-                  {project.description}
-                </p>
-              </div>
-              {/* Metadata Tags */}
-              <div className="flex flex-wrap gap-2 pt-1">
-                <span className="text-[10px] bg-slate-50 border border-slate-200 px-2.5 py-1 rounded text-slate-650 font-semibold uppercase tracking-wider">
-                  {project.subtitle}
-                </span>
-                <span className="text-[10px] bg-indigo-50/50 border border-indigo-100 px-2.5 py-1 rounded text-indigo-650 font-semibold uppercase tracking-wider">
-                  {project.softwareUsed || 'Blender'}
-                </span>
-                {project.isAcademic && (
-                  <span className="text-[10px] bg-orange-50/50 border border-orange-100 px-2.5 py-1 rounded text-orange-650 font-bold uppercase tracking-wider">
-                    Academic Project
-                  </span>
-                )}
-              </div>
-            </section>
-
-            {/* 3D GALLERY SECTION */}
-            <section className="bg-slate-50 border-t border-slate-100 py-10 px-0 flex flex-col space-y-12">
-              {project.galleryPages?.map((img, idx) => (
-                <div key={idx} className="w-full flex flex-col items-center">
-                  {/* Page Label Indicator */}
-                  <div className="w-full max-w-[800px] px-6 sm:px-10 md:px-14 mb-3 flex justify-between items-center text-slate-450">
-                    <span className="text-[10px] uppercase font-bold tracking-widest">
-                      Page {idx + 1}
-                    </span>
-                    <span className="text-[9px] font-mono select-none opacity-60">
-                      A3 PORTRAIT MODEL SHEET // REF_IDX {idx + 1}
-                    </span>
-                  </div>
-
-                  {/* Clean image view without device mockups, wrapping cards, or side-by-side splits */}
-                  <div className="w-full max-w-[800px] px-6 sm:px-10 md:px-14">
+                {/* OPTIONAL HERO BLOCK AT TOP */}
+                {project.type === 'showcase' && project.showcaseHero && (
+                  <div className="w-full border-b border-slate-100 mb-6">
                     <ImageWithFallback
-                      src={img}
-                      alt={`${project.title} Page ${idx + 1}`}
-                      type="slide"
+                      src={project.showcaseHero}
+                      alt={`${project.title} Hero Showcase`}
+                      type="hero"
                       project={project}
-                      label={`3D Render Plate No. ${idx + 1}`}
-                      index={idx}
-                      aspectStyle="aspect-[1/1.414]"
-                      onClick={() => openLightboxAt(idx)}
+                      label="Spotlight Hero Slide"
+                      aspectStyle="aspect-[16/8.5]"
+                      onClick={() => openLightboxAt(0)}
                     />
                   </div>
-                </div>
-              ))}
-            </section>
-          </>
-        ) : (
-          <>
-            {/* 2. HEADLINE */}
-            <div className="py-10 px-6 sm:px-10 md:px-14 bg-white">
-              <h1 className="font-sans font-extrabold text-2xl sm:text-3xl md:text-4xl text-slate-900 tracking-tight leading-tight">
-                {project.title}
-              </h1>
-              <p className="text-sm sm:text-base text-slate-500 font-medium tracking-tight mt-2.5 max-w-2xl leading-normal">
-                {project.subtitle}
-              </p>
-            </div>
+                )}
 
-            {/* OPTIONAL HERO BLOCK AT TOP */}
-            {project.type === 'showcase' && project.showcaseHero && (
-              <div className="w-full border-b border-slate-100 mb-6">
-                <ImageWithFallback
-                  src={project.showcaseHero}
-                  alt={`${project.title} Hero Showcase`}
-                  type="hero"
-                  project={project}
-                  label="Spotlight Hero Slide"
-                  aspectStyle="aspect-[16/8.5]"
-                  onClick={() => openLightboxAt(0)}
-                />
-              </div>
-            )}
-
-            {/* ========================================================
-                1. ABOUT SECTION (Portfolio paper grid layout)
-                ======================================================== */}
-            <section className="py-8 px-6 sm:px-10 md:px-14 space-y-6 bg-white">
-              <div className="space-y-2">
-                <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                  About
-                </h2>
-                <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-normal">
-                  {project.description}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-slate-100">
-                <div>
-                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
-                    Project Year
-                  </span>
-                  <span className="text-xs sm:text-sm font-semibold text-slate-800 mt-1 block">
-                    {project.year}
-                  </span>
-                </div>
-                
-                <div>
-                  <span className="text-[10px] text-slate-350 font-bold uppercase tracking-wider block">
-                    Direct Role
-                  </span>
-                  <span className="text-xs sm:text-sm font-semibold text-slate-850 mt-1 block">
-                    {project.role}
-                  </span>
-                </div>
-
-                <div>
-                  <span className="text-[10px] text-slate-350 font-bold uppercase tracking-wider block">
-                    Platform & Stack
-                  </span>
-                  <div className="flex flex-wrap gap-1 mt-1.5">
-                    {project.tools.map((tl, i) => (
-                      <span key={i} className="text-[10px] bg-slate-50 border border-slate-200 px-2 py-0.5 rounded text-slate-650 font-medium font-sans">
-                        {tl}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* ========================================================
-                2. PROBLEM SECTION (Portfolio paper grid layout)
-                ======================================================== */}
-            <section className="py-8 border-t border-slate-100 bg-white space-y-6">
-              <div className="px-6 sm:px-10 md:px-14 space-y-2.5">
-                <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                  Problem
-                </h2>
-                {project.type === 'showcase' && project.showcaseProblemText ? (
-                  <p className="text-slate-700 text-sm sm:text-base leading-relaxed">
-                    {project.showcaseProblemText}
-                  </p>
-                ) : (
-                  <div className="bg-slate-50/50 border border-slate-150 rounded-lg p-5">
-                    <p className="text-slate-450 text-xs sm:text-sm italic leading-relaxed">
-                      No customized problem statement has been assigned in project records. You can define details within the <code>showcaseProblemText</code> attribute of data.ts to populate this area.
+                {/* ========================================================
+                    1. ABOUT SECTION (Portfolio paper grid layout)
+                    ======================================================== */}
+                <section className="py-8 px-6 sm:px-10 md:px-14 space-y-6 bg-white">
+                  <div className="space-y-2">
+                    <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest">
+                      About
+                    </h2>
+                    <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-normal">
+                      {project.description}
                     </p>
                   </div>
-                )}
-              </div>
 
-              {project.type === 'showcase' && project.showcaseProblemImage && (
-                <div className="w-full">
-                  <ImageWithFallback
-                    src={project.showcaseProblemImage}
-                    alt={`${project.title} Problem Framing`}
-                    type="problem"
-                    project={project}
-                    label="Problem Scenario Diagram"
-                    aspectStyle="aspect-[16/9]"
-                    onClick={() => {
-                      const hIdx = project.showcaseHero ? 1 : 0;
-                      openLightboxAt(hIdx);
-                    }}
-                  />
-                </div>
-              )}
-            </section>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-slate-100">
+                    <div>
+                      <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
+                        Project Year
+                      </span>
+                      <span className="text-xs sm:text-sm font-semibold text-slate-800 mt-1 block">
+                        {project.year}
+                      </span>
+                    </div>
+                    
+                    <div>
+                      <span className="text-[10px] text-slate-350 font-bold uppercase tracking-wider block">
+                        Direct Role
+                      </span>
+                      <span className="text-xs sm:text-sm font-semibold text-slate-850 mt-1 block">
+                        {project.role}
+                      </span>
+                    </div>
+
+                    <div>
+                      <span className="text-[10px] text-slate-355 font-bold uppercase tracking-wider block">
+                        Platform & Stack
+                      </span>
+                      <div className="flex flex-wrap gap-1 mt-1.5">
+                        {project.tools.map((tl, i) => (
+                          <span key={i} className="text-[10px] bg-slate-50 border border-slate-200 px-2 py-0.5 rounded text-slate-650 font-medium font-sans">
+                            {tl}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                {/* ========================================================
+                    2. PROBLEM SECTION (Portfolio paper grid layout)
+                    ======================================================== */}
+                <section className="py-8 border-t border-slate-100 bg-white space-y-6">
+                  <div className="px-6 sm:px-10 md:px-14 space-y-2.5">
+                    <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest">
+                      Problem
+                    </h2>
+                    {project.type === 'showcase' && project.caseStudyImages && project.caseStudyImages.length > 0 ? (
+                      <p className="text-slate-700 text-sm sm:text-base leading-relaxed">
+                        {project.description}
+                      </p>
+                    ) : project.type === 'showcase' && project.showcaseProblemText ? (
+                      <p className="text-slate-700 text-sm sm:text-base leading-relaxed">
+                        {project.showcaseProblemText}
+                      </p>
+                    ) : (
+                      <div className="bg-slate-50/50 border border-slate-150 rounded-lg p-5">
+                        <p className="text-slate-450 text-xs sm:text-sm italic leading-relaxed">
+                          No customized problem statement has been assigned in project records. You can define details within the <code>showcaseProblemText</code> attribute of data.ts to populate this area.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  {project.type === 'showcase' && project.showcaseProblemImage && (
+                    <div className="w-full">
+                      <ImageWithFallback
+                        src={project.showcaseProblemImage}
+                        alt={`${project.title} Problem Framing`}
+                        type="problem"
+                        project={project}
+                        label="Problem Scenario Diagram"
+                        aspectStyle="aspect-[16/9]"
+                        onClick={() => {
+                          const hIdx = project.showcaseHero ? 1 : 0;
+                          openLightboxAt(hIdx);
+                        }}
+                      />
+                    </div>
+                  )}
+                </section>
+              </>
+            )}
 
             {/* ========================================================
                 3. SCREENS SECTION (Slide Showcase Viewport)
                 ======================================================== */}
-            <section className="py-8 border-t border-slate-100 bg-white space-y-6">
-              <div className="px-6 sm:px-10 md:px-14">
-                <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                  Screens
-                </h2>
+            {project.slug === 'studdy' || project.slug === 'scaffled' ? (
+              <div className="w-full flex flex-col bg-white">
+                {project.caseStudyImages?.map((srcVal, idx) => {
+                  const flatIdx = carouselItems.findIndex((item) => item.src === srcVal);
+                  const actualIdx = flatIdx !== -1 ? flatIdx : idx;
+                  return (
+                    <img
+                      key={idx}
+                      src={srcVal}
+                      alt={`${project.title} Slide ${idx + 1}`}
+                      className="w-full h-auto block select-none cursor-zoom-in"
+                      onClick={() => openLightboxAt(actualIdx)}
+                    />
+                  );
+                })}
               </div>
-
-              {/* Render horizontal maximum width presentation stack */}
-              {project.type === 'case-study' && project.caseStudyImages && project.caseStudyImages.length > 0 ? (
-                <div className="flex flex-col space-y-8 bg-slate-50 border-y border-slate-100 py-6">
-                  {project.caseStudyImages.map((img, idx) => {
-                    let slideLabel = "Presentation Slide";
-                    if (idx === 0) slideLabel = "Project Overview & Concept";
-                    else if (idx === 1) slideLabel = "User Research & Problem Mapping";
-                    else if (idx === 2) slideLabel = "Information Architecture & Layouts";
-                    else if (idx === 3) slideLabel = "Interface Wireframes & Specs";
-                    else if (idx === 4) slideLabel = "Impact Analysis & Metrics";
-
-                    return (
-                      <ImageWithFallback
-                        key={idx}
-                        src={img}
-                        alt={`${project.title} Case Slide ${idx + 1}`}
-                        type="slide"
-                        project={project}
-                        label={`${idx + 1}. ${slideLabel}`}
-                        index={idx}
-                        onClick={() => openLightboxAt(idx)}
-                      />
-                    );
-                  })}
+            ) : (
+              <section className="py-8 border-t border-slate-100 bg-white space-y-6">
+                <div className="px-6 sm:px-10 md:px-14">
+                  <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest">
+                    Screens
+                  </h2>
                 </div>
-              ) : project.type === 'showcase' && project.showcaseScreens && project.showcaseScreens.length > 0 ? (
+
+                {/* Render horizontal maximum width presentation stack */}
+                {project.type === 'case-study' && project.caseStudyImages && project.caseStudyImages.length > 0 ? (
+                  <div className="flex flex-col space-y-8 bg-slate-50 border-y border-slate-100 py-6">
+                    {project.caseStudyImages.map((img, idx) => {
+                      let slideLabel = "Presentation Slide";
+                      if (idx === 0) slideLabel = "Project Overview & Concept";
+                      else if (idx === 1) slideLabel = "User Research & Problem Mapping";
+                      else if (idx === 2) slideLabel = "Information Architecture & Layouts";
+                      else if (idx === 3) slideLabel = "Interface Wireframes & Specs";
+                      else if (idx === 4) slideLabel = "Impact Analysis & Metrics";
+
+                      return (
+                        <ImageWithFallback
+                          key={idx}
+                          src={img}
+                          alt={`${project.title} Case Slide ${idx + 1}`}
+                          type="slide"
+                          project={project}
+                          label={`${idx + 1}. ${slideLabel}`}
+                          index={idx}
+                          onClick={() => openLightboxAt(idx)}
+                        />
+                      );
+                    })}
+                  </div>
+                ) : project.type === 'showcase' && project.showcaseScreens && project.showcaseScreens.length > 0 ? (
                 <div className="flex flex-col space-y-10 bg-slate-50 border-y border-slate-100 py-6">
-                  {project.showcaseScreens.map((group, grpIdx) => (
-                    <div key={grpIdx} className="space-y-6">
-                      {(group.groupTitle || group.description) && (
+                  {project.slug === 'farmory' ? (
+                    <div className="flex flex-col space-y-12 py-4">
+                      {/* SECTION 1 */}
+                      <div className="space-y-6">
                         <div className="px-6 sm:px-10 md:px-14 space-y-1.5 mb-2">
-                          {group.groupTitle && (
-                            <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
-                              {group.groupTitle}
-                            </h4>
-                          )}
-                          {group.description && (
-                            <p className="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-3xl whitespace-pre-line">
-                              {group.description}
-                            </p>
-                          )}
+                          <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
+                            Insurance Management Dashboard
+                          </h4>
+                          <p className="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-3xl whitespace-pre-line font-normal">
+                            Administrative dashboard used by insurers to monitor claims, manage farmers, review risk data, process insurance requests, and oversee platform operations.
+                          </p>
                         </div>
-                      )}
-
-                      <div className="flex flex-col space-y-8">
-                        {group.images.map((scr, scrIdx) => {
-                          const flatIdx = carouselItems.findIndex((item) => item.src === scr.src);
-                          const actualIdx = flatIdx !== -1 ? flatIdx : 0;
-
-                          return (
-                            <div key={scrIdx} className="w-full">
+                        <div className="w-full">
+                          {(() => {
+                            const scrSrc = '/portfolio-assets/projects/farmory/screen1.png';
+                            const flatIdx = carouselItems.findIndex((item) => item.src === scrSrc);
+                            const actualIdx = flatIdx !== -1 ? flatIdx : 0;
+                            return (
                               <ImageWithFallback
-                                src={scr.src}
-                                alt={scr.caption}
-                                type="screen"
+                                src={scrSrc}
+                                alt="Insurance Management Dashboard"
+                                type="mockup"
                                 project={project}
-                                label={scr.caption}
+                                label="Insurance Management Dashboard"
+                                noBorder={true}
+                                aspectStyle="aspect-[16/10]"
                                 onClick={() => openLightboxAt(actualIdx)}
                               />
-                              {/* Caption strictly below */}
-                              <div className="px-6 sm:px-10 md:px-14 pt-3">
-                                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-normal">
-                                  {scr.caption}
-                                </p>
+                            );
+                          })()}
+                        </div>
+                      </div>
+
+                      {/* SECTION 2 */}
+                      <div className="space-y-6 border-t border-slate-200/50 pt-10">
+                        <div className="px-6 sm:px-10 md:px-14 space-y-1.5 mb-2">
+                          <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
+                            Insurer Platform
+                          </h4>
+                          <p className="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-3xl whitespace-pre-line font-normal">
+                            Administrative tools for reviewing claims, managing farmer records, monitoring harvest data, and processing insurance operations.
+                          </p>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 w-full">
+                          {[
+                            '/portfolio-assets/projects/farmory/screen2.png',
+                            '/portfolio-assets/projects/farmory/screen3.png',
+                            '/portfolio-assets/projects/farmory/screen4.png',
+                            '/portfolio-assets/projects/farmory/screen5.png'
+                          ].map((srcVal, idx) => {
+                            const flatIdx = carouselItems.findIndex((item) => item.src === srcVal);
+                            const actualIdx = flatIdx !== -1 ? flatIdx : 0;
+
+                            return (
+                              <div key={idx} className="w-full">
+                                <ImageWithFallback
+                                  src={srcVal}
+                                  alt={`Insurer Platform Screen ${idx + 2}`}
+                                  type="mockup"
+                                  project={project}
+                                  label={`Insurer Platform Screen ${idx + 2}`}
+                                  noBorder={true}
+                                  aspectStyle="aspect-[16/10]"
+                                  onClick={() => openLightboxAt(actualIdx)}
+                                />
                               </div>
-                            </div>
-                          );
-                        })}
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* SECTION 3 */}
+                      <div className="space-y-6 border-t border-slate-200/50 pt-10">
+                        <div className="px-6 sm:px-10 md:px-14 space-y-1.5 mb-2">
+                          <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
+                            Farmer Mobile Experience
+                          </h4>
+                          <p className="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-3xl whitespace-pre-line font-normal">
+                            Mobile-first workflows allowing farmers to register, manage crops, submit insurance claims, and track claim status in real time.
+                          </p>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 w-full">
+                          {[
+                            '/portfolio-assets/projects/farmory/screen6.png',
+                            '/portfolio-assets/projects/farmory/screen7.png',
+                            '/portfolio-assets/projects/farmory/screen8.png',
+                            '/portfolio-assets/projects/farmory/screen9.png'
+                          ].map((srcVal, idx) => {
+                            const flatIdx = carouselItems.findIndex((item) => item.src === srcVal);
+                            const actualIdx = flatIdx !== -1 ? flatIdx : 0;
+
+                            return (
+                              <div key={idx} className="w-full">
+                                <ImageWithFallback
+                                  src={srcVal}
+                                  alt={`Farmer Mobile Screen ${idx + 6}`}
+                                  type="mockup"
+                                  project={project}
+                                  label={`Farmer Mobile Screen ${idx + 6}`}
+                                  noBorder={true}
+                                  aspectStyle="aspect-[16/10]"
+                                  onClick={() => openLightboxAt(actualIdx)}
+                                />
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
                     </div>
-                  ))}
+                  ) : (
+                    project.showcaseScreens.map((group, grpIdx) => (
+                      <div key={grpIdx} className="space-y-6">
+                        {(group.groupTitle || group.description) && (
+                          <div className="px-6 sm:px-10 md:px-14 space-y-1.5 mb-2">
+                            {group.groupTitle && (
+                              <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
+                                {group.groupTitle}
+                              </h4>
+                            )}
+                            {group.description && (
+                              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-3xl whitespace-pre-line">
+                                {group.description}
+                              </p>
+                            )}
+                          </div>
+                        )}
+
+                        <div className="flex flex-col space-y-8">
+                          {group.images.map((scr, scrIdx) => {
+                            const flatIdx = carouselItems.findIndex((item) => item.src === scr.src);
+                            const actualIdx = flatIdx !== -1 ? flatIdx : 0;
+
+                            return (
+                              <div key={scrIdx} className="w-full">
+                                <ImageWithFallback
+                                  src={scr.src}
+                                  alt={scr.caption}
+                                  type="screen"
+                                  project={project}
+                                  label={scr.caption}
+                                  onClick={() => openLightboxAt(actualIdx)}
+                                />
+                                {/* Caption strictly below */}
+                                <div className="px-6 sm:px-10 md:px-14 pt-3">
+                                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-normal">
+                                    {scr.caption}
+                                  </p>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))
+                  )}
                 </div>
               ) : (
                 <div className="px-6 sm:px-10 md:px-14">
@@ -605,11 +673,13 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
                 </div>
               )}
             </section>
+            )}
 
             {/* ========================================================
                 4. MOCKUPS SECTION
                 ======================================================== */}
-            <section className="pt-8 border-t border-slate-100 bg-white">
+            {project.slug !== 'studdy' && project.slug !== 'scaffled' && (
+              <section className="pt-8 border-t border-slate-100 bg-white">
               <div className="px-6 sm:px-10 md:px-14 mb-6">
                 <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest">
                   Mockups
@@ -695,6 +765,7 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
                 }
               })()}
             </section>
+            )}
           </>
         )}
 

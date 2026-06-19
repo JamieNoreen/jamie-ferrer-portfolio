@@ -47,44 +47,14 @@ export default function FeaturedWork({ onNavigate, searchQuery, setSearchQuery }
 
   // Custom visuals matching the modern Canva graphic thumbnail look
   const renderBannerGraphics = (project: Project) => {
-    if (project.type === 'gallery-3d') {
+    if (project.type === 'gallery-3d' && project.thumbnail) {
       return (
-        <div className="absolute inset-0 bg-[#F8FAFC] border border-[#E2E8F0] flex flex-col justify-between p-4 px-4.5 py-4 pb-4.5 text-slate-800 select-none overflow-hidden font-sans">
-          {/* Background grid representing a 3D grid layout canvas */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:14px_14px] opacity-[0.35]" />
-          
-          {/* Subtle decorative concentric orbits */}
-          <div className="absolute -right-8 -bottom-8 w-28 h-28 rounded-full border border-slate-200 opacity-30 pointer-events-none" />
-          <div className="absolute -right-4 -bottom-4 w-16 h-16 rounded-full border border-slate-200 opacity-20 pointer-events-none" />
-          
-          {/* Card Label */}
-          <div className="flex justify-between items-center z-10 w-full relative">
-            <span className="text-[8px] font-mono uppercase tracking-widest text-[#64748B] font-bold bg-slate-100 border border-slate-200/50 px-2 py-0.5 rounded-full select-none">
-              3D WIREFRAME
-            </span>
-            <div className="flex gap-0.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#E2E8F0]" />
-              <span className="w-1.5 h-1.5 rounded-full bg-[#CBD5E1]" />
-              <span className="w-1.5 h-1.5 rounded-full bg-[#94A3B8]" />
-            </div>
-          </div>
-
-          {/* Centered Composition */}
-          <div className="my-auto text-center flex flex-col items-center justify-center z-10 p-2 relative font-sans">
-            <h5 className="font-sans font-extrabold text-[12.5px] text-[#0F172A] tracking-tight leading-snug">
-              [ {project.title} ]
-            </h5>
-            <p className="font-mono text-[8.5px] uppercase tracking-wider text-[#64748B] mt-1 pr-0.5 font-bold">
-              3D Modeling Project
-            </p>
-          </div>
-
-          {/* Isometric subtle wireframe placeholder footer metadata */}
-          <div className="flex justify-between items-center text-[7.5px] font-mono text-slate-400 z-10 relative">
-            <span>UNRENDERED BLOCKS</span>
-            <span>CYCLES/EVEE v2</span>
-          </div>
-        </div>
+        <img 
+          src={project.thumbnail} 
+          alt={`${project.title} Thumbnail`}
+          className="w-full h-full object-cover transition-all duration-500 group-hover:scale-[1.03] select-none pointer-events-none"
+          loading="lazy"
+        />
       );
     }
 
