@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { motion } from 'motion/react';
-import React, { useRef, useState } from 'react';
+import { motion, useMotionValue } from 'motion/react';
+import React, { useRef, useState, useEffect } from 'react';
 
 interface DraggableStickerProps {
   key?: string;
@@ -15,6 +15,7 @@ interface DraggableStickerProps {
   y: number; // percentage (e.g. 50 for 50%)
   emoji?: string;
   color?: string;
+  imagePath?: string;
   onUpdatePosition: (id: string, x: number, y: number) => void;
   onDelete?: (id: string) => void;
   dragConstraintsRef: React.RefObject<HTMLDivElement | null>;
@@ -68,12 +69,22 @@ export default function DraggableSticker({
   y,
   emoji,
   color,
+  imagePath,
   onUpdatePosition,
   onDelete,
   dragConstraintsRef
 }: DraggableStickerProps) {
   const stickerRef = useRef<HTMLDivElement>(null);
   const [hasError, setHasError] = useState(false);
+
+  const dragX = useMotionValue(0);
+  const dragY = useMotionValue(0);
+
+  // When x or y coordinates update from parent, reset drag offset to 0
+  useEffect(() => {
+    dragX.set(0);
+    dragY.set(0);
+  }, [x, y, dragX, dragY]);
 
   const handleDragEnd = (_event: any, info: any) => {
     if (!dragConstraintsRef.current || !stickerRef.current) return;
@@ -82,13 +93,10 @@ export default function DraggableSticker({
     const containerRect = container.getBoundingClientRect();
     const stickerRect = stickerRef.current.getBoundingClientRect();
 
-    // The midpoint of the sticker in window coordinates after drag
-    const stickerMidX = stickerRect.left + stickerRect.width / 2;
-    const stickerMidY = stickerRect.top + stickerRect.height / 2;
-
-    // Relative to the container's top-left corner
-    const relativeX = stickerMidX - containerRect.left;
-    const relativeY = stickerMidY - containerRect.top;
+    // Because of translate(-50%, -50%) on the inner div, the visual center
+    // of the sticker is located exactly at the top-left corner of the parent motion.div (stickerRect).
+    const relativeX = stickerRect.left - containerRect.left;
+    const relativeY = stickerRect.top - containerRect.top;
 
     // Convert back to percentages
     const pctX = (relativeX / containerRect.width) * 100;
@@ -105,14 +113,19 @@ export default function DraggableSticker({
   const renderStickerContent = () => {
     if (hasError) return null;
 
-    // Determine path dynamically from the location hash
-    const hash = typeof window !== 'undefined' ? window.location.hash || '#/' : '#/';
-    const clean = hash.replace('#/', '');
-    const pageKey = clean === '' ? 'about' : clean;
+    let src = '';
+    if (imagePath) {
+      src = imagePath;
+    } else {
+      // Determine path dynamically from the location hash (fallback)
+      const hash = typeof window !== 'undefined' ? window.location.hash || '#/' : '#/';
+      const clean = hash.replace('#/', '');
+      const pageKey = clean === '' ? 'about' : clean;
 
-    const { folder, totalFiles } = getFolderAndFilesForPage(pageKey);
-    const index = getStickerIndex(id, totalFiles);
-    const src = `${folder}sticker${index}.png`;
+      const { folder, totalFiles } = getFolderAndFilesForPage(pageKey);
+      const index = getStickerIndex(id, totalFiles);
+      src = `${folder}sticker${index}.png`;
+    }
 
     const rotationClass = getStickerRotation(id);
 
@@ -121,7 +134,8 @@ export default function DraggableSticker({
         src={src}
         alt={label || 'Sticker'}
         onError={() => setHasError(true)}
-        className={`w-28 h-28 md:w-32 md:h-32 object-contain transition-transform duration-200 ease-out hover:scale-110 active:scale-95 ${rotationClass} hover:rotate-0 select-none pointer-events-none`}
+        className={`w-28 h-28 md:w-32 md:h-32 object-contain transition-transform duration-200 ease-out hover:scale-110 active:scale-95 ${rotationClass} hover:rotate-0 select-none cursor-grab active:cursor-grabbing`}
+        draggable={false}
         referrerPolicy="no-referrer"
       />
     );
@@ -131,22 +145,27 @@ export default function DraggableSticker({
 
   return (
     <motion.div
+      key={id}
       ref={stickerRef}
       drag
       dragMomentum={false}
-      dragElastic={0.02}
+      dragElastic={0}
       dragConstraints={dragConstraintsRef}
       onDragEnd={handleDragEnd}
       style={{
         position: 'absolute',
         left: `${x}%`,
         top: `${y}%`,
-        transform: 'translate(-50%, -50%)',
+        x: dragX,
+        y: dragY,
         zIndex: 50,
       }}
-      className="absolute pointer-events-auto cursor-grab active:cursor-grabbing selection:bg-transparent group/sticker"
+      className="absolute pointer-events-auto selection:bg-transparent group/sticker"
     >
-      <div className="relative">
+      <div 
+        style={{ transform: 'translate(-50%, -50%)' }} 
+        className="relative pointer-events-auto select-none"
+      >
         {renderStickerContent()}
         {onDelete && (
           <button
@@ -154,7 +173,7 @@ export default function DraggableSticker({
               e.stopPropagation();
               onDelete(id);
             }}
-            className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-red-500 hover:bg-red-650 text-white rounded-full flex items-center justify-center text-[10px] opacity-0 group-hover/sticker:opacity-100 transition-opacity cursor-pointer z-50 shadow-xs border border-white font-sans font-bold leading-none"
+            className="absolute -top-2 -right-2 w-[18px] h-[18px] bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center text-[11px] opacity-0 group-hover/sticker:opacity-100 transition-opacity cursor-pointer z-50 shadow-sm border border-white font-sans font-bold leading-none"
             title="Delete sticker"
           >
             ×

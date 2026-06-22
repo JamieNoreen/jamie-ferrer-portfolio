@@ -173,7 +173,7 @@ interface CustomizationSidebarProps {
   onChangePalette: (palette: string) => void;
   currentTypography: string;
   onChangeTypography: (typography: string) => void;
-  onAddSticker: (type: string, label: string, emoji?: string, color?: string) => void;
+  onAddSticker: (type: string, label: string, emoji?: string, color?: string, imagePath?: string) => void;
   onResetStickers: () => void;
 }
 
@@ -252,163 +252,28 @@ export default function CustomizationSidebar({
     previewText: string;
     emoji?: string;
     color?: string;
+    imagePath?: string;
   }
 
-  const unifiedStickers: CatalogueSticker[] = [
-    { type: 'paper-tab', label: 'CREATOR CORE', previewText: 'CREATOR CORE' },
-    { type: 'minimal-label', label: 'DESIGN SCHEMAS', previewText: 'DESIGN' },
-    { type: 'geometric-symbol', label: 'star', emoji: '✦', previewText: '✦' },
-    { type: 'tape-strip', label: 'TAPE: READ ME', previewText: 'Washi Tape' },
-    { type: 'photo-cutout-frame', label: 'Caffeine Fuel', emoji: '☕', previewText: '☕ Cutout' },
-    { type: 'doodle-shape', label: 'sparkle', emoji: '✨', previewText: '✨' },
-    { type: 'neon-highlight', label: 'CORE_IDENTITY // ACTIVATE', previewText: 'CORE_ID' },
-    { type: 'holographic-badge', label: 'GLOW', emoji: '⌖', previewText: '⌖ Grid' },
-    { type: 'grid-fragment', label: 'SYS_CIRCUIT', previewText: 'Circuit Map' }
-  ];
-
-  // Dynamically configure sticker selections based on active page and template
+  // Dynamically configure sticker selections based on active page
   const getActiveStickers = (): CatalogueSticker[] => {
-    if (pageName === 'achievements') {
-      if (currentTemplate === 'minimalism') {
-        return [
-          { type: 'paper-tab', label: 'Small trophy outline', previewText: '♜' },
-          { type: 'geometric-symbol', label: 'Minimal star shape', emoji: '★', previewText: '★' },
-          { type: 'paper-tab', label: 'Clean ribbon outline', previewText: '🎀' },
-          { type: 'geometric-symbol', label: 'Simple bracket decoration', emoji: '[ ]', previewText: '[ ]' },
-          { type: 'geometric-symbol', label: 'Subtle circular stamp', emoji: '💮', previewText: '💮' },
-        ];
-      } else if (currentTemplate === 'editorial') {
-        return [
-          { type: 'doodle-shape', label: 'Star burst shape', emoji: '✸', previewText: '✸' },
-          { type: 'tape-strip', label: 'Underline swoosh', previewText: '〰' },
-          { type: 'photo-cutout-frame', label: 'Exclamation cutout', emoji: '❕', previewText: '❕' },
-          { type: 'doodle-shape', label: 'Confetti shape', emoji: '❃', previewText: '❃' },
-          { type: 'tape-strip', label: 'Ribbon banner cutout', previewText: '🎗' },
-        ];
-      } else { // futuristic
-        return [
-          { type: 'neon-highlight', label: 'Glowing star fragment', previewText: '✦' },
-          { type: 'holographic-badge', label: 'Neon rank badge shape', emoji: '▲', previewText: '▲' },
-          { type: 'holographic-badge', label: 'Holographic medal circle', emoji: '⚙', previewText: '⚙' },
-          { type: 'grid-fragment', label: 'Glowing bracket pair', previewText: '⌖' },
-          { type: 'neon-highlight', label: 'Neon underline bar', previewText: '▬' },
-        ];
-      }
+    const pk = pageName || 'about';
+    let totalFiles = 5;
+    if (pk === 'certificates') {
+      totalFiles = 3;
     }
 
-    if (pageName === 'certificates') {
-      if (currentTemplate === 'minimalism') {
-        return [
-          { type: 'paper-tab', label: 'Small certificate outline shape', previewText: '🗎' },
-          { type: 'geometric-symbol', label: 'Minimal seal/stamp circle', emoji: '⊚', previewText: '⊚' },
-          { type: 'paper-tab', label: 'Clean ribbon outline', previewText: '🎗' },
-          { type: 'geometric-symbol', label: 'Simple checkmark badge', emoji: '✓', previewText: '✓' },
-          { type: 'geometric-symbol', label: 'Subtle bracket decoration', emoji: '[ ]', previewText: '[ ]' },
-        ];
-      } else if (currentTemplate === 'editorial') {
-        return [
-          { type: 'doodle-shape', label: 'Star burst shape', emoji: '✸', previewText: '✸' },
-          { type: 'tape-strip', label: 'Underline swoosh', previewText: '〰' },
-          { type: 'tape-strip', label: 'Washi tape strip', previewText: 'TAPE' },
-          { type: 'photo-cutout-frame', label: 'Stamp cutout shape', emoji: '💮', previewText: '💮' },
-          { type: 'doodle-shape', label: 'Confetti scatter', emoji: '❃', previewText: '❃' },
-        ];
-      } else { // futuristic
-        return [
-          { type: 'neon-highlight', label: 'Glowing verification badge shape', previewText: '🛡' },
-          { type: 'holographic-badge', label: 'Neon checkmark fragment', emoji: '✓', previewText: '✓' },
-          { type: 'holographic-badge', label: 'Holographic seal circle', emoji: '⚙', previewText: '⚙' },
-          { type: 'grid-fragment', label: 'Glowing bracket pair', previewText: '⌖' },
-          { type: 'neon-highlight', label: 'Neon underline bar', previewText: '▬' },
-        ];
-      }
+    const list: CatalogueSticker[] = [];
+    for (let i = 1; i <= totalFiles; i++) {
+      const path = getStickerImagePath(pk, i);
+      list.push({
+        type: 'sticker-image',
+        label: `${pk.charAt(0).toUpperCase() + pk.slice(1)} Sticker ${i}`,
+        previewText: `${pk.charAt(0).toUpperCase() + pk.slice(1)} Sticker ${i}`,
+        imagePath: path
+      });
     }
-
-    if (pageName === 'leadership') {
-      if (currentTemplate === 'minimalism') {
-        return [
-          { type: 'paper-tab', label: 'Small crown outline shape', previewText: '👑' },
-          { type: 'geometric-symbol', label: 'Minimal org chart node symbol', emoji: '⎔', previewText: '⎔' },
-          { type: 'paper-tab', label: 'Clean badge outline', previewText: '🛡' },
-          { type: 'geometric-symbol', label: 'Simple directional arrow', emoji: '→', previewText: '→' },
-          { type: 'geometric-symbol', label: 'Subtle seal circle', emoji: '⊚', previewText: '⊚' },
-        ];
-      } else if (currentTemplate === 'editorial') {
-        return [
-          { type: 'doodle-shape', label: 'Bold star burst shape', emoji: '✸', previewText: '✸' },
-          { type: 'tape-strip', label: 'Underline swoosh', previewText: '〰' },
-          { type: 'tape-strip', label: 'Washi tape strip in accent color', previewText: 'TAPE' },
-          { type: 'photo-cutout-frame', label: 'Bold exclamation cutout', emoji: '❕', previewText: '❕' },
-          { type: 'doodle-shape', label: 'Overlapping circle shapes', emoji: '⚯', previewText: '⚯' },
-        ];
-      } else { // futuristic
-        return [
-          { type: 'neon-highlight', label: 'Glowing crown fragment', previewText: '👑' },
-          { type: 'holographic-badge', label: 'Neon rank insignia shape', emoji: '▲', previewText: '▲' },
-          { type: 'holographic-badge', label: 'Holographic shield badge', emoji: '🛡', previewText: '🛡' },
-          { type: 'grid-fragment', label: 'Glowing node connector shape', previewText: '⌖' },
-          { type: 'neon-highlight', label: 'Circuit hierarchy line', previewText: '▬' },
-        ];
-      }
-    }
-
-    if (pageName === 'tech-stacks') {
-      if (currentTemplate === 'minimalism') {
-        return [
-          { type: 'paper-tab', label: 'Small code bracket symbol', previewText: '</>' },
-          { type: 'geometric-symbol', label: 'Minimal terminal cursor shape', emoji: '▮', previewText: '▮' },
-          { type: 'paper-tab', label: 'Clean grid dot pattern', previewText: '::' },
-          { type: 'geometric-symbol', label: 'Simple diagonal slash decoration', emoji: '╱', previewText: '╱' },
-          { type: 'geometric-symbol', label: 'Subtle monochrome chip shape', emoji: '⧇', previewText: '⧇' },
-        ];
-      } else if (currentTemplate === 'editorial') {
-        return [
-          { type: 'doodle-shape', label: 'Bold lightning bolt shape', emoji: '⚡', previewText: '⚡' },
-          { type: 'doodle-shape', label: 'Hand-drawn star burst', emoji: '✸', previewText: '✸' },
-          { type: 'tape-strip', label: 'Washi tape strip in accent color', previewText: 'TAPE' },
-          { type: 'photo-cutout-frame', label: 'Bold plus sign cutout', emoji: '＋', previewText: '＋' },
-          { type: 'doodle-shape', label: 'Overlapping circle decoration', emoji: '⚯', previewText: '⚯' },
-        ];
-      } else { // futuristic
-        return [
-          { type: 'neon-highlight', label: 'Glowing code bracket fragment', previewText: '</>' },
-          { type: 'holographic-badge', label: 'Neon terminal cursor shape', emoji: '▮', previewText: '▮' },
-          { type: 'holographic-badge', label: 'Holographic chip badge', emoji: '⧇', previewText: '⧇' },
-          { type: 'grid-fragment', label: 'Glowing circuit node shape', previewText: '⌖' },
-          { type: 'neon-highlight', label: 'Neon grid fragment', previewText: '▤' },
-        ];
-      }
-    }
-
-    if (pageName === 'contact') {
-      if (currentTemplate === 'minimalism') {
-        return [
-          { type: 'paper-tab', label: 'Small envelope outline shape', previewText: '✉' },
-          { type: 'geometric-symbol', label: 'Minimal signal/wave symbol', emoji: '∿', previewText: '∿' },
-          { type: 'paper-tab', label: 'Clean location pin outline', previewText: '📍' },
-          { type: 'geometric-symbol', label: 'Simple link chain symbol', emoji: '🔗', previewText: '🔗' },
-          { type: 'geometric-symbol', label: 'Subtle circle with dot center', emoji: '☉', previewText: '☉' },
-        ];
-      } else if (currentTemplate === 'editorial') {
-        return [
-          { type: 'doodle-shape', label: 'Bold speech bubble shape', emoji: '💬', previewText: '💬' },
-          { type: 'doodle-shape', label: 'Hand-drawn star burst', emoji: '✸', previewText: '✸' },
-          { type: 'tape-strip', label: 'Washi tape strip in accent color', previewText: 'TAPE' },
-          { type: 'photo-cutout-frame', label: 'Bold heart cutout', emoji: '♥', previewText: '♥' },
-          { type: 'doodle-shape', label: 'Annotation arrow pointing inward', emoji: '➔', previewText: '➔' },
-        ];
-      } else { // futuristic
-        return [
-          { type: 'neon-highlight', label: 'Glowing signal wave fragment', previewText: '∿' },
-          { type: 'holographic-badge', label: 'Neon connection node shape', emoji: '⌖', previewText: '⌖' },
-          { type: 'holographic-badge', label: 'Holographic transmission badge', emoji: '📡', previewText: '📡' },
-          { type: 'grid-fragment', label: 'Glowing envelope outline', previewText: '✉' },
-          { type: 'neon-highlight', label: 'Circuit connector line', previewText: '▬' },
-        ];
-      }
-    }
-
-    return unifiedStickers;
+    return list;
   };
 
   const activeStickerSet = getActiveStickers();
@@ -628,9 +493,8 @@ export default function CustomizationSidebar({
 
               {/* --- PANEL 2: STICKERS --- */}
               {activePanel === 'stickers' && (
-                <div className="space-y-4">
-                  
-                  <div className="grid grid-cols-1 gap-2.5">
+                <div className="space-y-6 max-h-[calc(100vh-120px)] overflow-y-auto px-2 py-4">
+                  <div className="flex flex-col gap-6">
                     {activeStickerSet.map((sticker, idx) => {
                       return (
                         <div
@@ -640,28 +504,19 @@ export default function CustomizationSidebar({
                               sticker.type, 
                               sticker.label, 
                               sticker.emoji, 
-                              sticker.color
+                              sticker.color,
+                              sticker.imagePath
                             );
                           }}
-                          className="p-2.5 rounded-lg border border-gray-150 hover:bg-gray-50 transition-all cursor-pointer flex items-center justify-between group active:scale-[0.98]"
+                          className="w-full aspect-square flex items-center justify-center cursor-pointer transition-all duration-200 active:scale-95 hover:scale-105 p-1 select-none"
+                          title={`Add ${sticker.label}`}
                         >
-                          {/* Left: Beautiful mini render mockup using real sticker picture */}
-                          <div className="flex items-center gap-2">
-                            <div className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-md border border-gray-150 overflow-hidden select-none bg-radial from-neutral-50 to-neutral-100">
-                              <img
-                                src={getStickerImagePath(pageName, idx + 1)}
-                                alt={sticker.label}
-                                className="w-8 h-8 object-contain"
-                                referrerPolicy="no-referrer"
-                              />
-                            </div>
-
-                            <span className="font-sans font-bold text-[10.5px] text-[#334155] group-hover:text-black">
-                              {sticker.label.length > 20 ? sticker.label.substr(0,18) + '..' : sticker.label}
-                            </span>
-                          </div>
-
-                          <div className="text-[12px] text-gray-300 group-hover:text-black font-semibold">+</div>
+                          <img
+                            src={sticker.imagePath}
+                            alt={sticker.label}
+                            className="w-full h-full object-contain filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.08)] hover:drop-shadow-[0_6px_12px_rgba(0,0,0,0.14)]"
+                            referrerPolicy="no-referrer"
+                          />
                         </div>
                       );
                     })}

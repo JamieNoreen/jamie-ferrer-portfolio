@@ -16,6 +16,7 @@ export type PageName =
 
 export type TemplateType = "minimalism" | "editorial" | "futuristic";
 
+
 export interface Sticker {
   id: string;
   type: string; // e.g., 'paper-tab', 'star', 'tape', 'doodle', 'neon-ring', 'circle-badge', 'bracket'
@@ -25,6 +26,7 @@ export interface Sticker {
   color?: string;
   emoji?: string;
   size?: string;
+  imagePath?: string;
 }
 
 export interface ShowcaseScreenItem {

@@ -203,7 +203,7 @@ export default function App() {
     setPageTypography(newTypography);
   };
 
-  const handleAddSticker = (type: string, label: string, emoji?: string, color?: string) => {
+  const handleAddSticker = (type: string, label: string, emoji?: string, color?: string, imagePath?: string) => {
     if (!corePageKey) return;
     const newSticker: Sticker = {
       id: `st-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
@@ -213,6 +213,7 @@ export default function App() {
       color: color || '',
       defaultX: 30 + Math.random() * 40,
       defaultY: 20 + Math.random() * 50,
+      imagePath: imagePath || '',
     };
     setStickers((prev) => {
       const updated = [...prev, newSticker];
@@ -415,6 +416,7 @@ export default function App() {
                   y={st.defaultY}
                   emoji={st.emoji}
                   color={st.color}
+                  imagePath={st.imagePath}
                   onUpdatePosition={handleUpdateStickerPos}
                   onDelete={handleDeleteSticker}
                   dragConstraintsRef={dragConstraintsRef}
