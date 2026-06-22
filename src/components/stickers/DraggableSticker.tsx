@@ -4,7 +4,7 @@
  */
 
 import { motion } from 'motion/react';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 interface DraggableStickerProps {
   key?: string;
@@ -20,6 +20,46 @@ interface DraggableStickerProps {
   dragConstraintsRef: React.RefObject<HTMLDivElement | null>;
 }
 
+const getFolderAndFilesForPage = (pageKey: string) => {
+  const pk = pageKey || 'about';
+  switch (pk) {
+    case 'about':
+      return { folder: '/portfolio-assets/stickers/about-stickers/', totalFiles: 5 };
+    case 'achievements':
+      return { folder: '/portfolio-assets/stickers/awards-stickers/', totalFiles: 5 };
+    case 'certificates':
+      return { folder: '/portfolio-assets/stickers/certs-stickers/', totalFiles: 3 };
+    case 'leadership':
+      return { folder: '/portfolio-assets/stickers/leadership-stickers/', totalFiles: 5 };
+    case 'tech-stacks':
+      return { folder: '/portfolio-assets/stickers/skills-stickers/', totalFiles: 5 };
+    case 'contact':
+      return { folder: '/portfolio-assets/stickers/contact-stickers/', totalFiles: 5 };
+    default:
+      return { folder: '/portfolio-assets/stickers/about-stickers/', totalFiles: 5 };
+  }
+};
+
+const getStickerIndex = (id: string, totalFiles: number): number => {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash += id.charCodeAt(i);
+  }
+  return (hash % totalFiles) + 1; // 1 to totalFiles
+};
+
+const getStickerRotation = (id: string): string => {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash += id.charCodeAt(i);
+  }
+  // Deterministic rotation class to give custom organic placements
+  const rotations = [
+    '-rotate-6', '-rotate-3', '-rotate-1', 'rotate-1', 'rotate-3', 'rotate-6', 'rotate-12', '-rotate-12'
+  ];
+  return rotations[hash % rotations.length];
+};
+
 export default function DraggableSticker({
   id,
   type,
@@ -33,6 +73,7 @@ export default function DraggableSticker({
   dragConstraintsRef
 }: DraggableStickerProps) {
   const stickerRef = useRef<HTMLDivElement>(null);
+  const [hasError, setHasError] = useState(false);
 
   const handleDragEnd = (_event: any, info: any) => {
     if (!dragConstraintsRef.current || !stickerRef.current) return;
@@ -62,82 +103,31 @@ export default function DraggableSticker({
 
   // Switch sticker looks using Tailwind CSS matching themes
   const renderStickerContent = () => {
-    switch (type) {
-      // 1. Minimalism Stickers
-      case 'paper-tab':
-        return (
-          <div className="bg-white border-2 border-gray-900 shadow-md px-4 py-2 rounded-md text-xs md:text-sm font-mono font-extrabold text-gray-900 flex items-center gap-2 select-none hover:bg-gray-50 border-t-6 border-t-[#1A1A1A]">
-            <span className="w-2 h-2 rounded-full bg-black shrink-0"></span>
-            <span className="tracking-tight uppercase">{label}</span>
-          </div>
-        );
-      case 'geometric-symbol':
-        return (
-          <div className="text-gray-900 font-display font-black text-2xl bg-white border-2 border-gray-900 w-12 h-12 rounded-full flex items-center justify-center select-none shadow-md hover:border-black transform hover:rotate-12 transition-transform">
-            {emoji || '✦'}
-          </div>
-        );
-      case 'minimal-label':
-        return (
-          <div className="bg-[#1A1A1A] text-white text-[11px] font-mono tracking-widest px-4.5 py-2 uppercase select-none rounded-md shadow-md hover:bg-black font-extrabold border border-black/15">
-            {label}
-          </div>
-        );
+    if (hasError) return null;
 
-      // 2. Editorial Stickers
-      case 'tape-strip':
-        return (
-          <div className="bg-[#FCF5E3] border-y-2 border-dashed border-[#8F6B43]/30 px-6 py-2.5 -rotate-3 hover:rotate-0 transition-transform shadow-md text-xs uppercase tracking-wider font-extrabold text-[#5C4033] w-48 text-center select-none cursor-grab active:cursor-grabbing">
-            📌 {label}
-          </div>
-        );
-      case 'doodle-shape':
-        return (
-          <div className="text-4xl md:text-5xl filter drop-shadow-md transform rotate-6 select-none hover:scale-115 transition-transform">
-            {emoji || '✍️'}
-          </div>
-        );
-      case 'photo-cutout-frame':
-        return (
-          <div className="bg-white p-2.5 pb-6 border-2 border-gray-300 shadow-lg w-32 md:w-36 -rotate-3 hover:rotate-1 transition-transform select-none">
-            <div className="aspect-square bg-gray-150 flex items-center justify-center overflow-hidden border border-gray-200 rounded-sm">
-              <span className="text-4xl">{emoji || '🎨'}</span>
-            </div>
-            <p className="text-[9px] md:text-[10px] text-center text-gray-500 mt-2 font-mono font-black tracking-wider leading-none uppercase">{label}</p>
-          </div>
-        );
+    // Determine path dynamically from the location hash
+    const hash = typeof window !== 'undefined' ? window.location.hash || '#/' : '#/';
+    const clean = hash.replace('#/', '');
+    const pageKey = clean === '' ? 'about' : clean;
 
-      // 3. Futuristic Stickers
-      case 'neon-highlight':
-        return (
-          <div className="border-2 border-[var(--page-accent)] bg-black/90 text-[var(--page-accent)] text-xs font-mono font-black py-2 px-4 uppercase select-none rounded-md tracking-widest shadow-[0_0_12px_rgba(0,255,136,0.3)] flex items-center gap-2.5">
-            <span className="w-2 h-2 rounded-full bg-[var(--page-accent)] animate-pulse shrink-0"></span>
-            <span>{label}</span>
-          </div>
-        );
-      case 'holographic-badge':
-        return (
-          <div className="w-16 h-16 rounded-full border-2 border-[var(--page-accent)] bg-[var(--page-bg)]/80 flex flex-col items-center justify-center text-[var(--page-accent)] font-mono text-[9px] tracking-widest select-none shadow-[0_0_12px_rgba(0,255,136,0.25)]">
-            <span className="font-black text-[8px] leading-tight opacity-80">SYS</span>
-            <span className="font-bold text-center leading-none mt-0.5">{emoji || '⌖'}</span>
-          </div>
-        );
-      case 'grid-fragment':
-        return (
-          <div className="border px-4 py-2.5 text-[var(--page-accent)] font-mono text-[10px] space-y-1 select-none rounded-md shadow-[0_0_10px_rgba(0,255,136,0.15)] bg-black/80 border-[var(--page-accent)]/40">
-            <p className="font-black border-b border-[var(--page-accent)]/20 pb-1 uppercase tracking-wider">{label}</p>
-            <p className="text-[7.5px] opacity-70 font-bold leading-none">SECTOR_ID :: 0x98FF2</p>
-          </div>
-        );
+    const { folder, totalFiles } = getFolderAndFilesForPage(pageKey);
+    const index = getStickerIndex(id, totalFiles);
+    const src = `${folder}sticker${index}.png`;
 
-      default:
-        return (
-          <div className="bg-white p-3 rounded-lg shadow-md border-2 border-gray-300 text-xs font-extrabold max-w-xs">
-            {label}
-          </div>
-        );
-    }
+    const rotationClass = getStickerRotation(id);
+
+    return (
+      <img
+        src={src}
+        alt={label || 'Sticker'}
+        onError={() => setHasError(true)}
+        className={`w-28 h-28 md:w-32 md:h-32 object-contain transition-transform duration-200 ease-out hover:scale-110 active:scale-95 ${rotationClass} hover:rotate-0 select-none pointer-events-none`}
+        referrerPolicy="no-referrer"
+      />
+    );
   };
+
+  if (hasError) return null;
 
   return (
     <motion.div

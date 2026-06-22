@@ -35,7 +35,7 @@ interface ProjectRole {
 
 export default function LeadershipPage({ template }: LeadershipPageProps) {
   const pageTitle = "Leadership & Stewardship";
-  const pageSubtitle = "Chronology of student leadership, organizational strategy, and competitive project delegation";
+  const pageSubtitle = "";
 
   const orgRoles: OrgRole[] = [
     {
@@ -123,7 +123,6 @@ export default function LeadershipPage({ template }: LeadershipPageProps) {
       <div className="max-w-3xl mx-auto pb-12 font-sans text-gray-900 space-y-12">
         {/* Simple Document Style Header */}
         <div className="space-y-2 pt-2">
-          <p className="text-[10px] font-mono uppercase tracking-widest text-[var(--page-accent)] font-extrabold">GOVERNANCE INDEX // STEM</p>
           <h1 className="text-3xl md:text-4xl font-black tracking-tight text-gray-900 leading-none">
             {pageTitle}
           </h1>
@@ -320,9 +319,6 @@ export default function LeadershipPage({ template }: LeadershipPageProps) {
         <h1 className="text-2xl md:text-3xl font-black text-white tracking-wider uppercase filter drop-shadow-[0_0_8px_var(--page-accent)]">
           {pageTitle}
         </h1>
-        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wide">
-          [ {pageSubtitle} ]
-        </p>
         <div className="h-[2px] bg-gradient-to-r from-[var(--page-accent)] via-cyan-500 to-transparent relative mt-1" />
       </div>
 

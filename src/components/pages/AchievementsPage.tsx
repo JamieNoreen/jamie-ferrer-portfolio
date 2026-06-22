@@ -99,9 +99,7 @@ function AnimatedNumber({
 export default function AchievementsPage({ template }: AchievementsPageProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const pageTitle = "Achievements & Awards";
-  const pageSubtitle =
-    "Chronology of academic excellence, national hackathons, and global recognitions";
-
+  const pageSubtitle ="";
   // 5 Curated Featured Achievements for Carousel (Visual Highlight Reel)
   const FEATURED_AWARDS: FeaturedAward[] = [
     {
@@ -320,10 +318,6 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
           <h1 className="text-3xl font-normal text-gray-900 font-outfit uppercase tracking-tight">
             Achievements & Awards
           </h1>
-          <p className="text-xs text-gray-500 font-sans mt-2 max-w-xl font-medium tracking-normal leading-relaxed">
-            Curated highlight reel of international competitions, national
-            development hackathons, and high academic honors.
-          </p>
         </div>
 
         {/* Hero Statistics Row (Minimalism: Borderless panels with subtle dividers) */}
@@ -718,10 +712,6 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
         <h1 className="text-2xl md:text-3xl font-black text-white tracking-widest uppercase filter drop-shadow-[0_0_8px_var(--page-accent)]">
           {pageTitle}
         </h1>
-        <p className="text-[9px] text-[#00FF88]/60 uppercase tracking-widest pl-0.5">
-          Curated timeline of national competitions, international hackathons,
-          and academic honors.
-        </p>
         <div className="h-[2px] bg-gradient-to-r from-[var(--page-accent)] via-cyan-500 to-transparent relative mt-1" />
       </div>
 

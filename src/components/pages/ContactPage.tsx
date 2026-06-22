@@ -32,8 +32,8 @@ interface ContactItem {
 }
 
 export default function ContactPage({ template }: ContactPageProps) {
-  const pageTitle = "Workspace Communications";
-  const pageSubtitle = "Secure pathways to transmit data, request interfaces, or schedule synchronization meetings";
+  const pageTitle = "Contact Details";
+  const pageSubtitle = "";
 
   // Primary Contacts
   const primaryContacts: ContactItem[] = [
@@ -41,18 +41,18 @@ export default function ContactPage({ template }: ContactPageProps) {
       id: "email",
       label: "Primary Email Address",
       platform: "Email",
-      value: "placeholder@gmail.com",
-      url: "mailto:placeholder@gmail.com",
+      value: "ferrerjamienoreen@gmail.com",
+      url: "mailto:ferrerjamienoreen@gmail.com",
       icon: Mail,
       accentColor: "#EF4444", // Red/rose accent
       bgColorLight: "bg-red-50/50"
     },
     {
       id: "phone",
-      label: "Direct Signal Routing",
+      label: "Contact Number",
       platform: "Phone No.",
-      value: "+63 placeholder number",
-      url: "tel:+63placeholder",
+      value: "+63 993 949 0699",
+      url: "tel:+639939490699",
       icon: Phone,
       accentColor: "#10B981", // Emerald accent
       bgColorLight: "bg-emerald-50/50"
@@ -65,8 +65,8 @@ export default function ContactPage({ template }: ContactPageProps) {
       id: "linkedin",
       label: "Professional Identity",
       platform: "LinkedIn",
-      value: "linkedin.com/in/placeholder",
-      url: "https://linkedin.com/in/placeholder",
+      value: "https://www.linkedin.com/in/jamienoreenferrer/",
+      url: "https://www.linkedin.com/in/jamienoreenferrer/",
       icon: Linkedin,
       accentColor: "#3B82F6", // LinkedIn Blue
       bgColorLight: "bg-blue-50/50"
@@ -75,8 +75,8 @@ export default function ContactPage({ template }: ContactPageProps) {
       id: "github",
       label: "Technical Identity",
       platform: "GitHub",
-      value: "github.com/placeholder",
-      url: "https://github.com/placeholder",
+      value: "https://github.com/JamieNoreen",
+      url: "https://github.com/JamieNoreen",
       icon: Github,
       accentColor: "#111827", // Dark Slate/Black
       bgColorLight: "bg-gray-100"
@@ -85,8 +85,8 @@ export default function ContactPage({ template }: ContactPageProps) {
       id: "behance",
       label: "Creative Portfolio",
       platform: "Behance",
-      value: "behance.net/placeholder",
-      url: "https://behance.net/placeholder",
+      value: "https://www.behance.net/jamieferrer1",
+      url: "https://www.behance.net/jamieferrer1",
       icon: Paintbrush, // Lucide paintbrush representing Behance creative space
       accentColor: "#6366F1", // Indigo
       bgColorLight: "bg-indigo-50/50"
@@ -101,7 +101,6 @@ export default function ContactPage({ template }: ContactPageProps) {
       <div className="max-w-3xl mx-auto pb-16 font-sans text-gray-900 space-y-12">
         {/* Document Style Title */}
         <div className="space-y-1.5 pt-2">
-          <p className="text-[10px] font-mono uppercase tracking-widest text-[var(--page-accent)] font-extrabold">TRANSMISSION DIRECTORY</p>
           <h1 className="text-3xl md:text-4xl font-black tracking-tight text-gray-900 leading-none">
             {pageTitle}
           </h1>
@@ -366,11 +365,9 @@ export default function ContactPage({ template }: ContactPageProps) {
       {/* MONOSPACE NEON GRADIENT HEADER */}
       <div className="space-y-2 pt-4 border-l-2 border-[#00FF88]/45 pl-4 bg-[#00FF88]/2 relative select-none">
         <h1 className="text-2xl md:text-4xl font-black text-white tracking-widest uppercase filter drop-shadow-[0_0_8px_var(--page-accent)]">
-          Initialize Connection.
+          Contact Details.
         </h1>
-        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block font-sans">
-          {pageSubtitle}
-        </p>
+        
         <div className="h-[2px] bg-gradient-to-r from-[var(--page-accent)] via-[#00ff88]/30 to-transparent relative mt-1" />
       </div>
 

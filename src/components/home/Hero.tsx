@@ -114,11 +114,11 @@ export default function Hero() {
         <div className="absolute inset-0 bg-black/[0.04] pointer-events-none" />
 
         {/* Animated Resume button in top-right corner */}
-        <motion.a
-          href="/resume.pdf"
+<motion.a
+          href="/portfolio-assets/Jamie_Noreen_Ferrer_Resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          title="Download Jamie's Resume"
+          title="Jamie's Resume"
           animate={{ 
             y: [0, -3, 0],
             boxShadow: [

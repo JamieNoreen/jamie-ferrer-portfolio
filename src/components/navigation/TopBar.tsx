@@ -55,12 +55,11 @@ export default function TopBar({ onContactClick, onHomeClick }: TopBarProps) {
 
         {/* Download Resume Link Button */}
         <a
-          href="/resume.pdf"
+          href="/portfolio-assets/Jamie_Noreen_Ferrer_Resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          download
           className="relative bg-white/10 hover:bg-white/20 hover:scale-[1.02] active:scale-[0.98] text-white text-xs font-black font-sans rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer shadow-sm border border-white/25 hover:border-white/40 group outline-none min-h-[44px] min-w-[44px] px-3.5 py-1.5 md:min-h-0 md:min-w-0 md:px-4 md:py-1.5 shrink-0 no-underline"
-          title="Download Jamie's Resume"
+          title="Jamie's Resume"
         >
           <FileDown size={14} className="shrink-0 text-white group-hover:animate-bounce" />
           <span className="font-sans font-black hidden md:inline ml-1.5 text-white">

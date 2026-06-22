@@ -16,6 +16,42 @@ import {
 } from 'lucide-react';
 import { TemplateType, Sticker } from '../../types';
 
+export const getStickerImagePath = (pageKey: string, indexInSet: number) => {
+  const pk = pageKey || 'about';
+  let folder = '/portfolio-assets/stickers/about-stickers/';
+  let totalFiles = 5;
+
+  switch (pk) {
+    case 'about':
+      folder = '/portfolio-assets/stickers/about-stickers/';
+      totalFiles = 5;
+      break;
+    case 'achievements':
+      folder = '/portfolio-assets/stickers/awards-stickers/';
+      totalFiles = 5;
+      break;
+    case 'certificates':
+      folder = '/portfolio-assets/stickers/certs-stickers/';
+      totalFiles = 3;
+      break;
+    case 'leadership':
+      folder = '/portfolio-assets/stickers/leadership-stickers/';
+      totalFiles = 5;
+      break;
+    case 'tech-stacks':
+      folder = '/portfolio-assets/stickers/skills-stickers/';
+      totalFiles = 5;
+      break;
+    case 'contact':
+      folder = '/portfolio-assets/stickers/contact-stickers/';
+      totalFiles = 5;
+      break;
+  }
+
+  const fileIndex = ((indexInSet - 1) % totalFiles) + 1;
+  return `${folder}sticker${fileIndex}.png`;
+};
+
 // Declare Palettes Data
 export const PALETTES = [
   {
@@ -609,57 +645,19 @@ export default function CustomizationSidebar({
                           }}
                           className="p-2.5 rounded-lg border border-gray-150 hover:bg-gray-50 transition-all cursor-pointer flex items-center justify-between group active:scale-[0.98]"
                         >
-                          {/* Left: Beautiful mini render mockup based on type */}
+                          {/* Left: Beautiful mini render mockup using real sticker picture */}
                           <div className="flex items-center gap-2">
-                            {sticker.type === 'paper-tab' && (
-                              <div className="bg-white border border-gray-300 border-t-3 border-t-black px-1 py-0.5 rounded-xs scale-90 text-[8px] font-mono font-bold">
-                                TAB
-                              </div>
-                            )}
-                            {sticker.type === 'geometric-symbol' && (
-                              <div className="w-5 h-5 rounded-full border border-gray-200 bg-white flex items-center justify-center text-[10px] shadow-2xs font-bold text-[#7d12ff]">
-                                {sticker.emoji || '✦'}
-                              </div>
-                            )}
-                            {sticker.type === 'minimal-label' && (
-                              <div className="bg-black text-white px-1 py-0.5 rounded-[1px] text-[7px] font-mono uppercase scale-90 max-w-full truncate">
-                                LABEL
-                              </div>
-                            )}
-                            {sticker.type === 'tape-strip' && (
-                              <div className="bg-amber-100/60 border border-amber-200/50 px-2 py-0.5 text-[7px] font-medium text-amber-800 -rotate-2">
-                                TAPE
-                              </div>
-                            )}
-                            {sticker.type === 'doodle-shape' && (
-                              <div className="text-sm">
-                                {sticker.emoji || '✨'}
-                              </div>
-                            )}
-                            {sticker.type === 'photo-cutout-frame' && (
-                              <div className="bg-white p-0.5 border border-gray-300 w-6 h-6 flex flex-col justify-between -rotate-1 shadow-2xs">
-                                <div className="bg-gray-100 w-full flex-1 flex items-center justify-center text-[9px]">{sticker.emoji || '🎨'}</div>
-                              </div>
-                            )}
-                            {sticker.type === 'neon-highlight' && (
-                              <div className="bg-black/90 border border-[#00ff88]/50 px-1 text-[7px] font-mono text-[#00ff88] rounded-xs flex items-center gap-1 scale-90">
-                                <span className="w-1 h-1 bg-[#00ff88] rounded-full"></span>
-                                <span>CYBER</span>
-                              </div>
-                            )}
-                            {sticker.type === 'holographic-badge' && (
-                              <div className="w-6 h-6 rounded-full border border-cyan-500/50 bg-cyan-950/20 flex items-center justify-center text-[10px] text-cyan-400">
-                                {sticker.emoji || '⌖'}
-                              </div>
-                            )}
-                            {sticker.type === 'grid-fragment' && (
-                              <div className="border border-purple-500/40 bg-purple-950/20 px-1 py-0.5 rounded-[1.5px] text-[6px] font-mono text-purple-300 scale-90">
-                                SYSGRID
-                              </div>
-                            )}
+                            <div className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-md border border-gray-150 overflow-hidden select-none bg-radial from-neutral-50 to-neutral-100">
+                              <img
+                                src={getStickerImagePath(pageName, idx + 1)}
+                                alt={sticker.label}
+                                className="w-8 h-8 object-contain"
+                                referrerPolicy="no-referrer"
+                              />
+                            </div>
 
                             <span className="font-sans font-bold text-[10.5px] text-[#334155] group-hover:text-black">
-                              {sticker.label.length > 15 ? sticker.label.substr(0,13) + '..' : sticker.label}
+                              {sticker.label.length > 20 ? sticker.label.substr(0,18) + '..' : sticker.label}
                             </span>
                           </div>
 

@@ -95,7 +95,7 @@ export default function CertificatesPage({ template }: CertificatesPageProps) {
           name: "Email Marketing",
           issuer: "Digital Marketing Institute",
           date: "July 2023",
-          skills: ["A/B Testing", "Email Marketing", "Campaign Management"],
+          skills: ["A/B Testing", "Email Marketing"],
           prominence: "standard",
           monogram: "DM"
         },
@@ -144,7 +144,6 @@ export default function CertificatesPage({ template }: CertificatesPageProps) {
       <div className="max-w-3xl mx-auto pb-12 font-sans text-gray-900 space-y-12">
         {/* Simple Document Style Header */}
         <div className="space-y-2 pt-2">
-          <p className="text-[10px] font-mono uppercase tracking-widest text-[var(--page-accent)] font-extrabold">VERIFIED COGNIZANCE :: SIGN OFF</p>
           <h1 className="text-3xl md:text-4xl font-black tracking-tight text-gray-900 leading-none">
             {pageTitle}
           </h1>
@@ -172,9 +171,6 @@ export default function CertificatesPage({ template }: CertificatesPageProps) {
                 {/* Indented Digital Marketing Block vs Row lists */}
                 {isMarketing ? (
                   <div className="pl-6 border-l-2 border-gray-100 space-y-4">
-                    <div className="text-xs text-gray-500 font-mono tracking-tight font-bold uppercase mb-2">
-                      [ Digital Marketing Suite Collection ]
-                    </div>
                     <div className="space-y-4">
                       {tier.items.map((cert) => (
                         <div key={cert.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 py-1">

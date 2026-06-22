@@ -48,7 +48,7 @@ interface SkillCategory {
 
 export default function TechStacksPage({ template }: TechStacksPageProps) {
   const pageTitle = "Skills & Toolset";
-  const pageSubtitle = "Tools, technologies, and workflows I use to turn ideas into products.";
+  const pageSubtitle = "";
 
   // Curated skills data matching the specific requirements with exact proficiency levels & emphasis metrics.
   const categories: SkillCategory[] = [
@@ -165,10 +165,6 @@ export default function TechStacksPage({ template }: TechStacksPageProps) {
       <div className="max-w-4xl mx-auto pb-12 font-sans text-gray-900 space-y-12">
         {/* Clean, Humanistic Header */}
         <div className="space-y-2 pt-2">
-          <p className="text-[10px] font-mono uppercase tracking-widest text-black font-extrabold flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-black" />
-            Active Capabilities Directory
-          </p>
           <h1 className="text-3xl md:text-4xl font-black tracking-tight text-gray-950 leading-none">
             {pageTitle}
           </h1>
