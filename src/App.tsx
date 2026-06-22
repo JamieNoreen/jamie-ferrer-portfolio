@@ -37,6 +37,7 @@ export default function App() {
   const [pagePalette, setPagePalette] = useState<string>('earthy');
   const [pageTypography, setPageTypography] = useState<string>('modern');
   const [stickers, setStickers] = useState<Sticker[]>([]);
+  const [selectedStickerId, setSelectedStickerId] = useState<string | null>(null);
   const [homeSearchQuery, setHomeSearchQuery] = useState('');
   const dragConstraintsRef = useRef<HTMLDivElement>(null);
 
@@ -162,6 +163,7 @@ export default function App() {
     } else {
       setStickers([]);
     }
+    setSelectedStickerId(null);
   }, [currentPath, corePageKey]);
 
   // Handle visual custom template swapping
@@ -203,7 +205,15 @@ export default function App() {
     setPageTypography(newTypography);
   };
 
-  const handleAddSticker = (type: string, label: string, emoji?: string, color?: string, imagePath?: string) => {
+  const handleAddSticker = (
+    type: string, 
+    label: string, 
+    emoji?: string, 
+    color?: string, 
+    imagePath?: string,
+    x?: number,
+    y?: number
+  ) => {
     if (!corePageKey) return;
     const newSticker: Sticker = {
       id: `st-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
@@ -211,12 +221,23 @@ export default function App() {
       label,
       emoji: emoji || '',
       color: color || '',
-      defaultX: 30 + Math.random() * 40,
-      defaultY: 20 + Math.random() * 50,
-      imagePath: imagePath || '',
+      defaultX: x !== undefined ? x : 30 + Math.random() * 40,
+      defaultY: y !== undefined ? y : 20 + Math.random() * 50,
+      imagePath,
+      sizePx: 128,
     };
     setStickers((prev) => {
       const updated = [...prev, newSticker];
+      localStorage.setItem(`stickers-${corePageKey}-${pageTemplate}`, JSON.stringify(updated));
+      return updated;
+    });
+    setSelectedStickerId(newSticker.id);
+  };
+
+  const handleUpdateStickerSize = (id: string, sizePx: number) => {
+    if (!corePageKey) return;
+    setStickers((prev) => {
+      const updated = prev.map((s) => (s.id === id ? { ...s, sizePx } : s));
       localStorage.setItem(`stickers-${corePageKey}-${pageTemplate}`, JSON.stringify(updated));
       return updated;
     });
@@ -229,6 +250,46 @@ export default function App() {
       localStorage.setItem(`stickers-${corePageKey}-${pageTemplate}`, JSON.stringify(updated));
       return updated;
     });
+    if (selectedStickerId === id) {
+      setSelectedStickerId(null);
+    }
+  };
+
+  const handleDropOnCanvas = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    if (!dragConstraintsRef.current) return;
+
+    try {
+      const dataStr = e.dataTransfer.getData('text/plain');
+      if (!dataStr) return;
+      const data = JSON.parse(dataStr);
+      if (data && data.imagePath) {
+        const rect = dragConstraintsRef.current.getBoundingClientRect();
+        
+        // Calculate coordinate relative to the drag boundaries container
+        const relativeX = e.clientX - rect.left;
+        const relativeY = e.clientY - rect.top;
+        
+        let pctX = (relativeX / rect.width) * 100;
+        let pctY = (relativeY / rect.height) * 100;
+
+        // Visual safe clamping
+        pctX = Math.max(4, Math.min(96, pctX));
+        pctY = Math.max(4, Math.min(96, pctY));
+
+        handleAddSticker(
+          data.type,
+          data.label,
+          data.emoji,
+          data.color,
+          data.imagePath,
+          pctX,
+          pctY
+        );
+      }
+    } catch (err) {
+      console.error('Canvas Drop Error', err);
+    }
   };
 
   // Persist updated drag-ended sticker positions
@@ -384,6 +445,9 @@ export default function App() {
           <div 
             style={getCustomThemeStyles()}
             className={`theme-customizable template-${corePageKey === 'logos' ? 'minimalism' : pageTemplate} workspace-backdrop h-[calc(100vh-52px)] overflow-y-auto pl-14 md:pl-[72px] mt-[52px] relative`}
+            onClick={() => setSelectedStickerId(null)}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={handleDropOnCanvas}
           >
             {/* Futuristic Cyber-Grid Background overlay (now colors custom to the branding accent color picker!) */}
             {pageTemplate === 'futuristic' && corePageKey !== 'logos' && (
@@ -417,6 +481,10 @@ export default function App() {
                   emoji={st.emoji}
                   color={st.color}
                   imagePath={st.imagePath}
+                  sizePx={st.sizePx}
+                  isSelected={st.id === selectedStickerId}
+                  onSelect={() => setSelectedStickerId(st.id)}
+                  onUpdateSize={handleUpdateStickerSize}
                   onUpdatePosition={handleUpdateStickerPos}
                   onDelete={handleDeleteSticker}
                   dragConstraintsRef={dragConstraintsRef}

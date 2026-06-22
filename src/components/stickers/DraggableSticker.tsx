@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { motion, useMotionValue } from 'motion/react';
+import { motion, useDragControls } from 'motion/react';
 import React, { useRef, useState, useEffect } from 'react';
 
 interface DraggableStickerProps {
@@ -19,6 +19,10 @@ interface DraggableStickerProps {
   onUpdatePosition: (id: string, x: number, y: number) => void;
   onDelete?: (id: string) => void;
   dragConstraintsRef: React.RefObject<HTMLDivElement | null>;
+  isSelected?: boolean;
+  onSelect?: () => void;
+  onUpdateSize?: (id: string, sizePx: number) => void;
+  sizePx?: number;
 }
 
 const getFolderAndFilesForPage = (pageKey: string) => {
@@ -72,19 +76,154 @@ export default function DraggableSticker({
   imagePath,
   onUpdatePosition,
   onDelete,
-  dragConstraintsRef
+  dragConstraintsRef,
+  isSelected = false,
+  onSelect,
+  onUpdateSize,
+  sizePx = 128
 }: DraggableStickerProps) {
   const stickerRef = useRef<HTMLDivElement>(null);
+  const dragControls = useDragControls();
   const [hasError, setHasError] = useState(false);
+  const [localSize, setLocalSize] = useState<number>(sizePx);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const dragX = useMotionValue(0);
-  const dragY = useMotionValue(0);
+  // Resize handle refs
+  const tlRef = useRef<HTMLDivElement>(null);
+  const trRef = useRef<HTMLDivElement>(null);
+  const blRef = useRef<HTMLDivElement>(null);
+  const brRef = useRef<HTMLDivElement>(null);
 
-  // When x or y coordinates update from parent, reset drag offset to 0
+  const [resizing, setResizing] = useState<{
+    corner: string;
+    startX: number;
+    startY: number;
+    startSize: number;
+  } | null>(null);
+
+  // Synchronize local size if sizePx prop changes externally
   useEffect(() => {
-    dragX.set(0);
-    dragY.set(0);
-  }, [x, y, dragX, dragY]);
+    setLocalSize(sizePx);
+  }, [sizePx]);
+
+  // Pointer event tracking for smooth, non-blocking real-time resize execution
+  useEffect(() => {
+    if (!resizing) return;
+
+    const handlePointerMove = (e: PointerEvent) => {
+      const deltaX = e.clientX - resizing.startX;
+      const deltaY = e.clientY - resizing.startY;
+      
+      let delta = 0;
+      if (resizing.corner === 'br') {
+        delta = Math.max(deltaX, deltaY);
+      } else if (resizing.corner === 'tr') {
+        delta = Math.max(deltaX, -deltaY);
+      } else if (resizing.corner === 'bl') {
+        delta = Math.max(-deltaX, deltaY);
+      } else if (resizing.corner === 'tl') {
+        delta = Math.max(-deltaX, -deltaY);
+      }
+      
+      // Canva-style proportional scaling from central coordinate anchor (requires 2x delta adjustment)
+      const newSize = Math.max(50, Math.min(500, resizing.startSize + (delta * 2)));
+      setLocalSize(newSize);
+    };
+
+    const handlePointerUp = (e: PointerEvent) => {
+      const deltaX = e.clientX - resizing.startX;
+      const deltaY = e.clientY - resizing.startY;
+      
+      let delta = 0;
+      if (resizing.corner === 'br') {
+        delta = Math.max(deltaX, deltaY);
+      } else if (resizing.corner === 'tr') {
+        delta = Math.max(deltaX, -deltaY);
+      } else if (resizing.corner === 'bl') {
+        delta = Math.max(-deltaX, deltaY);
+      } else if (resizing.corner === 'tl') {
+        delta = Math.max(-deltaX, -deltaY);
+      }
+      
+      const finalSize = Math.max(50, Math.min(500, resizing.startSize + (delta * 2)));
+      if (onUpdateSize) {
+        onUpdateSize(id, finalSize);
+      }
+      setResizing(null);
+    };
+
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    window.addEventListener('pointerup', handlePointerUp, { passive: true });
+
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointerup', handlePointerUp);
+    };
+  }, [resizing, id, onUpdateSize]);
+
+  // Use Native DOM event listeners for the corner handles to stop event propagation directly 
+  // before Framer Motion's internal capture handlers can intercept pointer events.
+  useEffect(() => {
+    const shouldBind = isSelected || isHovered;
+    if (!shouldBind) return;
+
+    const handleDown = (corner: string, e: MouseEvent | TouchEvent | PointerEvent) => {
+      // Critical: stop propagation natively so Framer Motion's listeners do not capture the event
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      
+      const clientX = 'touches' in e && e.touches.length > 0 ? e.touches[0].clientX : (e as MouseEvent).clientX;
+      const clientY = 'touches' in e && e.touches.length > 0 ? e.touches[0].clientY : (e as MouseEvent).clientY;
+
+      if (onSelect) {
+        onSelect();
+      }
+
+      setResizing({
+        corner,
+        startX: clientX,
+        startY: clientY,
+        startSize: localSize
+      });
+    };
+
+    const tl = tlRef.current;
+    const tr = trRef.current;
+    const bl = blRef.current;
+    const br = brRef.current;
+
+    const listeners = [
+      { element: tl, corner: 'tl' },
+      { element: tr, corner: 'tr' },
+      { element: bl, corner: 'bl' },
+      { element: br, corner: 'br' }
+    ];
+
+    listeners.forEach(({ element, corner }) => {
+      if (!element) return;
+      
+      const onDown = (e: any) => handleDown(corner, e);
+      
+      // We use capture phase and cover all main pointer events natively
+      element.addEventListener('pointerdown', onDown, { capture: true });
+      element.addEventListener('mousedown', onDown, { capture: true });
+      element.addEventListener('touchstart', onDown, { capture: true });
+      
+      (element as any)._onDown = onDown;
+    });
+
+    return () => {
+      listeners.forEach(({ element }) => {
+        if (!element) return;
+        const onDown = (element as any)._onDown;
+        if (onDown) {
+          element.removeEventListener('pointerdown', onDown, { capture: true });
+          element.removeEventListener('mousedown', onDown, { capture: true });
+          element.removeEventListener('touchstart', onDown, { capture: true });
+        }
+      });
+    };
+  }, [isSelected, isHovered, localSize, onSelect]);
 
   const handleDragEnd = (_event: any, info: any) => {
     if (!dragConstraintsRef.current || !stickerRef.current) return;
@@ -134,7 +273,8 @@ export default function DraggableSticker({
         src={src}
         alt={label || 'Sticker'}
         onError={() => setHasError(true)}
-        className={`w-28 h-28 md:w-32 md:h-32 object-contain transition-transform duration-200 ease-out hover:scale-110 active:scale-95 ${rotationClass} hover:rotate-0 select-none cursor-grab active:cursor-grabbing`}
+        style={{ width: `${localSize}px`, height: `${localSize}px` }}
+        className={`object-contain select-none cursor-grab active:cursor-grabbing ${rotationClass} hover:rotate-0 transition-shadow duration-150`}
         draggable={false}
         referrerPolicy="no-referrer"
       />
@@ -143,37 +283,100 @@ export default function DraggableSticker({
 
   if (hasError) return null;
 
+  const showEditingControls = isSelected || isHovered;
+
   return (
     <motion.div
-      key={id}
+      key={`${id}-${x}-${y}`}
       ref={stickerRef}
       drag
+      dragControls={dragControls}
+      dragListener={false}
       dragMomentum={false}
       dragElastic={0}
       dragConstraints={dragConstraintsRef}
       onDragEnd={handleDragEnd}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       style={{
         position: 'absolute',
         left: `${x}%`,
         top: `${y}%`,
-        x: dragX,
-        y: dragY,
-        zIndex: 50,
+        zIndex: isSelected ? 150 : 50,
       }}
       className="absolute pointer-events-auto selection:bg-transparent group/sticker"
     >
       <div 
-        style={{ transform: 'translate(-50%, -50%)' }} 
-        className="relative pointer-events-auto select-none"
+        style={{ 
+          transform: 'translate(-50%, -50%)',
+          width: `${localSize}px`,
+          height: `${localSize}px`,
+          touchAction: 'none'
+        }} 
+        className={`relative pointer-events-auto select-none transition-shadow duration-150 ${
+          isSelected 
+            ? 'ring-2 ring-indigo-500 rounded-sm shadow-md' 
+            : isHovered 
+              ? 'ring-1 ring-indigo-300 rounded-sm' 
+              : ''
+        }`}
+        onPointerDown={(e) => {
+          // Select sticker and prepare for standard framer motion drag initiation on stick body click
+          e.stopPropagation();
+          if (onSelect) {
+            onSelect();
+          }
+          dragControls.start(e);
+        }}
       >
         {renderStickerContent()}
+        
+        {/* Resize Handles (Corner controls in custom selection states) */}
+        {showEditingControls && onUpdateSize && (
+          <>
+            {/* Top Left Corner */}
+            <div
+              ref={tlRef}
+              style={{ touchAction: 'none' }}
+              className="absolute -top-1.5 -left-1.5 w-3.5 h-3.5 bg-white border-2 border-indigo-500 rounded-full cursor-nwse-resize z-[75] shadow-sm hover:scale-125 transition-transform"
+              title="Resize"
+            />
+            {/* Top Right Corner */}
+            <div
+              ref={trRef}
+              style={{ touchAction: 'none' }}
+              className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-white border-2 border-indigo-500 rounded-full cursor-nesw-resize z-[75] shadow-sm hover:scale-125 transition-transform"
+              title="Resize"
+            />
+            {/* Bottom Left Corner */}
+            <div
+              ref={blRef}
+              style={{ touchAction: 'none' }}
+              className="absolute -bottom-1.5 -left-1.5 w-3.5 h-3.5 bg-white border-2 border-indigo-500 rounded-full cursor-nesw-resize z-[75] shadow-sm hover:scale-125 transition-transform"
+              title="Resize"
+            />
+            {/* Bottom Right Corner */}
+            <div
+              ref={brRef}
+              style={{ touchAction: 'none' }}
+              className="absolute -bottom-1.5 -right-1.5 w-3.5 h-3.5 bg-white border-2 border-indigo-500 rounded-full cursor-nwse-resize z-[75] shadow-sm hover:scale-125 transition-transform"
+              title="Resize"
+            />
+          </>
+        )}
+
+        {/* Delete Trigger */}
         {onDelete && (
           <button
             onClick={(e) => {
               e.stopPropagation();
               onDelete(id);
             }}
-            className="absolute -top-2 -right-2 w-[18px] h-[18px] bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center text-[11px] opacity-0 group-hover/sticker:opacity-100 transition-opacity cursor-pointer z-50 shadow-sm border border-white font-sans font-bold leading-none"
+            onPointerDown={(e) => {
+              // Standard stop to prevent drag start on deletion press
+              e.stopPropagation();
+            }}
+            className={`absolute -top-2 -right-2 w-5 h-5 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center text-[12px] opacity-0 group-hover/sticker:opacity-100 transition-opacity cursor-pointer z-[80] shadow-sm border border-white font-sans font-bold leading-none`}
             title="Delete sticker"
           >
             ×

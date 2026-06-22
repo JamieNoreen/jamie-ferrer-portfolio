@@ -27,6 +27,8 @@ export interface Sticker {
   emoji?: string;
   size?: string;
   imagePath?: string;
+  sizePx?: number;
+
 }
 
 export interface ShowcaseScreenItem {

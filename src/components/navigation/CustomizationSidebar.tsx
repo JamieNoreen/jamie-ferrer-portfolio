@@ -377,7 +377,7 @@ export default function CustomizationSidebar({
         {activePanel && (
           <motion.div
             initial={{ opacity: 0, x: -60, width: 0 }}
-            animate={{ opacity: 1, x: 0, width: 220 }}
+            animate={{ opacity: 1, x: 0, width: 240 }}
             exit={{ opacity: 0, x: -60, width: 0 }}
             transition={{ type: 'spring', damping: 24, stiffness: 220 }}
             className="h-full bg-white border-r border-[#E2E8F0]/40 overflow-hidden relative flex flex-col z-0 shadow-lg"
@@ -498,7 +498,19 @@ export default function CustomizationSidebar({
                     {activeStickerSet.map((sticker, idx) => {
                       return (
                         <div
-                          key={idx}
+                          key={`${sticker.imagePath || 'sticker'}-${idx}`}
+                          draggable={true}
+                          onDragStart={(e) => {
+                            const stickerData = {
+                              type: sticker.type,
+                              label: sticker.label || '',
+                              emoji: sticker.emoji || '',
+                              color: sticker.color || '',
+                              imagePath: sticker.imagePath
+                            };
+                            e.dataTransfer.setData('text/plain', JSON.stringify(stickerData));
+                            e.dataTransfer.effectAllowed = 'copy';
+                          }}
                           onClick={() => {
                             onAddSticker(
                               sticker.type, 
@@ -508,13 +520,13 @@ export default function CustomizationSidebar({
                               sticker.imagePath
                             );
                           }}
-                          className="w-full aspect-square flex items-center justify-center cursor-pointer transition-all duration-200 active:scale-95 hover:scale-105 p-1 select-none"
+                          className="w-full aspect-square flex items-center justify-center cursor-pointer transition-all duration-150 active:scale-95 hover:scale-105 rounded-xl hover:bg-neutral-50/50 p-3"
                           title={`Add ${sticker.label}`}
                         >
                           <img
                             src={sticker.imagePath}
                             alt={sticker.label}
-                            className="w-full h-full object-contain filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.08)] hover:drop-shadow-[0_6px_12px_rgba(0,0,0,0.14)]"
+                            className="w-32 h-32 md:w-36 md:h-36 object-contain select-none filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.08)] hover:drop-shadow-[0_6px_12px_rgba(0,0,0,0.14)]"
                             referrerPolicy="no-referrer"
                           />
                         </div>
