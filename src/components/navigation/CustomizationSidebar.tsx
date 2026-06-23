@@ -67,8 +67,8 @@ export const PALETTES = [
     }
   },
   {
-    id: 'pastel',
-    name: 'Pastel',
+    id: 'blush',
+    name: 'Blush',
     colors: ['#FFF0F3', '#FFB3C1', '#FF85A1', '#C9184A', '#590D22'],
     map: {
       bg: '#FFF0F3',
@@ -79,8 +79,8 @@ export const PALETTES = [
     }
   },
   {
-    id: 'bold',
-    name: 'Bold',
+    id: 'ocean',
+    name: 'Ocean',
     colors: ['#CAF0F8', '#90E0EF', '#00B4D8', '#0077B6', '#03045E'],
     map: {
       bg: '#CAF0F8',
