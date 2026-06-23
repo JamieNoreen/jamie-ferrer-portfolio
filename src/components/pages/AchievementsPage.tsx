@@ -104,7 +104,7 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
   const FEATURED_AWARDS: FeaturedAward[] = [
     {
       id: "bluhacks",
-      title: "Bluhacks Hackathon",
+      title: "Blue Hacks Hackathon",
       achievement: "Champion",
       year: "2024",
       category: "Innovation & Hackathons",
@@ -191,7 +191,7 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
       title: "Innovation & Hackathons",
       awards: [
         {
-          name: "Bluhacks Hackathon",
+          name: "Blue Hacks Hackathon",
           placing: "Champion",
           details:
             "Pedestrian navigation platform helping commuters discover safer and more walkable routes.",

@@ -3,33 +3,30 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef, CSSProperties } from 'react';
+import React, { useState, useEffect, useRef, CSSProperties, Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Monitor } from 'lucide-react';
 import Sidebar from './components/navigation/Sidebar';
 import TopBar from './components/navigation/TopBar';
-import CustomizationSidebar, { PALETTES, TYPOGRAPHIES } from './components/navigation/CustomizationSidebar';
+import { PALETTES, TYPOGRAPHIES } from './components/navigation/themeData';
 
-// Homepage Components
-import Hero from './components/home/Hero';
-import ExploreGrid from './components/home/ExploreGrid';
-import FeaturedWork from './components/home/FeaturedWork';
-
-// Core Page Components
-import AboutPage from './components/pages/AboutPage';
-import AchievementsPage from './components/pages/AchievementsPage';
-import CertificatesPage from './components/pages/CertificatesPage';
-import LeadershipPage from './components/pages/LeadershipPage';
-import TechStacksPage from './components/pages/TechStacksPage';
-import ContactPage from './components/pages/ContactPage';
-import LogosPage from './components/pages/LogosPage';
-
-// Project Page Components
-import ProjectPage from './components/pages/ProjectPage';
-
-// Template & Sticker Systems
-import DraggableSticker from './components/stickers/DraggableSticker';
 import { TemplateType, Sticker, PROJECTS } from './types';
+
+const Hero = lazy(() => import('./components/home/Hero'));
+const ExploreGrid = lazy(() => import('./components/home/ExploreGrid'));
+const FeaturedWork = lazy(() => import('./components/home/FeaturedWork'));
+
+const CustomizationSidebar = lazy(() => import('./components/navigation/CustomizationSidebar'));
+const DraggableSticker = lazy(() => import('./components/stickers/DraggableSticker'));
+
+const AboutPage = lazy(() => import('./components/pages/AboutPage'));
+const AchievementsPage = lazy(() => import('./components/pages/AchievementsPage'));
+const CertificatesPage = lazy(() => import('./components/pages/CertificatesPage'));
+const LeadershipPage = lazy(() => import('./components/pages/LeadershipPage'));
+const TechStacksPage = lazy(() => import('./components/pages/TechStacksPage'));
+const ContactPage = lazy(() => import('./components/pages/ContactPage'));
+const LogosPage = lazy(() => import('./components/pages/LogosPage'));
+const ProjectPage = lazy(() => import('./components/pages/ProjectPage'));
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState(window.location.hash || '#/');
@@ -326,6 +323,18 @@ export default function App() {
   const activePaletteMap = PALETTES.find((p) => p.id === pagePalette) || PALETTES[0];
   const activeFontPairing = TYPOGRAPHIES.find((t) => t.id === pageTypography) || TYPOGRAPHIES[0];
 
+  useEffect(() => {
+    document.title = 'Jamie Ferrer | Product Designer & Hackathon Champion';
+
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute(
+        'content',
+        'Product Designer, UI/UX Designer, Computer Science graduate, and hackathon champion showcasing projects, case studies, awards, leadership experience, and certifications.'
+      );
+    }
+  }, []);
+
   // Hex to RGBA utility with custom fallback
   const hexToRgba = (hex: string, alpha: number): string => {
     if (!hex) return `rgba(0, 255, 136, ${alpha})`;
@@ -403,24 +412,26 @@ export default function App() {
       {isHomepage && (
         <div className="min-h-screen bg-white">
           <main className="ml-14 md:ml-[72px] pt-6 min-h-screen flex flex-col justify-between">
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-            >
-              {/* Canva premium banner layout */}
-              <Hero />
-              
-              {/* Canva circle category items (with Projects circle excluded) */}
-              <ExploreGrid onNavigate={handleNavigate} />
-              
-              {/* Adobe Express card grid list */}
-              <FeaturedWork 
-                onNavigate={handleNavigate} 
-                searchQuery={homeSearchQuery} 
-                setSearchQuery={setHomeSearchQuery} 
-              />
-            </motion.div>
+            <Suspense fallback={<div className="min-h-[70vh]" />}>
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
+              >
+                {/* Canva premium banner layout */}
+                <Hero />
+                
+                {/* Canva circle category items (with Projects circle excluded) */}
+                <ExploreGrid onNavigate={handleNavigate} />
+                
+                {/* Adobe Express card grid list */}
+                <FeaturedWork 
+                  onNavigate={handleNavigate} 
+                  searchQuery={homeSearchQuery} 
+                  setSearchQuery={setHomeSearchQuery} 
+                />
+              </motion.div>
+            </Suspense>
           </main>
         </div>
       )}
@@ -430,17 +441,19 @@ export default function App() {
         <div className="min-h-screen bg-white">
           
           {/* Custom Collapsible tools sidebar rendered OUTSIDE customizable layout container for zero color bleed */}
-          <CustomizationSidebar
-            pageName={corePageKey}
-            currentTemplate={pageTemplate}
-            onChangeTemplate={handleSelectTemplate}
-            currentPalette={pagePalette}
-            onChangePalette={handleSelectPalette}
-            currentTypography={pageTypography}
-            onChangeTypography={handleSelectTypography}
-            onAddSticker={handleAddSticker}
-            onResetStickers={handleResetStickers}
-          />
+          <Suspense fallback={null}>
+            <CustomizationSidebar
+              pageName={corePageKey}
+              currentTemplate={pageTemplate}
+              onChangeTemplate={handleSelectTemplate}
+              currentPalette={pagePalette}
+              onChangePalette={handleSelectPalette}
+              currentTypography={pageTypography}
+              onChangeTypography={handleSelectTypography}
+              onAddSticker={handleAddSticker}
+              onResetStickers={handleResetStickers}
+            />
+          </Suspense>
 
           <div 
             style={getCustomThemeStyles()}
@@ -470,53 +483,57 @@ export default function App() {
               className="p-6 md:p-8 min-h-full relative z-1 pointer-events-none"
             >
               {/* Draggable Stickers absolute rendering layer */}
-              {stickers.map((st) => (
-                <DraggableSticker
-                  key={st.id}
-                  id={st.id}
-                  type={st.type}
-                  label={st.label || ''}
-                  x={st.defaultX}
-                  y={st.defaultY}
-                  emoji={st.emoji}
-                  color={st.color}
-                  imagePath={st.imagePath}
-                  sizePx={st.sizePx}
-                  isSelected={st.id === selectedStickerId}
-                  onSelect={() => setSelectedStickerId(st.id)}
-                  onUpdateSize={handleUpdateStickerSize}
-                  onUpdatePosition={handleUpdateStickerPos}
-                  onDelete={handleDeleteSticker}
-                  dragConstraintsRef={dragConstraintsRef}
-                />
-              ))}
+              <Suspense fallback={null}>
+                {stickers.map((st) => (
+                  <DraggableSticker
+                    key={st.id}
+                    id={st.id}
+                    type={st.type}
+                    label={st.label || ''}
+                    x={st.defaultX}
+                    y={st.defaultY}
+                    emoji={st.emoji}
+                    color={st.color}
+                    imagePath={st.imagePath}
+                    sizePx={st.sizePx}
+                    isSelected={st.id === selectedStickerId}
+                    onSelect={() => setSelectedStickerId(st.id)}
+                    onUpdateSize={handleUpdateStickerSize}
+                    onUpdatePosition={handleUpdateStickerPos}
+                    onDelete={handleDeleteSticker}
+                    dragConstraintsRef={dragConstraintsRef}
+                  />
+                ))}
+              </Suspense>
 
               {/* Core page components router (The White Canvas Document Artboard) */}
-              <div 
-                className="w-full max-w-[900px] mx-auto my-12 text-inherit pointer-events-auto relative z-10 shadow-[0_4px_24px_rgba(0,0,0,0.10)] rounded-lg overflow-hidden border border-black/5"
-                style={{ backgroundColor: 'var(--page-bg)', zoom: 'var(--content-scale, 1)' }}
-              >
-                {/* Internal padding inside canvas: 64px vertical (py-16), 56px horizontal (px-14 on desktop, scaled on mobile) */}
-                <div className="py-16 px-6 sm:px-10 md:px-14 text-inherit">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={`${currentPath}-${pageTemplate}`}
-                      initial={{ opacity: 0, y: 12 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.4, ease: 'easeInOut' }}
-                    >
-                      {corePageKey === 'about' && <AboutPage template={pageTemplate} />}
-                      {corePageKey === 'achievements' && <AchievementsPage template={pageTemplate} />}
-                      {corePageKey === 'certificates' && <CertificatesPage template={pageTemplate} />}
-                      {corePageKey === 'leadership' && <LeadershipPage template={pageTemplate} />}
-                      {corePageKey === 'tech-stacks' && <TechStacksPage template={pageTemplate} />}
-                      {corePageKey === 'contact' && <ContactPage template={pageTemplate} />}
-                      {corePageKey === 'logos' && <LogosPage />}
-                    </motion.div>
-                  </AnimatePresence>
+              <Suspense fallback={<div className="w-full max-w-[900px] mx-auto my-12 min-h-[60vh]" />}>
+                <div 
+                  className="w-full max-w-[900px] mx-auto my-12 text-inherit pointer-events-auto relative z-10 shadow-[0_4px_24px_rgba(0,0,0,0.10)] rounded-lg overflow-hidden border border-black/5"
+                  style={{ backgroundColor: 'var(--page-bg)', zoom: 'var(--content-scale, 1)' }}
+                >
+                  {/* Internal padding inside canvas: 64px vertical (py-16), 56px horizontal (px-14 on desktop, scaled on mobile) */}
+                  <div className="py-16 px-6 sm:px-10 md:px-14 text-inherit">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={`${currentPath}-${pageTemplate}`}
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.4, ease: 'easeInOut' }}
+                      >
+                        {corePageKey === 'about' && <AboutPage template={pageTemplate} />}
+                        {corePageKey === 'achievements' && <AchievementsPage template={pageTemplate} />}
+                        {corePageKey === 'certificates' && <CertificatesPage template={pageTemplate} />}
+                        {corePageKey === 'leadership' && <LeadershipPage template={pageTemplate} />}
+                        {corePageKey === 'tech-stacks' && <TechStacksPage template={pageTemplate} />}
+                        {corePageKey === 'contact' && <ContactPage template={pageTemplate} />}
+                        {corePageKey === 'logos' && <LogosPage />}
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
                 </div>
-              </div>
+              </Suspense>
             </div>
           </div>
         </div>
@@ -526,32 +543,29 @@ export default function App() {
       {isProjectPage && (
         <div className="min-h-screen bg-white">
           <main className="pt-[52px] w-full min-h-screen">
-            <AnimatePresence mode="wait">
-              {projectSlug === 'logos' ? (
-                <div key="logos-workspace-container" className="bg-[#E5E5E5] min-h-[calc(100vh-52px)] overflow-y-auto w-full px-4 md:px-8 py-1">
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.98, y: 15 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ duration: 0.4, ease: 'easeOut' }}
-                    className="w-full max-w-[900px] mx-auto my-12 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.10)] rounded-lg overflow-hidden border border-black/5 py-16 px-6 sm:px-10 md:px-14 text-inherit"
-                    style={{ zoom: 'var(--content-scale, 1)' }}
-                  >
-                    <LogosPage />
-                  </motion.div>
-                </div>
-              ) : (
-                (() => {
-                  const DynamicProjectPage = ProjectPage as any;
-                  return (
-                    <DynamicProjectPage 
-                      key={projectSlug}
-                      slug={projectSlug} 
-                      onNavigate={handleNavigate} 
-                    />
-                  );
-                })()
-              )}
-            </AnimatePresence>
+            <Suspense fallback={<div className="min-h-[80vh] bg-white" />}>
+              <AnimatePresence mode="wait">
+                {projectSlug === 'logos' ? (
+                  <div key="logos-workspace-container" className="bg-[#E5E5E5] min-h-[calc(100vh-52px)] overflow-y-auto w-full px-4 md:px-8 py-1">
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.98, y: 15 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: 'easeOut' }}
+                      className="w-full max-w-[900px] mx-auto my-12 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.10)] rounded-lg overflow-hidden border border-black/5 py-16 px-6 sm:px-10 md:px-14 text-inherit"
+                      style={{ zoom: 'var(--content-scale, 1)' }}
+                    >
+                      <LogosPage />
+                    </motion.div>
+                  </div>
+                ) : (
+                  <ProjectPage 
+                    key={projectSlug}
+                    slug={projectSlug} 
+                    onNavigate={handleNavigate} 
+                  />
+                )}
+              </AnimatePresence>
+            </Suspense>
           </main>
         </div>
       )}

@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-import { motion } from 'motion/react';
 import { TemplateType } from '../../types';
 import { Users, Crown, Calendar, Milestone, Compass, Network, Award, Shield, Layout, ArrowRight } from 'lucide-react';
 
@@ -85,7 +84,7 @@ export default function LeadershipPage({ template }: LeadershipPageProps) {
     {
       id: "proj-bluhacks",
       role: "Team Leader",
-      project: "Bluhacks Hackathon",
+      project: "Blue Hacks Hackathon",
       context: "Led the team that won Champion",
       prominence: "standard",
       period: "2025"

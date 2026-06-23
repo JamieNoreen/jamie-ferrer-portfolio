@@ -100,6 +100,7 @@ function ImageWithFallback({
         alt={alt}
         onError={() => setHasError(true)}
         referrerPolicy="no-referrer"
+        loading={type === 'hero' ? 'eager' : 'lazy'}
         className={imgClassName}
       />
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-250 flex items-center justify-center">
@@ -326,6 +327,7 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
                   key={idx}
                   src={img}
                   alt={`${project.title} Page ${idx + 1}`}
+                  loading="lazy"
                   className="w-full h-auto block select-none cursor-zoom-in"
                   onClick={() => openLightboxAt(actualIdx)}
                 />
@@ -466,6 +468,7 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
                       key={idx}
                       src={srcVal}
                       alt={`${project.title} Slide ${idx + 1}`}
+                      loading="lazy"
                       className="w-full h-auto block select-none cursor-zoom-in"
                       onClick={() => openLightboxAt(actualIdx)}
                     />

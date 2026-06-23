@@ -409,9 +409,9 @@ export const PROJECTS: Project[] = [
       { src: '/portfolio-assets/projects/lakadph/mockup2.webp', orientation: 'landscape', caption: 'Key Features: Safe well-lit navigation loops, Day/Night mode screens, and active community incident reporting.' },
       { src: '/portfolio-assets/projects/lakadph/mockup3.webp', orientation: 'landscape', caption: 'Key Features: Local urban planning insights console, mmda advisory triggers, and interactive pedestrian sidewalks logs.' }
     ],
-    award: 'CHAMPION // BLUHACKS 2025',
-    awards: ['CHAMPION // BLUHACKS 2025'],
-    recognition: 'Champion – BluHacks',
+    award: 'CHAMPION // BLUE HACKS 2025',
+    awards: ['CHAMPION // BLUE HACKS 2025'],
+    recognition: 'Champion – Blue Hacks',
     outcome: 'Design Goal: Create a pedestrian-first navigation experience that encourages walking by reducing environmental discomfort, improving route safety, and supporting data-driven urban mobility decisions.',
     mockups: []
   },
