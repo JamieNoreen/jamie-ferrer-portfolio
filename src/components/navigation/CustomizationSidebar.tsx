@@ -49,7 +49,7 @@ export const getStickerImagePath = (pageKey: string, indexInSet: number) => {
   }
 
   const fileIndex = ((indexInSet - 1) % totalFiles) + 1;
-  return `${folder}sticker${fileIndex}.png`;
+  return `${folder}sticker${fileIndex}.webp`;
 };
 
 // Declare Palettes Data

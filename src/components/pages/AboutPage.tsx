@@ -106,7 +106,7 @@ export default function AboutPage({ template }: PageProps) {
           <div className="w-32 h-32 md:w-40 md:h-40 shrink-0 bg-gray-100 border border-gray-200 overflow-hidden select-none relative">
             {images.minimalist ? (
               <img
-                src="public/portfolio-assets/about/minimalist.JPG"
+                src="/portfolio-assets/about/minimalist.webp"
                 alt="Jamie Ferrer Minimalist Portrait"
                 onError={() =>
                   setImages((prev) => ({ ...prev, minimalist: false }))
@@ -231,7 +231,7 @@ export default function AboutPage({ template }: PageProps) {
             <div className="w-full aspect-square bg-gray-100 overflow-hidden relative border-2 border-gray-950 rounded-none">
               {images.editorial ? (
                 <img
-                  src="public/portfolio-assets/about/creative.png"
+                  src="/portfolio-assets/about/creative.webp"
                   alt="Jamie Ferrer Creative Portrait"
                   onError={() =>
                     setImages((prev) => ({ ...prev, editorial: false }))
@@ -388,7 +388,7 @@ export default function AboutPage({ template }: PageProps) {
             <div className="w-32 h-32 md:w-40 md:h-40 bg-black flex flex-col items-center justify-center border border-[#00FF88]/30 rounded-lg relative overflow-hidden">
               {images.futuristic ? (
                 <img
-                  src="public/portfolio-assets/about/futuristic.png"
+                  src="/portfolio-assets/about/futuristic.webp"
                   alt="Jamie Ferrer Futuristic Portrait"
                   onError={() =>
                     setImages((prev) => ({ ...prev, futuristic: false }))

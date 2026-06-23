@@ -263,7 +263,7 @@ export default function DraggableSticker({
 
       const { folder, totalFiles } = getFolderAndFilesForPage(pageKey);
       const index = getStickerIndex(id, totalFiles);
-      src = `${folder}sticker${index}.png`;
+      src = `${folder}sticker${index}.webp`;
     }
 
     const rotationClass = getStickerRotation(id);

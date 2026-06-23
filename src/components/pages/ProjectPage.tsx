@@ -521,7 +521,7 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
                         </div>
                         <div className="w-full">
                           {(() => {
-                            const scrSrc = '/portfolio-assets/projects/farmory/screen1.png';
+                            const scrSrc = '/portfolio-assets/projects/farmory/screen1.webp';
                             const flatIdx = carouselItems.findIndex((item) => item.src === scrSrc);
                             const actualIdx = flatIdx !== -1 ? flatIdx : 0;
                             return (
@@ -552,10 +552,10 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
                         </div>
                         <div className="grid grid-cols-2 gap-2 w-full">
                           {[
-                            '/portfolio-assets/projects/farmory/screen2.png',
-                            '/portfolio-assets/projects/farmory/screen3.png',
-                            '/portfolio-assets/projects/farmory/screen4.png',
-                            '/portfolio-assets/projects/farmory/screen5.png'
+                            '/portfolio-assets/projects/farmory/screen2.webp',
+                            '/portfolio-assets/projects/farmory/screen3.webp',
+                            '/portfolio-assets/projects/farmory/screen4.webp',
+                            '/portfolio-assets/projects/farmory/screen5.webp'
                           ].map((srcVal, idx) => {
                             const flatIdx = carouselItems.findIndex((item) => item.src === srcVal);
                             const actualIdx = flatIdx !== -1 ? flatIdx : 0;
@@ -590,10 +590,10 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
                         </div>
                         <div className="grid grid-cols-2 gap-2 w-full">
                           {[
-                            '/portfolio-assets/projects/farmory/screen6.png',
-                            '/portfolio-assets/projects/farmory/screen7.png',
-                            '/portfolio-assets/projects/farmory/screen8.png',
-                            '/portfolio-assets/projects/farmory/screen9.png'
+                            '/portfolio-assets/projects/farmory/screen6.webp',
+                            '/portfolio-assets/projects/farmory/screen7.webp',
+                            '/portfolio-assets/projects/farmory/screen8.webp',
+                            '/portfolio-assets/projects/farmory/screen9.webp'
                           ].map((srcVal, idx) => {
                             const flatIdx = carouselItems.findIndex((item) => item.src === srcVal);
                             const actualIdx = flatIdx !== -1 ? flatIdx : 0;

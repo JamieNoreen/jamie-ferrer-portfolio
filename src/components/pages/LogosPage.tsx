@@ -27,7 +27,7 @@ export default function LogosPage() {
       name: 'LakadPH',
       oneLiner: 'Brand identity for a Filipino travel app',
       description: 'A vibrant brandmark symbolizing journey, adventure, and exploration across the Philippine archipelago. Combining sunset gradients, continuous waves, and modern typography.',
-      imagePath: '/images/logos/lakadph.png',
+      imagePath: '/portfolio-assets/logo/lakadph.webp',
       bgColor: 'bg-[#0f172a]',
       vectorLogo: (
         <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,7 +48,7 @@ export default function LogosPage() {
       name: 'Stubby',
       oneLiner: 'Smart learning planner and gamified flashcard app for Filipino students',
       description: 'A friendly educational logo blending geometric workspace lines with study sparks. Styled in modern violet and magenta to convey intelligence, motivation, and interactive gamified academic growth.',
-      imagePath: '/images/logos/stubby.png',
+      imagePath: '/portfolio-assets/logo/studdy.webp',
       bgColor: 'bg-[#0A071E]',
       vectorLogo: (
         <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -72,7 +72,7 @@ export default function LogosPage() {
       name: 'scaffl.ed',
       oneLiner: 'Visual scaffolding and interactive curriculum planner for educators',
       description: 'An architectural structural logo representing modular teaching framework. Crafted with isometric grid boxes and layered connections to guide students step-by-step.',
-      imagePath: '/images/logos/scaffled.png',
+      imagePath: '/portfolio-assets/logo/scaffled.webp',
       bgColor: 'bg-[#1e293b]',
       vectorLogo: (
         <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -88,7 +88,7 @@ export default function LogosPage() {
       name: 'KWave News',
       oneLiner: 'Premium Korean culture, entertainment, and lifestyle portal',
       description: 'A dynamic, high-contrast digital mark incorporating stylized soundwaves and an entertainment crown. Imparts maximum impact, modern energy, and k-culture pop aesthetics.',
-      imagePath: '/images/logos/kwavenews.png',
+      imagePath: '/portfolio-assets/logo/kwave.webp',
       bgColor: 'bg-black',
       vectorLogo: (
         <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -109,7 +109,7 @@ export default function LogosPage() {
       name: 'TulAi',
       oneLiner: 'AI-powered legal translation and assistance tool for local Filipino communities',
       description: 'A balance scale intersecting with a neural network cluster. Emphasizes justice, local translation, community service, and accessible AI workflows.',
-      imagePath: '/images/logos/tulai.png',
+      imagePath: '/portfolio-assets/logo/tulai.webp',
       bgColor: 'bg-[#032B2B]',
       vectorLogo: (
         <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -135,7 +135,7 @@ export default function LogosPage() {
       name: 'Plantego',
       oneLiner: 'Interactive plant care companion and automated smart watering log',
       description: 'An elegant, organic brand logo depicting a healthy pixel-style Monstera leaf and transparent water droplets, invoking automation, nature, and regular watering logs.',
-      imagePath: '/images/logos/plantego.png',
+      imagePath: '/portfolio-assets/logo/plantego.webp',
       bgColor: 'bg-[#ebf8f2]',
       vectorLogo: (
         <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -160,7 +160,7 @@ export default function LogosPage() {
       name: 'Farmory',
       oneLiner: 'Open-source farm inventory and community crop distribution network',
       description: 'A protective lock/shield motif protecting localized organic grains and seedlings. Evokes farming inventory records, collective distribution, and security.',
-      imagePath: '/images/logos/farmory.png',
+      imagePath: '/portfolio-assets/logo/farmory.webp',
       bgColor: 'bg-[#2E1E0E]',
       vectorLogo: (
         <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -182,7 +182,7 @@ export default function LogosPage() {
       name: 'Braveher',
       oneLiner: 'Empowering tech-career accelerator and mentorship hub for Southeast Asian women',
       description: 'A courageous, forward-leaning vector layout displaying a female silhouette looking toward rising stars. Radiates optimism, community leadership, and women in technology.',
-      imagePath: '/images/logos/braveher.png',
+      imagePath: '/portfolio-assets/logo/braveher.webp',
       bgColor: 'bg-[#180814]',
       vectorLogo: (
         <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -204,7 +204,7 @@ export default function LogosPage() {
       name: 'Pasada',
       oneLiner: 'Philippines modern jeepney routes, transit ticketing, and live tracker app',
       description: 'An iconic, modern re-interpretation of the front face of a Philippine jeepney layered inside route tracking paths. Styled in energetic retro yellow and highway transit blue.',
-      imagePath: '/images/logos/pasada.png',
+      imagePath: '/portfolio-assets/logo/pasada.webp',
       bgColor: 'bg-[#1E1B4B]',
       vectorLogo: (
         <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" xmlns="http://www.w3.org/2000/svg">

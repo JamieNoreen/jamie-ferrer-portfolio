@@ -114,7 +114,7 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
         "Champion Presentation Slide, Trophy & Team Stage Photo",
       imgGradient: "from-[#0A0F1D] via-[#121A2E] to-[#1E2B4B]",
       highlightIcon: <Trophy className="w-5 h-5" />,
-      image: "/portfolio-assets/awards/bluhacks.JPEG",
+      image: "/portfolio-assets/awards/bluhacks.webp",
     },
     {
       id: "neda-habi",
@@ -128,7 +128,7 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
         "NEDA Workshop Team Certificate & Champion Presentation",
       imgGradient: "from-[#110C1B] via-[#1B142F] to-[#2B1F47]",
       highlightIcon: <Star className="w-5 h-5" />,
-      image: "/portfolio-assets/awards/habi.png",
+      image: "/portfolio-assets/awards/habi.webp",
     },
     {
       id: "ph-startup-challenge",
@@ -142,7 +142,7 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
         "PSC Award Plaque, Finalist Presentation & Brand Decals",
       imgGradient: "from-[#1C0D11] via-[#30161C] to-[#4C232D]",
       highlightIcon: <Award className="w-5 h-5" />,
-      image: "/portfolio-assets/awards/psc.png",
+      image: "/portfolio-assets/awards/psc.webp",
     },
     {
       id: "asean-dse",
@@ -155,7 +155,7 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
       placeholderLabel: "ASEAN DSE Award Ceremony & National Delegate Badge",
       imgGradient: "from-[#0F172A] via-[#1E293B] to-[#334155]",
       highlightIcon: <Compass className="w-5 h-5" />,
-      image: "/portfolio-assets/awards/asean.png",
+      image: "/portfolio-assets/awards/asean.webp",
     },
     {
       id: "sas-curiosity",
@@ -169,7 +169,7 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
         "Global Team Certificate & SAS Viya UI Analysis Showcase",
       imgGradient: "from-[#0d1e2e] via-[#153047] to-[#1d4461]",
       highlightIcon: <Target className="w-5 h-5" />,
-      image: "/portfolio-assets/awards/sas.jpg",
+      image: "/portfolio-assets/awards/sas.webp",
     },
   ];
 
