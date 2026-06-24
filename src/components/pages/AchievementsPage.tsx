@@ -106,7 +106,7 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
       id: "bluhacks",
       title: "Blue Hacks Hackathon",
       achievement: "Champion",
-      year: "2024",
+      year: "2026",
       category: "Innovation & Hackathons",
       description:
         "Pedestrian navigation platform helping commuters discover safer and more walkable routes.",
@@ -148,7 +148,7 @@ export default function AchievementsPage({ template }: AchievementsPageProps) {
       id: "asean-dse",
       title: "ASEAN Data Science Explorers",
       achievement: "2nd Runner-Up",
-      year: "2024",
+      year: "2025",
       category: "International & Regional Recognition",
       description:
         "AI-powered agriculture platform helping farmers detect crop diseases and access farming support.",
