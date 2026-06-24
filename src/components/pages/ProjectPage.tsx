@@ -791,7 +791,7 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
                 {nextProject.title}
               </h3>
               <p className="text-xs text-slate-500 mt-1">
-                {nextProject.category} — {nextProject.subtitle}
+                {nextProject.subtitle}
               </p>
             </div>
             
