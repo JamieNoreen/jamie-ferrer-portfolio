@@ -87,7 +87,7 @@ export default function LeadershipPage({ template }: LeadershipPageProps) {
       project: "Blue Hacks Hackathon",
       context: "Led the team that won Champion",
       prominence: "standard",
-      period: "2025"
+      period: "2026"
     },
     {
       id: "proj-women-in-tech",
@@ -95,7 +95,7 @@ export default function LeadershipPage({ template }: LeadershipPageProps) {
       project: "Cambridge University Press & Assessment",
       context: "Recognition: 2nd Place — Coding Dojo Women in Tech Competition",
       prominence: "standard",
-      period: "2025"
+      period: "2026"
     },
     {
       id: "proj-sys-fundamentals",
@@ -103,7 +103,7 @@ export default function LeadershipPage({ template }: LeadershipPageProps) {
       project: "System Fundamentals",
       context: "Academic project leadership",
       prominence: "standard",
-      period: "2024"
+      period: "2025"
     }
   ];
 

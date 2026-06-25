@@ -105,7 +105,7 @@ export const PROJECTS: Project[] = [
     year: "2025",
     thumbnail: "/portfolio-assets/projects/scaffled/File1.webp",
     award: "BEST IN THESIS",
-    awards: ["BEST IN THESIS", "PSC9 2ND RUNNER-UP"],
+    awards: ["BEST IN THESIS", "PSC10 2ND RUNNER-UP"],
     description:
       "An adaptive learning platform that provides scaffolded feedback during programming exercises using eye-tracking and interaction data.",
     role: "Lead UI/UX Designer & Researcher",
@@ -409,8 +409,8 @@ export const PROJECTS: Project[] = [
       { src: '/portfolio-assets/projects/lakadph/mockup2.webp', orientation: 'landscape', caption: 'Key Features: Safe well-lit navigation loops, Day/Night mode screens, and active community incident reporting.' },
       { src: '/portfolio-assets/projects/lakadph/mockup3.webp', orientation: 'landscape', caption: 'Key Features: Local urban planning insights console, mmda advisory triggers, and interactive pedestrian sidewalks logs.' }
     ],
-    award: 'CHAMPION // BLUE HACKS 2025',
-    awards: ['CHAMPION // BLUE HACKS 2025'],
+    award: 'CHAMPION // BLUE HACKS 2026',
+    awards: ['CHAMPION // BLUE HACKS 2026'],
     recognition: 'Champion – Blue Hacks',
     outcome: 'Design Goal: Create a pedestrian-first navigation experience that encourages walking by reducing environmental discomfort, improving route safety, and supporting data-driven urban mobility decisions.',
     mockups: []
