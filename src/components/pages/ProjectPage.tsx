@@ -312,7 +312,7 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
             <div className="flex items-center gap-2 text-slate-400 font-sans text-[11px] font-bold uppercase tracking-wider">
               <span>{project.category}</span>
               <span className="text-slate-200">•</span>
-              <span>{project.type === 'case-study' ? 'Case Study' : 'Showcase'}</span>
+              <span>{project.type === 'case-study' ? 'Case Studies' : 'Showcase'}</span>
             </div>
           </div>
         )}
@@ -920,7 +920,7 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
                 Swipe or use ← / → keyboard keys to navigate
               </span>
               <span className="font-sans text-xs font-bold text-slate-500 uppercase tracking-wide">
-                {project.type === 'case-study' ? 'Case Study' : 'Showcase'}
+                {project.type === 'case-study' ? 'Case Studies' : 'Showcase'}
               </span>
             </div>
 

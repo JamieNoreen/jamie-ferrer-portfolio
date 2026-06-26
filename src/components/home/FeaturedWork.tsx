@@ -20,7 +20,7 @@ export default function FeaturedWork({ onNavigate, searchQuery, setSearchQuery }
   // Exact user-specified project categories for our refactored system
   const categories = [
     'All',
-    'Case Study',
+    'Case Studies',
     'Projects',
     '3D'
   ];
@@ -76,7 +76,7 @@ export default function FeaturedWork({ onNavigate, searchQuery, setSearchQuery }
           <div className="absolute inset-0 bg-indigo-50 flex items-center justify-center p-4">
             <div className="w-full h-full border border-dashed border-indigo-200 rounded-lg bg-white p-3 relative flex flex-col justify-between">
               <div className="flex gap-1.5 items-center">
-                <span className="text-[7px] font-mono text-indigo-500 bg-indigo-50 px-1 py-0.5 rounded font-bold uppercase tracking-wider">Case Study</span>
+                <span className="text-[7px] font-mono text-indigo-500 bg-indigo-50 px-1 py-0.5 rounded font-bold uppercase tracking-wider">Case Studies</span>
                 <span className="text-[7px] font-mono text-gray-400 ml-1">scaffl_ed_flow.canvas</span>
               </div>
               <div className="my-auto flex flex-col gap-1.5">
