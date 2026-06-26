@@ -100,7 +100,7 @@ export const PROJECTS: Project[] = [
     subtitle:
       "Study Buddy Matchmaking App",
     category: "Case Study",
-    categories: ["Case_Study", "Projects"],
+    categories: ["Case Study", "Projects"],
     type: "case-study",
     year: "2025",
     thumbnail: "/portfolio-assets/projects/studdy/File1.webp",
@@ -138,7 +138,7 @@ export const PROJECTS: Project[] = [
     subtitle:
       "Learn Through Debugging",
     category: "Case Study",
-    categories: ["Case_Study", "Projects"],
+    categories: ["Case Study", "Projects"],
     type: "case-study",
     year: "2025",
     thumbnail: "/portfolio-assets/projects/scaffled/File1.webp",
@@ -176,7 +176,7 @@ export const PROJECTS: Project[] = [
     title: "Rooted",
     subtitle: "Your Personal Growth Companion",
     category: "Case Study",
-    categories: ["Case_Study", "Projects"],
+    categories: ["Case Study", "Projects"],
     type: "case-study",
     year: "2026",
     thumbnail:       "/portfolio-assets/projects/rooted/File1.webp",
