@@ -171,7 +171,7 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
     } else if (project.type === 'case-study' && project.caseStudyImages) {
       return project.caseStudyImages.map((img, i) => {
         let label = `Presentation Slide ${i + 1}`;
-        if (project.slug === 'studdy' || project.slug === 'scaffled') {
+        if (project.slug === 'studdy' || project.slug === 'scaffled' || project.slug === 'rooted') {
           label = `Slide ${i + 1}`;
         } else {
           if (i === 0) label = "Project Overview & Concept";
@@ -297,10 +297,10 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
         className="w-full max-w-[900px] mx-auto bg-white shadow-xl rounded-lg overflow-hidden border border-slate-250 text-slate-800 relative z-10 pointer-events-auto"
         style={{ zoom: 'var(--content-scale, 1)' }}
       >
-        {project.slug !== 'studdy' && project.slug !== 'scaffled' && project.type !== 'gallery-3d' && <div className={`h-1 w-full bg-gradient-to-r ${project.bannerColor}`} />}
+        {project.slug !== 'studdy' && project.slug !== 'scaffled' && project.slug !== 'rooted' && project.type !== 'gallery-3d' && <div className={`h-1 w-full bg-gradient-to-r ${project.bannerColor}`} />}
 
         {/* 1. HEADER BAR */}
-        {project.slug !== 'studdy' && project.slug !== 'scaffled' && project.type !== 'gallery-3d' && (
+        {project.slug !== 'studdy' && project.slug !== 'scaffled' && project.slug !== 'rooted' && project.type !== 'gallery-3d' && (
           <div className="py-5 px-6 sm:px-10 md:px-14 border-b border-slate-100 flex justify-between items-center bg-white">
             <button
               onClick={() => onNavigate('#/')}
@@ -336,7 +336,7 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
           </div>
         ) : (
           <>
-            {project.slug !== 'studdy' && project.slug !== 'scaffled' && (
+            {project.slug !== 'studdy' && project.slug !== 'scaffled' && project.slug !== 'rooted' && (
               <>
                 {/* 2. HEADLINE */}
                 <div className="py-10 px-6 sm:px-10 md:px-14 bg-white">
@@ -458,7 +458,7 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
             {/* ========================================================
                 3. SCREENS SECTION (Slide Showcase Viewport)
                 ======================================================== */}
-            {project.slug === 'studdy' || project.slug === 'scaffled' ? (
+            {project.slug === 'studdy' || project.slug === 'scaffled' || project.slug === 'rooted' ? (
               <div className="w-full flex flex-col bg-white">
                 {project.caseStudyImages?.map((srcVal, idx) => {
                   const flatIdx = carouselItems.findIndex((item) => item.src === srcVal);
@@ -681,7 +681,7 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
             {/* ========================================================
                 4. MOCKUPS SECTION
                 ======================================================== */}
-            {project.slug !== 'studdy' && project.slug !== 'scaffled' && (
+            {project.slug !== 'studdy' && project.slug !== 'scaffled' && project.slug !== 'rooted' && (
               <section className="pt-8 border-t border-slate-100 bg-white">
               <div className="px-6 sm:px-10 md:px-14 mb-6">
                 <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest">
