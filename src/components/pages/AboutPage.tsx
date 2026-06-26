@@ -38,7 +38,7 @@ export default function AboutPage({ template }: PageProps) {
   const bioTitle = "Hi, I'm Jamie!";
   const bioRole = "Product Designer & Hackathon Champion";
   const bioText =
-    "I ask 'what if?' far too often. Somehow, it keeps turning into products and awards.";
+    "I ask 'what if?' far too often. Somehow, it keeps turning into projects and awards.";
 
   const hobbies = [
     {

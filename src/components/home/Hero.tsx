@@ -239,7 +239,7 @@ export default function Hero() {
               <AnimatedNumber value={15} suffix="+" />
             </span>
             <span className="text-[9px] md:text-[10px] font-sans font-bold text-[#64748B] mt-1 uppercase tracking-widest leading-none">
-              Products Designed
+              Projects Designed
             </span>
           </div>
 

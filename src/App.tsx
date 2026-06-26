@@ -29,7 +29,13 @@ const LogosPage = lazy(() => import('./components/pages/LogosPage'));
 const ProjectPage = lazy(() => import('./components/pages/ProjectPage'));
 
 export default function App() {
-  const [currentPath, setCurrentPath] = useState(window.location.hash || '#/');
+  const getCurrentPath = () => {
+    if (typeof window === 'undefined') return '/';
+    const path = window.location.pathname || '/';
+    return path === '/' ? '/' : path.replace(/\/$/, '');
+  };
+
+  const [currentPath, setCurrentPath] = useState(getCurrentPath());
   const [pageTemplate, setPageTemplate] = useState<TemplateType>('minimalism');
   const [pagePalette, setPagePalette] = useState<string>('earthy');
   const [pageTypography, setPageTypography] = useState<string>('modern');
@@ -94,34 +100,34 @@ export default function App() {
     }
   }, []);
 
-  // Monitor location hash changes for ultra-responsive routing
+  // Monitor route changes for ultra-responsive routing
   useEffect(() => {
     const handleHashChange = () => {
-      const hash = window.location.hash || '#/';
-      if (hash === '#/logos') {
-        window.location.hash = '#/projects/logos';
+      const path = getCurrentPath();
+      if (path === '/logos') {
+        window.history.replaceState({}, '', '/projects/logos');
         return;
       }
-      setCurrentPath(hash);
+      setCurrentPath(path);
       window.scrollTo({ top: 0, behavior: 'instant' });
     };
 
-    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handleHashChange);
     // Trigger initially
     handleHashChange();
 
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('popstate', handleHashChange);
   }, []);
 
-  // Compute page states based on hash route
-  const isHomepage = currentPath === '#/' || currentPath === '';
-  const isProjectPage = currentPath.startsWith('#/projects/');
-  const projectSlug = isProjectPage ? currentPath.replace('#/projects/', '') : '';
+  // Compute page states based on pathname route
+  const isHomepage = currentPath === '/';
+  const isProjectPage = currentPath.startsWith('/projects/');
+  const projectSlug = isProjectPage ? currentPath.replace('/projects/', '') : '';
   
   // Resolve active core page name (e.g. 'about', 'achievements' etc)
   const getCorePageKey = (path: string): string | null => {
     if (isHomepage || isProjectPage) return null;
-    const clean = path.replace('#/', '');
+    const clean = path.replace(/^\//, '');
     return clean || null;
   };
 
@@ -309,12 +315,14 @@ export default function App() {
 
   // Fast routing shortcut triggers
   const handleNavigate = (path: string) => {
-    window.location.hash = path;
+    window.history.pushState({}, '', path);
+    setCurrentPath(getCurrentPath());
+    window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
   // Core Pages Redirection to Contact Link
   const handleContactOpen = () => {
-    handleNavigate('#/contact');
+    handleNavigate('/contact');
   };
 
   const activeProject = PROJECTS.find((p) => p.slug === projectSlug);
@@ -405,7 +413,7 @@ export default function App() {
 
       {/* 2. TopBar (APPEARS ON ALL CORE & PROJECT PAGES) */}
       {!isHomepage && (
-        <TopBar onContactClick={handleContactOpen} onHomeClick={() => handleNavigate('#/')} />
+        <TopBar onContactClick={handleContactOpen} onHomeClick={() => handleNavigate('/')} />
       )}
 
       {/* --- HOMEPAGE VIEW --- */}

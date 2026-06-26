@@ -20,32 +20,32 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ currentPath, onNavigate }: SidebarProps) {
-  const isHomepage = currentPath === '#/' || currentPath === '' || currentPath === '#';
+  const isHomepage = currentPath === '/';
 
   const navItems = [
-    { label: 'Home', path: '#/', icon: Home },
-    { label: 'About', path: '#/about', icon: User },
-    { label: 'Awards', path: '#/achievements', icon: Award },
-    { label: 'Certs', path: '#/certificates', icon: FileCheck },
-    { label: 'Leadership', path: '#/leadership', icon: Users },
-    { label: 'Skills', path: '#/tech-stacks', icon: Layers },
-    { label: 'Contact', path: '#/contact', icon: Mail },
+    { label: 'Home', path: '/', icon: Home },
+    { label: 'About', path: '/about', icon: User },
+    { label: 'Awards', path: '/achievements', icon: Award },
+    { label: 'Certs', path: '/certificates', icon: FileCheck },
+    { label: 'Leadership', path: '/leadership', icon: Users },
+    { label: 'Skills', path: '/tech-stacks', icon: Layers },
+    { label: 'Contact', path: '/contact', icon: Mail },
   ];
 
   // Helper to determine active status
   const isActive = (path: string) => {
-    if (path === '#/#projects-section') {
-      return currentPath === '#/' && window.location.hash.includes('projects');
+    if (path === '/#projects-section') {
+      return currentPath === '/' && window.location.pathname.includes('projects');
     }
-    if (path === '#/') {
-      return currentPath === '#/' && !window.location.hash.includes('projects');
+    if (path === '/') {
+      return currentPath === '/' && !window.location.pathname.includes('projects');
     }
     return currentPath === path;
   };
 
   const handleNavClick = (path: string) => {
-    if (path === '#/#projects-section') {
-      onNavigate('#/');
+    if (path === '/#projects-section') {
+      onNavigate('/');
       // Scroll to projects card grid
       setTimeout(() => {
         const el = document.getElementById('featured-work-section');

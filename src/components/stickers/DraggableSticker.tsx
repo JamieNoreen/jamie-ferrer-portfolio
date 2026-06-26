@@ -256,9 +256,9 @@ export default function DraggableSticker({
     if (imagePath) {
       src = imagePath;
     } else {
-      // Determine path dynamically from the location hash (fallback)
-      const hash = typeof window !== 'undefined' ? window.location.hash || '#/' : '#/';
-      const clean = hash.replace('#/', '');
+      // Determine path dynamically from the current pathname (fallback)
+      const pathname = typeof window !== 'undefined' ? window.location.pathname || '/' : '/';
+      const clean = pathname.replace(/^\//, '');
       const pageKey = clean === '' ? 'about' : clean;
 
       const { folder, totalFiles } = getFolderAndFilesForPage(pageKey);

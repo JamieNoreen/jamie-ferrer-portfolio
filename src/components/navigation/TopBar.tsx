@@ -17,7 +17,8 @@ export default function TopBar({ onContactClick, onHomeClick }: TopBarProps) {
     if (onHomeClick) {
       onHomeClick();
     } else {
-      window.location.hash = '#/';
+      window.history.pushState({}, '', '/');
+      window.dispatchEvent(new PopStateEvent('popstate'));
     }
   };
 

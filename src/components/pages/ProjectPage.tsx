@@ -146,7 +146,7 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
         <h2 className="text-xl font-sans font-bold text-gray-800">Project Not Loaded</h2>
         <p className="text-xs text-gray-500">The requested layout is not registered.</p>
         <button 
-          onClick={() => onNavigate('#/')}
+          onClick={() => onNavigate('/')}
           className="bg-black text-white px-4 py-2 text-xs rounded-full cursor-pointer hover:bg-neutral-800 transition-colors font-semibold"
         >
           Return Home
@@ -303,7 +303,7 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
         {project.slug !== 'studdy' && project.slug !== 'scaffled' && project.slug !== 'rooted' && project.type !== 'gallery-3d' && (
           <div className="py-5 px-6 sm:px-10 md:px-14 border-b border-slate-100 flex justify-between items-center bg-white">
             <button
-              onClick={() => onNavigate('#/')}
+              onClick={() => onNavigate('/')}
               className="group flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-650 hover:text-black transition-colors"
             >
               <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
@@ -780,7 +780,7 @@ export default function ProjectPage({ slug, onNavigate }: ProjectPageProps) {
           
           <motion.div
             whileHover={{ y: -3, borderColor: '#CBD5E1' }}
-            onClick={() => onNavigate(`#/projects/${nextProject.slug}`)}
+            onClick={() => onNavigate(`/projects/${nextProject.slug}`)}
             className="group relative rounded-xl border border-slate-200 p-6 bg-white hover:bg-slate-50/30 cursor-pointer transition-all flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 active:scale-[0.99]"
           >
             <div>

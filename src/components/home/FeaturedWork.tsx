@@ -20,8 +20,8 @@ export default function FeaturedWork({ onNavigate, searchQuery, setSearchQuery }
   // Exact user-specified project categories for our refactored system
   const categories = [
     'All',
-    'Featured',
-    'Products',
+    'Case Study',
+    'Projects',
     '3D'
   ];
 
@@ -430,7 +430,7 @@ export default function FeaturedWork({ onNavigate, searchQuery, setSearchQuery }
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.35, ease: 'easeOut' }}
-                  onClick={() => onNavigate(`#/projects/${project.slug}`)}
+                  onClick={() => onNavigate(`/projects/${project.slug}`)}
                   className="bg-transparent overflow-hidden flex flex-col h-full cursor-pointer group active:scale-[0.985]"
                 >
                   {/* Top: Image thumbnail frame with custom shadow and subtle hover scale */}
